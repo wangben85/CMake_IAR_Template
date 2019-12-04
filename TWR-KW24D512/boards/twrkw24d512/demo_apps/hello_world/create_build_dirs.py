@@ -105,7 +105,6 @@ if '__main__' == __name__:
     # Add generator helper
     helper = CommandHelper()
     helper.add_option('ninja', '-G "Ninja"')
-    helper.add_option('msvc', '-G "Visual Studio 14 2015 Win64"')
     Command.register_cmd_helper('generator', helper)
 
     # Add build type helper
@@ -117,7 +116,6 @@ if '__main__' == __name__:
     # Add toolchain helper
     helper = CommandHelper()
     helper.add_option('iar', '-DCMAKE_TOOLCHAIN_FILE=../toolchain_iar.cmake')
-    helper.add_option('msvc', '')
     Command.register_cmd_helper('toolchain', helper)
 
 
