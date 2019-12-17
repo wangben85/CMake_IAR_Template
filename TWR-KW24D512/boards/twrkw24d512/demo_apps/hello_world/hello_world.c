@@ -61,7 +61,6 @@ int main(void)
 
     /*PRINTF("hello world.\r\n");*/
     PRINTF("Release build: This is CMake IAR test.\r\n");
-    PRINTF("Test Start!\r\n");
     while (1)
     {
         ch = GETCHAR();
