@@ -1,3 +1,7 @@
+# Note
+This repo has another copy in gitee
+url = https://gitee.com/wangben85/CMake_IAR_Template.git
+
 # CMake_IAR_Template##
 This is the project template to use CMake, IAR and Ninja build. Based on NXP TWR-KW24D512
 
