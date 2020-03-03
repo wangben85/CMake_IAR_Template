@@ -1,4 +1,0 @@
-C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/release/CMakeFiles/asm.dir
-C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/release/CMakeFiles/freertos_sem.dir
-C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/release/CMakeFiles/edit_cache.dir
-C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/release/CMakeFiles/rebuild_cache.dir

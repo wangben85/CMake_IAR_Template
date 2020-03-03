@@ -57,17 +57,17 @@
             <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\utilities\fsl_debug_console.h</file>
             <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_uart.c</file>
             <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_flash.c</file>
-            <file>$PROJ_DIR$\debug\obj\fsl_clock.o</file>
-            <file>$PROJ_DIR$\debug\obj\board.o</file>
-            <file>$PROJ_DIR$\debug\obj\clock_config.o</file>
-            <file>$PROJ_DIR$\debug\obj\pin_mux.o</file>
-            <file>$PROJ_DIR$\debug\obj\fsl_common.o</file>
-            <file>$PROJ_DIR$\debug\obj\fsl_flash.o</file>
-            <file>$PROJ_DIR$\debug\obj\fsl_gpio.o</file>
-            <file>$PROJ_DIR$\debug\obj\fsl_smc.o</file>
-            <file>$PROJ_DIR$\debug\obj\fsl_uart.o</file>
-            <file>$PROJ_DIR$\debug\obj\fsl_tickless_systick.o</file>
-            <file>$PROJ_DIR$\debug\obj\port.o</file>
+            <file>$PROJ_DIR$\Debug\obj\fsl_clock.o</file>
+            <file>$PROJ_DIR$\Debug\obj\board.o</file>
+            <file>$PROJ_DIR$\Debug\obj\clock_config.o</file>
+            <file>$PROJ_DIR$\Debug\obj\pin_mux.o</file>
+            <file>$PROJ_DIR$\Debug\obj\fsl_common.o</file>
+            <file>$PROJ_DIR$\Debug\obj\fsl_flash.o</file>
+            <file>$PROJ_DIR$\Debug\obj\fsl_gpio.o</file>
+            <file>$PROJ_DIR$\Debug\obj\fsl_smc.o</file>
+            <file>$PROJ_DIR$\Debug\obj\fsl_uart.o</file>
+            <file>$PROJ_DIR$\Debug\obj\fsl_tickless_systick.o</file>
+            <file>$PROJ_DIR$\Debug\obj\port.o</file>
             <file>$TOOLKIT_DIR$\inc\c\math.h</file>
             <file>$PROJ_DIR$\debug\obj\system_MKW24D5.pbi</file>
             <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
@@ -85,7 +85,7 @@
             <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cmSimd.h</file>
             <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
             <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
-            <file>$PROJ_DIR$\debug\freertos_sem.out</file>
+            <file>$PROJ_DIR$\Debug\freertos_sem.out</file>
             <file>$TOOLKIT_DIR$\inc\c\assert.h</file>
             <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cmInstr.h</file>
             <file>$PROJ_DIR$\debug\obj\freertos_sem.pbd</file>
@@ -104,38 +104,39 @@
             <file>$PROJ_DIR$\debug\obj\fsl_tickless_systick.pbi</file>
             <file>$PROJ_DIR$\debug\obj\queue.pbi</file>
             <file>$PROJ_DIR$\debug\obj\tasks.pbi</file>
-            <file>$PROJ_DIR$\debug\obj\heap_4.o</file>
+            <file>$PROJ_DIR$\Debug\obj\heap_4.o</file>
             <file>$PROJ_DIR$\debug\obj\timers.pbi</file>
-            <file>$PROJ_DIR$\debug\obj\freertos_sem.pbi</file>
+            <file>$PROJ_DIR$\Debug\obj\freertos_sem.pbi</file>
             <file>$PROJ_DIR$\debug\obj\board.pbi</file>
             <file>$PROJ_DIR$\debug\obj\clock_config.pbi</file>
             <file>$PROJ_DIR$\debug\obj\fsl_common.pbi</file>
-            <file>$PROJ_DIR$\debug\obj\queue.o</file>
+            <file>$PROJ_DIR$\Debug\obj\queue.o</file>
             <file>$PROJ_DIR$\debug\obj\pin_mux.pbi</file>
-            <file>$PROJ_DIR$\debug\obj\freertos_sem.o</file>
-            <file>$PROJ_DIR$\debug\obj\timers.o</file>
-            <file>$PROJ_DIR$\debug\obj\event_groups.o</file>
-            <file>$PROJ_DIR$\debug\obj\list.o</file>
+            <file>$PROJ_DIR$\Debug\obj\freertos_sem.o</file>
+            <file>$PROJ_DIR$\Debug\obj\timers.o</file>
+            <file>$PROJ_DIR$\Debug\obj\event_groups.o</file>
+            <file>$PROJ_DIR$\Debug\obj\list.o</file>
             <file>$PROJ_DIR$\debug\obj\fsl_flash.pbi</file>
             <file>$PROJ_DIR$\debug\obj\croutine.pbi</file>
             <file>$PROJ_DIR$\debug\obj\event_groups.pbi</file>
             <file>$PROJ_DIR$\debug\obj\heap_4.pbi</file>
             <file>$PROJ_DIR$\debug\obj\fsl_clock.pbi</file>
-            <file>$PROJ_DIR$\debug\obj\croutine.o</file>
-            <file>$PROJ_DIR$\debug\obj\tasks.o</file>
-            <file>$PROJ_DIR$\debug\obj\system_MKW24D5.o</file>
-            <file>$PROJ_DIR$\debug\obj\portasm.o</file>
-            <file>$PROJ_DIR$\debug\obj\startup_MKW24D5.o</file>
+            <file>$PROJ_DIR$\Debug\obj\croutine.o</file>
+            <file>$PROJ_DIR$\Debug\obj\tasks.o</file>
+            <file>$PROJ_DIR$\Debug\obj\system_MKW24D5.o</file>
+            <file>$PROJ_DIR$\Debug\obj\portasm.o</file>
+            <file>$PROJ_DIR$\Debug\obj\startup_MKW24D5.o</file>
             <file>$PROJ_DIR$\debug\obj\fsl_gpio.pbi</file>
             <file>$PROJ_DIR$\debug\obj\fsl_uart.pbi</file>
             <file>$PROJ_DIR$\debug\obj\port.pbi</file>
-            <file>$PROJ_DIR$\debug\obj\fsl_debug_console.o</file>
+            <file>$PROJ_DIR$\Debug\obj\fsl_debug_console.o</file>
             <file>$PROJ_DIR$\debug\obj\fsl_smc.pbi</file>
             <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
             <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
-            <file>$PROJ_DIR$\debug\list\freertos_sem.map</file>
+            <file>$PROJ_DIR$\Debug\list\freertos_sem.map</file>
             <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
             <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
         </outputs>
         <file>
             <name>[ROOT_NODE]</name>
@@ -163,6 +164,10 @@
                     <name>ICCARM</name>
                     <file> 69 66 78 91 65 73 85 92 11 79 74 39 7 3 12 23 67 70 72 16 9</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 85 72 66 3 9 91 79 78 12 11 92 65 73 39 69 74 7 23 16 67 70</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -181,6 +186,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 69 66 78 91 65 73 85 92 68 84 11 79 74 39 7 3 12 23 67 70 72 16 20 9 15</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 20 84 74 23 67 85 91 78 7 16 70 68 11 15 92 65 73 79 39 3 12 72 69 9</file>
                 </tool>
             </inputs>
         </file>
@@ -216,6 +225,10 @@
                     <name>ICCARM</name>
                     <file> 67 70 78 91 65 73 72 11 79 66 85 74 39 7 3 12 23 16 20 9 25</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 23 72 39 67 66 78 20 73 9 11 70 91 65 79 3 85 16 25 74 7 12</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -234,6 +247,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 69 66 78 91 65 73 85 92 11 79 74 39 7 3 12 23 67 70 72 16 20 9</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 92 11 78 65 7 16 70 9 20 85 91 73 74 23 67 69 79 39 3 12 72</file>
                 </tool>
             </inputs>
         </file>
@@ -254,6 +271,10 @@
                     <name>ICCARM</name>
                     <file> 67 70 78 91 65 73 72 11 79 66 85 74 39 7 3 12 23 16 20 9 25</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 72 74 78 12 20 11 25 70 7 67 91 65 73 79 39 3 85 23 16 9</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -272,6 +293,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 11 79 66 78 91 65 73 85 74 39 7 3 12 23 67 70 72 16 20 9 14</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 74 65 66 7 78 73 16 70 9 20 79 39 3 85 91 23 67 11 14 12 72</file>
                 </tool>
             </inputs>
         </file>
@@ -301,6 +326,10 @@
                     <name>ICCARM</name>
                     <file> 74 66 78 91 65 73 86 94 93 82 87 70 88 77 13 89</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 82 73 65 94 93 77 86 78 91 89 13 74 88 87 70</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -319,6 +348,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 43 42 81 66 78 91 65 73 76 74 68 85 84 79 86 94 93 82 87 70 88 77 13 89 45</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 78 76 45 79 65 85 42 68 66 73 84 94 93 82 87 70 74 81 86 91 89 13 77 43 88</file>
                 </tool>
             </inputs>
         </file>
@@ -339,6 +372,10 @@
                     <name>ICCARM</name>
                     <file> 42 81 66 78 91 65 73 76 74 68 85 84 79 86 94 93 82 87 70 88 77 13 89 45 41 46</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 13 68 78 85 89 42 46 76 79 45 91 82 87 70 74 41 81 86 65 73 84 94 93 77 88</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -357,6 +394,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 69 66 78 91 65 73 85 92 68 84 11 79 74 39 7 3 12 23 67 70 72 16 20 9 4 19 2</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 85 12 78 20 91 7 19 84 74 72 68 11 4 92 65 73 79 39 3 69 23 16 67 70 9 2</file>
                 </tool>
             </inputs>
         </file>
@@ -377,6 +418,10 @@
                     <name>ICCARM</name>
                     <file> 69 66 78 91 65 73 85 92 11 79 74 39 7 3 12 23 67 70 72 16 20 9 15 4</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 7 66 67 85 70 15 78 12 11 91 74 9 20 4 92 65 73 79 39 3 23 16 72 69</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -395,6 +440,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 69 66 78 91 65 73 85 92 11 79 74 39 7 3 12 23 67 70 72 16 20 9 4 1</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 7 66 67 85 70 4 78 12 11 91 74 9 20 1 92 65 73 79 39 3 23 16 72 69</file>
                 </tool>
             </inputs>
         </file>
@@ -415,6 +464,10 @@
                     <name>ICCARM</name>
                     <file> 45 42 81 66 78 91 65 73 76 74 68 85 84 79 86 94 93 82 87 70 88 77 13 89</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 81 66 13 78 85 89 42 74 86 91 88 45 76 68 79 65 73 84 94 93 82 77 87 70</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -433,6 +486,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 42 81 66 78 91 65 73 76 74 68 85 84 79 86 94 93 82 87 70 88 77 13 89 45 49</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 78 86 94 77 74 73 84 93 87 81 65 85 49 76 68 79 45 91 89 13 82 70 42 88</file>
                 </tool>
             </inputs>
         </file>
@@ -453,6 +510,10 @@
                     <name>ICCARM</name>
                     <file> 27 42 81 66 78 91 65 73 76 74 68 85 84 79 86 94 93 82 87 70 88 77 13 89 45 28</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 78 68 94 42 73 84 93 76 79 45 65 85 28 81 74 86 91 89 13 88 27 82 77 87 70</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -471,6 +532,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 27 42 81 66 78 91 65 73 76 74 68 85 84 79 86 94 93 82 87 70 88 77 13 89 45 37</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 91 79 66 76 45 88 42 68 78 85 89 13 74 37 81 86 65 73 84 94 93 27 82 77 87 70</file>
                 </tool>
             </inputs>
         </file>
@@ -491,6 +556,10 @@
                     <name>ICCARM</name>
                     <file> 11 79 66 78 91 65 73 85 74 39 7 3 12 23 67 70 72 16 20 9 15 4 0 86 94 93 82 87 88 77 13 89 49 42 81 76 68 84 45 40 37 43 46</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 39 23 42 78 73 76 45 43 0 66 72 20 88 74 15 49 37 79 3 65 16 70 4 86 40 46 7 85 91 12 67 9 89 13 87 68 11 94 93 82 77 81 84</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -509,6 +578,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 74 66 78 91 65 73 42 81 76 68 85 84 79 86 94 93 82 87 70 88 77 13 89 45 49 40 37 43</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 79 37 65 76 45 66 49 78 73 68 85 89 13 42 40 91 81 74 86 84 94 93 88 82 77 87 70 43</file>
                 </tool>
             </inputs>
         </file>
@@ -529,6 +602,10 @@
                     <name>ICCARM</name>
                     <file> 69 66 78 91 65 73 85 92 63 90 49 42 81 76 74 68 84 79 86 94 93 82 87 70 88 77 13 89 45 34</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 78 93 42 77 92 79 87 63 34 91 76 45 84 94 69 49 65 73 85 68 82 70 74 131 90 81 86 89 13 88</file>
+                </tool>
             </inputs>
         </file>
         <file>
@@ -547,6 +624,10 @@
                 <tool>
                     <name>ICCARM</name>
                     <file> 34 42 81 66 78 91 65 73 76 74 68 85 84 79 86 94 93 82 87 70 88 77 13 89 45</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66 78 68 94 73 84 42 76 79 45 65 85 82 87 70 74 81 86 91 89 93 77 34 13 88</file>
                 </tool>
             </inputs>
         </file>
@@ -567,10 +648,14 @@
                     <name>ICCARM</name>
                     <file> 28 42 81 66 78 91 65 73 76 74 68 85 84 79 86 94 93 82 87 70 88 77 13 89 45</file>
                 </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 68 45 78 42 76 79 65 85 82 87 70 74 81 66 73 84 94 93 77 28 86 91 89 13 88</file>
+                </tool>
             </inputs>
         </file>
         <file>
-            <name>$PROJ_DIR$\debug\freertos_sem.out</name>
+            <name>$PROJ_DIR$\Debug\freertos_sem.out</name>
             <outputs>
                 <tool>
                     <name>ILINK</name>

@@ -69,7 +69,8 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
-    xTaskCreate(producer_task, "PRODUCER_TASK", configMINIMAL_STACK_SIZE + 128, NULL, TASK_PRIO, NULL);
+    PRINTF("freertos semaphore test start.\r\n");
+    xTaskCreate(producer_task, "PRODUCER_TASK", configMINIMAL_STACK_SIZE + 128, NULL, TASK_PRIO, NULL); //producer task priority = 4
     /* Start scheduling. */
     vTaskStartScheduler();
     for (;;)
@@ -82,6 +83,7 @@ int main(void)
 static void producer_task(void *pvParameters)
 {
     uint32_t i;
+    unsigned char j = 2;
     
     PRINTF("Producer_task created.\r\n");
     xSemaphore_producer = xSemaphoreCreateBinary();
@@ -100,11 +102,11 @@ static void producer_task(void *pvParameters)
 
     for (i = 0; i < CONSUMER_LINE_SIZE; i++)
     {
-        xTaskCreate(consumer_task, "CONSUMER_TASK", configMINIMAL_STACK_SIZE, (void *)i, TASK_PRIO, NULL);
+        xTaskCreate(consumer_task, "CONSUMER_TASK", configMINIMAL_STACK_SIZE, (void *)i, TASK_PRIO, NULL); //producer task priority = 5, higher
         PRINTF("Consumer_task %d created.\r\n", i);
     }
 
-    while (1)
+    while (j--)
     {
         /* Producer is ready to provide item. */
         xSemaphoreGive(xSemaphore_consumer);
@@ -125,8 +127,9 @@ static void producer_task(void *pvParameters)
  */
 static void consumer_task(void *pvParameters)
 {
+    unsigned char j = 2;
     PRINTF("Consumer number: %d\r\n", pvParameters);
-    while (1)
+    while (j--)
     {
         /* Consumer is ready to accept. */
         xSemaphoreGive(xSemaphore_producer);
