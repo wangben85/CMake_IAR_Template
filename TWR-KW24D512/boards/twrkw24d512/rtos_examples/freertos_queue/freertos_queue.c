@@ -78,9 +78,9 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
-    PRINTF("Freertos_queue test end.\r\n");
+    PRINTF("Freertos_queue test.\r\n");
     /* Initialize logger for 10 logs with maximum lenght of one log 20 B */
-    log_init(10, MAX_LOG_LENGTH);
+    log_init(10, MAX_LOG_LENGTH); // every queue can contain 10 items, every item contains MAX_LOG_LENGTH sizes
     xTaskCreate(write_task_1, "WRITE_TASK_1", configMINIMAL_STACK_SIZE + 166, NULL, tskIDLE_PRIORITY + 2, NULL);
     xTaskCreate(write_task_2, "WRITE_TASK_2", configMINIMAL_STACK_SIZE + 166, NULL, tskIDLE_PRIORITY + 2, NULL);
     vTaskStartScheduler();
@@ -101,7 +101,7 @@ static void write_task_1(void *pvParameters)
     for (i = 0; i < 5; i++)
     {
         sprintf(log, "Task1 Message %d", (int)i);
-        log_add(log);
+        log_add(log); // send log message to the queue
         taskYIELD();
     }
     vTaskSuspend(NULL);
@@ -140,7 +140,7 @@ void log_add(char *log)
 void log_init(uint32_t queue_length, uint32_t max_log_lenght)
 {
     log_queue = xQueueCreate(queue_length, max_log_lenght);
-    xTaskCreate(log_task, "log_task", configMINIMAL_STACK_SIZE + 166, NULL, tskIDLE_PRIORITY + 1, NULL);
+    xTaskCreate(log_task, "log_task", configMINIMAL_STACK_SIZE + 166, NULL, tskIDLE_PRIORITY + 3, NULL);
 }
 
 /*!
