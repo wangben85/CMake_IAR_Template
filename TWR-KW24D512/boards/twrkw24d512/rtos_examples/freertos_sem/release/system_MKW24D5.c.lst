@@ -1,0 +1,533 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM         03/Mar/2020  16:31:23
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\system_MKW24D5.c
+#    Command line =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\system_MKW24D5.c
+#        "-IC:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc"
+#        -I..\..\..\..\..\CMSIS\Include -I..\..\..\..\..\devices -I..\..\..
+#        -I..\..\..\..\..\devices\MKW24D5\drivers
+#        -I..\..\..\..\..\devices\MKW24D5\utilities
+#        -I..\..\..\..\..\devices\MKW24D5 -I..\..\iar -I..\.. -I..\
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\include -DNDEBUG
+#        -DCPU_MKW24D512VHA5 -DIAR -DFSL_RTOS_FREE_RTOS -DPRINTF_FLOAT_ENABLE=0
+#        -DSCANF_FLOAT_ENABLE=0 -DPRINTF_ADVANCED_ENABLE=0
+#        -DSCANF_ADVANCED_ENABLE=0 -DTWR_KW24D512 -DTOWER --diag_suppress
+#        Pa082,Pa050,Pe167,Pa182 --endian=little --cpu=Cortex-M4 --fpu=None
+#        --no_path_in_file_macros --silent -lC . -e --dlib_config "C:/Program
+#        Files (x86)/IAR Systems/Embedded Workbench
+#        8.1/arm/inc/c/DLib_Config_Normal.h" -Oh --dependencies=ns
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\system_MKW24D5.c.obj.d
+#        -o
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\system_MKW24D5.c.obj
+#    Locale       =  C
+#    List file    =  .\system_MKW24D5.c.lst
+#    Object file  =  
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\system_MKW24D5.c.obj
+#
+###############################################################################
+
+C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\system_MKW24D5.c
+      1          /*
+      2          ** ###################################################################
+      3          **     Processor:           MKW24D512VHA5
+      4          **     Compilers:           Keil ARM C/C++ Compiler
+      5          **                          Freescale C/C++ for Embedded ARM
+      6          **                          GNU C Compiler
+      7          **                          IAR ANSI C/C++ Compiler for ARM
+      8          **                          MCUXpresso Compiler
+      9          **
+     10          **     Reference manual:    MKW2xDRM Rev.2  July 2014
+     11          **     Version:             rev. 2.0, 2014-11-26
+     12          **     Build:               b170112
+     13          **
+     14          **     Abstract:
+     15          **         Provides a system configuration function and a global variable that
+     16          **         contains the system frequency. It configures the device and initializes
+     17          **         the oscillator (PLL) that is part of the microcontroller device.
+     18          **
+     19          **     Copyright (c) 2016 Freescale Semiconductor, Inc.
+     20          **     Copyright 2016 - 2017 NXP
+     21          **     Redistribution and use in source and binary forms, with or without modification,
+     22          **     are permitted provided that the following conditions are met:
+     23          **
+     24          **     o Redistributions of source code must retain the above copyright notice, this list
+     25          **       of conditions and the following disclaimer.
+     26          **
+     27          **     o Redistributions in binary form must reproduce the above copyright notice, this
+     28          **       list of conditions and the following disclaimer in the documentation and/or
+     29          **       other materials provided with the distribution.
+     30          **
+     31          **     o Neither the name of the copyright holder nor the names of its
+     32          **       contributors may be used to endorse or promote products derived from this
+     33          **       software without specific prior written permission.
+     34          **
+     35          **     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+     36          **     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     37          **     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     38          **     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+     39          **     ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+     40          **     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+     41          **     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+     42          **     ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+     43          **     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     44          **     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     45          **
+     46          **     http:                 www.nxp.com
+     47          **     mail:                 support@nxp.com
+     48          **
+     49          **     Revisions:
+     50          **     - rev. 1.0 (2013-11-22)
+     51          **         Initial version.
+     52          **     - rev. 2.0 (2014-11-26)
+     53          **         update of SystemInit() imlementation
+     54          **         Module access macro module_BASES replaced by module_BASE_PTRS.
+     55          **         Register accessor macros added to the memory map.
+     56          **         MCG - bit LOLS in MCG_S register renamed to LOLS0.
+     57          **         DAC0 registers removed.
+     58          **
+     59          ** ###################################################################
+     60          */
+     61          
+     62          /*!
+     63           * @file MKW24D5
+     64           * @version 2.0
+     65           * @date 2014-11-26
+     66           * @brief Device specific configuration file for MKW24D5 (implementation file)
+     67           *
+     68           * Provides a system configuration function and a global variable that contains
+     69           * the system frequency. It configures the device and initializes the oscillator
+     70           * (PLL) that is part of the microcontroller device.
+     71           */
+     72          
+     73          #include <stdint.h>
+     74          #include "fsl_device_registers.h"
+     75          
+     76          
+     77          /* ----------------------------------------------------------------------------
+     78             -- ExtClk_Setup_HookUp()
+     79             ---------------------------------------------------------------------------- */
+     80          
+     81          #pragma weak ExtClk_Setup_HookUp
+
+   \                                 In section .text, align 4
+     82          uint8_t ExtClk_Setup_HookUp(uint32_t clk_out_value) {
+   \                     ExtClk_Setup_HookUp: (+1)
+   \        0x0   0x4601             MOV      R1,R0
+     83            uint8_t result = 0;
+   \        0x2   0x2000             MOVS     R0,#+0
+     84            switch (clk_out_value) {
+   \        0x4   0xB321             CBZ.N    R1,??ExtClk_Setup_HookUp_1
+   \        0x6   0x4A13             LDR.N    R2,??ExtClk_Setup_HookUp_0  ;; 0x3d0900
+   \        0x8   0x4291             CMP      R1,R2
+   \        0xA   0xD122             BNE.N    ??ExtClk_Setup_HookUp_2
+     85            case 4000000U:
+     86              /* Start XCVR clock in order to derive MCGOUTCLK */
+     87              SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK; /* Ungate PORTB and PORTC clock*/
+   \        0xC   0x4812             LDR.N    R0,??ExtClk_Setup_HookUp_0+0x4  ;; 0x40048038
+   \        0xE   0x6801             LDR      R1,[R0, #+0]
+   \       0x10   0xF441 0x6140      ORR      R1,R1,#0xC00
+   \       0x14   0x6001             STR      R1,[R0, #+0]
+     88              GPIOB->PDDR |= 0x00080000u; /* Set PORTB.19 as output - XCVR RESET pin */
+   \       0x16   0x4811             LDR.N    R0,??ExtClk_Setup_HookUp_0+0x8  ;; 0x400ff044
+   \       0x18   0x6901             LDR      R1,[R0, #+16]
+   \       0x1A   0xF441 0x2100      ORR      R1,R1,#0x80000
+   \       0x1E   0x6101             STR      R1,[R0, #+16]
+     89              GPIOC->PDDR |= 0x00000001u; /* Set PORTC.0 as output - XCVR GPIO5 pin */
+   \       0x20   0x6D01             LDR      R1,[R0, #+80]
+   \       0x22   0xF041 0x0101      ORR      R1,R1,#0x1
+   \       0x26   0x6501             STR      R1,[R0, #+80]
+     90              PORTB->PCR[19] = (PORTB->PCR[19] & ~PORT_PCR_MUX_MASK) | PORT_PCR_MUX(0x01u); /* PORTB.19 as GPIO */
+   \       0x28   0x490D             LDR.N    R1,??ExtClk_Setup_HookUp_0+0xC  ;; 0x4004a04c
+   \       0x2A   0x680A             LDR      R2,[R1, #+0]
+   \       0x2C   0xF422 0x62E0      BIC      R2,R2,#0x700
+   \       0x30   0xF442 0x7280      ORR      R2,R2,#0x100
+   \       0x34   0x600A             STR      R2,[R1, #+0]
+     91              PORTC->PCR[0]  = (PORTC->PCR[0] & ~PORT_PCR_MUX_MASK) | PORT_PCR_MUX(0x01u); /* PORTC.0 as GPIO*/
+   \       0x36   0x490B             LDR.N    R1,??ExtClk_Setup_HookUp_0+0x10  ;; 0x4004b000
+   \       0x38   0x680A             LDR      R2,[R1, #+0]
+   \       0x3A   0xF422 0x62E0      BIC      R2,R2,#0x700
+   \       0x3E   0xF442 0x7280      ORR      R2,R2,#0x100
+   \       0x42   0x600A             STR      R2,[R1, #+0]
+     92              GPIOC->PCOR = 0x00000001u; /* Clear XCVR GPIO5 pin*/
+   \       0x44   0x2101             MOVS     R1,#+1
+   \       0x46   0x6441             STR      R1,[R0, #+68]
+     93              GPIOB->PCOR = 0x00080000u; /* Clear XCVR RESET pin*/
+   \       0x48   0xF44F 0x2100      MOV      R1,#+524288
+   \       0x4C   0x6041             STR      R1,[R0, #+4]
+     94              GPIOB->PSOR = 0x00080000u; /* Set XCVR RESET pin*/
+   \       0x4E   0x6001             STR      R1,[R0, #+0]
+     95              result =  1U;  /*  The output was set successfully */
+     96              break;
+     97            case 0U:
+     98              /* No initialization, modem remains in the reset state */
+     99              result =  1U;  /*  The output was set successfully */
+   \                     ??ExtClk_Setup_HookUp_1: (+1)
+   \       0x50   0x2001             MOVS     R0,#+1
+    100              break;
+    101            default:
+    102              result = 0U; /* Requested value cannot be set */
+    103              break;
+    104            }
+    105            return result;
+   \                     ??ExtClk_Setup_HookUp_2: (+1)
+   \       0x52   0x4770             BX       LR               ;; return
+   \                     ??ExtClk_Setup_HookUp_0:
+   \       0x54   0x003D'0900        DC32     0x3d0900
+   \       0x58   0x4004'8038        DC32     0x40048038
+   \       0x5C   0x400F'F044        DC32     0x400ff044
+   \       0x60   0x4004'A04C        DC32     0x4004a04c
+   \       0x64   0x4004'B000        DC32     0x4004b000
+    106          }
+    107          
+    108          
+    109          /* ----------------------------------------------------------------------------
+    110             -- Core clock
+    111             ---------------------------------------------------------------------------- */
+    112          
+
+   \                                 In section .data, align 4
+    113          uint32_t SystemCoreClock = DEFAULT_SYSTEM_CLOCK;
+   \                     SystemCoreClock:
+   \        0x0   0x0140'0000        DC32 20971520
+    114          
+    115          /* ----------------------------------------------------------------------------
+    116             -- SystemInit()
+    117             ---------------------------------------------------------------------------- */
+    118          
+
+   \                                 In section .text, align 2, keep-with-next
+    119          void SystemInit (void) {
+    120            /* Watchdog disable */
+    121          #if (DISABLE_WDOG)
+    122            /* WDOG->UNLOCK: WDOGUNLOCK=0xC520 */
+    123            WDOG->UNLOCK = WDOG_UNLOCK_WDOGUNLOCK(0xC520); /* Key 1 */
+   \                     SystemInit: (+1)
+   \        0x0   0x....             LDR.N    R0,??DataTable1  ;; 0x40052000
+   \        0x2   0xF24C 0x5120      MOVW     R1,#+50464
+   \        0x6   0x81C1             STRH     R1,[R0, #+14]
+    124            /* WDOG->UNLOCK: WDOGUNLOCK=0xD928 */
+    125            WDOG->UNLOCK = WDOG_UNLOCK_WDOGUNLOCK(0xD928); /* Key 2 */
+   \        0x8   0xF64D 0x1228      MOVW     R2,#+55592
+   \        0xC   0x81C2             STRH     R2,[R0, #+14]
+    126            /* WDOG->STCTRLH: ?=0,DISTESTWDOG=0,BYTESEL=0,TESTSEL=0,TESTWDOG=0,?=0,?=1,WAITEN=1,STOPEN=1,DBGEN=0,ALLOWUPDATE=1,WINEN=0,IRQRSTEN=0,CLKSRC=1,WDOGEN=0 */
+    127            WDOG->STCTRLH = WDOG_STCTRLH_BYTESEL(0x00) |
+    128                           WDOG_STCTRLH_WAITEN_MASK |
+    129                           WDOG_STCTRLH_STOPEN_MASK |
+    130                           WDOG_STCTRLH_ALLOWUPDATE_MASK |
+    131                           WDOG_STCTRLH_CLKSRC_MASK |
+    132                           0x0100U;
+   \        0xE   0xF44F 0x71E9      MOV      R1,#+466
+   \       0x12   0x8001             STRH     R1,[R0, #+0]
+    133          #endif /* (DISABLE_WDOG) */
+    134          
+    135          }
+   \       0x14   0x4770             BX       LR               ;; return
+    136          
+    137          /* ----------------------------------------------------------------------------
+    138             -- SystemCoreClockUpdate()
+    139             ---------------------------------------------------------------------------- */
+    140          
+
+   \                                 In section .text, align 2, keep-with-next
+    141          void SystemCoreClockUpdate (void) {
+    142          
+    143            uint32_t MCGOUTClock;                /* Variable to store output clock frequency of the MCG module */
+    144            uint16_t Divider;
+    145          
+    146            if ((MCG->C1 & MCG_C1_CLKS_MASK) == 0x00U) {
+   \                     SystemCoreClockUpdate: (+1)
+   \        0x0   0x....             LDR.N    R0,??DataTable1_1  ;; 0x40064000
+   \        0x2   0x7801             LDRB     R1,[R0, #+0]
+   \        0x4   0xF011 0x0FC0      TST      R1,#0xC0
+   \        0x8   0xD174             BNE.N    ??SystemCoreClockUpdate_0
+    147              /* Output of FLL or PLL is selected */
+    148              if ((MCG->C6 & MCG_C6_PLLS_MASK) == 0x00U) {
+   \        0xA   0x7941             LDRB     R1,[R0, #+5]
+   \        0xC   0x064A             LSLS     R2,R1,#+25
+   \        0xE   0xD463             BMI.N    ??SystemCoreClockUpdate_1
+    149                /* FLL is selected */
+    150                if ((MCG->C1 & MCG_C1_IREFS_MASK) == 0x00U) {
+   \       0x10   0x7801             LDRB     R1,[R0, #+0]
+   \       0x12   0x074A             LSLS     R2,R1,#+29
+   \       0x14   0xD425             BMI.N    ??SystemCoreClockUpdate_2
+    151                  /* External reference clock is selected */
+    152                  if((MCG->C7 & MCG_C7_OSCSEL_MASK) == 0x00U) {
+   \       0x16   0x7B01             LDRB     R1,[R0, #+12]
+   \       0x18   0x07CA             LSLS     R2,R1,#+31
+    153                    MCGOUTClock = CPU_XTAL_CLK_HZ; /* System oscillator drives MCG clock */
+    154                  } else {
+    155                    MCGOUTClock = CPU_XTAL32k_CLK_HZ; /* RTC 32 kHz oscillator drives MCG clock */
+    156                  }
+    157                  if (((MCG->C2 & MCG_C2_RANGE0_MASK) != 0x00U) && ((MCG->C7 & MCG_C7_OSCSEL_MASK) != 0x01U)) {
+   \       0x1A   0x7842             LDRB     R2,[R0, #+1]
+   \       0x1C   0xBF54             ITE      PL 
+   \       0x1E   0x....             LDRPL.N  R1,??DataTable1_2  ;; 0x3d0900
+   \       0x20   0xF44F 0x4100      MOVMI    R1,#+32768
+   \       0x24   0xF012 0x0F30      TST      R2,#0x30
+   \       0x28   0xD011             BEQ.N    ??SystemCoreClockUpdate_3
+   \       0x2A   0x7B02             LDRB     R2,[R0, #+12]
+   \       0x2C   0x07D3             LSLS     R3,R2,#+31
+   \       0x2E   0xD40E             BMI.N    ??SystemCoreClockUpdate_3
+    158                    switch (MCG->C1 & MCG_C1_FRDIV_MASK) {
+   \       0x30   0x7802             LDRB     R2,[R0, #+0]
+   \       0x32   0xF002 0x0238      AND      R2,R2,#0x38
+   \       0x36   0x2A30             CMP      R2,#+48
+   \       0x38   0xD004             BEQ.N    ??SystemCoreClockUpdate_4
+   \       0x3A   0x2A38             CMP      R2,#+56
+   \       0x3C   0xD105             BNE.N    ??SystemCoreClockUpdate_5
+    159                    case 0x38U:
+    160                      Divider = 1536U;
+   \       0x3E   0xF44F 0x62C0      MOV      R2,#+1536
+    161                      break;
+   \       0x42   0xE00A             B.N      ??SystemCoreClockUpdate_6
+    162                    case 0x30U:
+    163                      Divider = 1280U;
+   \                     ??SystemCoreClockUpdate_4: (+1)
+   \       0x44   0xF44F 0x62A0      MOV      R2,#+1280
+    164                      break;
+   \       0x48   0xE007             B.N      ??SystemCoreClockUpdate_6
+    165                    default:
+    166                      Divider = (uint16_t)(32LU << ((MCG->C1 & MCG_C1_FRDIV_MASK) >> MCG_C1_FRDIV_SHIFT));
+   \                     ??SystemCoreClockUpdate_5: (+1)
+   \       0x4A   0x2320             MOVS     R3,#+32
+   \       0x4C   0xE000             B.N      ??SystemCoreClockUpdate_7
+    167                      break;
+    168                    }
+    169                  } else {/* ((MCG->C2 & MCG_C2_RANGE_MASK) != 0x00U) */
+    170                    Divider = (uint16_t)(1LU << ((MCG->C1 & MCG_C1_FRDIV_MASK) >> MCG_C1_FRDIV_SHIFT));
+   \                     ??SystemCoreClockUpdate_3: (+1)
+   \       0x4E   0x2301             MOVS     R3,#+1
+   \                     ??SystemCoreClockUpdate_7: (+1)
+   \       0x50   0x7802             LDRB     R2,[R0, #+0]
+   \       0x52   0xF3C2 0x02C2      UBFX     R2,R2,#+3,#+3
+   \       0x56   0xFA03 0xF202      LSL      R2,R3,R2
+    171                  }
+    172                  MCGOUTClock = (MCGOUTClock / Divider); /* Calculate the divided FLL reference clock */
+   \                     ??SystemCoreClockUpdate_6: (+1)
+   \       0x5A   0xB292             UXTH     R2,R2
+   \       0x5C   0xFBB1 0xF2F2      UDIV     R2,R1,R2
+   \       0x60   0xE001             B.N      ??SystemCoreClockUpdate_8
+    173                } else { /* (!((MCG->C1 & MCG_C1_IREFS_MASK) == 0x00U)) */
+    174                  MCGOUTClock = CPU_INT_SLOW_CLK_HZ; /* The slow internal reference clock is selected */
+   \                     ??SystemCoreClockUpdate_2: (+1)
+   \       0x62   0xF44F 0x4200      MOV      R2,#+32768
+    175                } /* (!((MCG->C1 & MCG_C1_IREFS_MASK) == 0x00U)) */
+    176                /* Select correct multiplier to calculate the MCG output clock  */
+    177                switch (MCG->C4 & (MCG_C4_DMX32_MASK | MCG_C4_DRST_DRS_MASK)) {
+   \                     ??SystemCoreClockUpdate_8: (+1)
+   \       0x66   0x78C0             LDRB     R0,[R0, #+3]
+   \       0x68   0xF010 0x00E0      ANDS     R0,R0,#0xE0
+   \       0x6C   0xD00E             BEQ.N    ??SystemCoreClockUpdate_9
+   \       0x6E   0x2820             CMP      R0,#+32
+   \       0x70   0xD018             BEQ.N    ??SystemCoreClockUpdate_10
+   \       0x72   0x2840             CMP      R0,#+64
+   \       0x74   0xD01A             BEQ.N    ??SystemCoreClockUpdate_11
+   \       0x76   0x2860             CMP      R0,#+96
+   \       0x78   0xD01C             BEQ.N    ??SystemCoreClockUpdate_12
+   \       0x7A   0x2880             CMP      R0,#+128
+   \       0x7C   0xD01E             BEQ.N    ??SystemCoreClockUpdate_13
+   \       0x7E   0x28A0             CMP      R0,#+160
+   \       0x80   0xD020             BEQ.N    ??SystemCoreClockUpdate_14
+   \       0x82   0x28C0             CMP      R0,#+192
+   \       0x84   0xD022             BEQ.N    ??SystemCoreClockUpdate_15
+   \       0x86   0x28E0             CMP      R0,#+224
+   \       0x88   0xD023             BEQ.N    ??SystemCoreClockUpdate_16
+   \       0x8A   0xE002             B.N      ??SystemCoreClockUpdate_17
+    178                  case 0x00U:
+    179                    MCGOUTClock *= 640U;
+   \                     ??SystemCoreClockUpdate_9: (+1)
+   \       0x8C   0xEB02 0x0182      ADD      R1,R2,R2, LSL #+2
+   \       0x90   0x01CA             LSLS     R2,R1,#+7
+    180                    break;
+    181                  case 0x20U:
+    182                    MCGOUTClock *= 1280U;
+    183                    break;
+    184                  case 0x40U:
+    185                    MCGOUTClock *= 1920U;
+    186                    break;
+    187                  case 0x60U:
+    188                    MCGOUTClock *= 2560U;
+    189                    break;
+    190                  case 0x80U:
+    191                    MCGOUTClock *= 732U;
+    192                    break;
+    193                  case 0xA0U:
+    194                    MCGOUTClock *= 1464U;
+    195                    break;
+    196                  case 0xC0U:
+    197                    MCGOUTClock *= 2197U;
+    198                    break;
+    199                  case 0xE0U:
+    200                    MCGOUTClock *= 2929U;
+    201                    break;
+    202                  default:
+    203                    break;
+    204                }
+    205              } else { /* (!((MCG->C6 & MCG_C6_PLLS_MASK) == 0x00U)) */
+    206                /* PLL is selected */
+    207                Divider = (((uint16_t)MCG->C5 & MCG_C5_PRDIV0_MASK) + 0x01U);
+    208                MCGOUTClock = (uint32_t)(CPU_XTAL_CLK_HZ / Divider); /* Calculate the PLL reference clock */
+    209                Divider = (((uint16_t)MCG->C6 & MCG_C6_VDIV0_MASK) + 24U);
+    210                MCGOUTClock *= Divider;          /* Calculate the MCG output clock */
+    211              } /* (!((MCG->C6 & MCG_C6_PLLS_MASK) == 0x00U)) */
+    212            } else if ((MCG->C1 & MCG_C1_CLKS_MASK) == 0x40U) {
+    213              /* Internal reference clock is selected */
+    214              if ((MCG->C2 & MCG_C2_IRCS_MASK) == 0x00U) {
+    215                MCGOUTClock = CPU_INT_SLOW_CLK_HZ; /* Slow internal reference clock selected */
+    216              } else { /* (!((MCG->C2 & MCG_C2_IRCS_MASK) == 0x00U)) */
+    217                Divider = (uint16_t)(0x01LU << ((MCG->SC & MCG_SC_FCRDIV_MASK) >> MCG_SC_FCRDIV_SHIFT));
+    218                MCGOUTClock = (uint32_t) (CPU_INT_FAST_CLK_HZ / Divider); /* Fast internal reference clock selected */
+    219              } /* (!((MCG->C2 & MCG_C2_IRCS_MASK) == 0x00U)) */
+    220            } else if ((MCG->C1 & MCG_C1_CLKS_MASK) == 0x80U) {
+    221              /* External reference clock is selected */
+    222              if((MCG->C7 & MCG_C7_OSCSEL_MASK) == 0x00U) {
+    223                MCGOUTClock = CPU_XTAL_CLK_HZ;   /* System oscillator drives MCG clock */
+    224              } else {
+    225                MCGOUTClock = CPU_XTAL32k_CLK_HZ; /* RTC 32 kHz oscillator drives MCG clock */
+    226              }
+    227            } else { /* (!((MCG->C1 & MCG_C1_CLKS_MASK) == 0x80U)) */
+    228              /* Reserved value */
+    229              return;
+    230            } /* (!((MCG->C1 & MCG_C1_CLKS_MASK) == 0x80U)) */
+    231            SystemCoreClock = (MCGOUTClock / (0x01U + ((SIM->CLKDIV1 & SIM_CLKDIV1_OUTDIV1_MASK) >> SIM_CLKDIV1_OUTDIV1_SHIFT)));
+   \                     ??SystemCoreClockUpdate_17: (+1)
+   \       0x92   0x....             LDR.N    R0,??DataTable1_3  ;; 0x40048044
+   \       0x94   0x6803             LDR      R3,[R0, #+0]
+   \       0x96   0x....             LDR.N    R0,??DataTable1_4
+   \       0x98   0x0F1B             LSRS     R3,R3,#+28
+   \       0x9A   0x1C5B             ADDS     R3,R3,#+1
+   \       0x9C   0xFBB2 0xF1F3      UDIV     R1,R2,R3
+   \       0xA0   0x6001             STR      R1,[R0, #+0]
+    232          }
+   \                     ??SystemCoreClockUpdate_18: (+1)
+   \       0xA2   0x4770             BX       LR               ;; return
+   \                     ??SystemCoreClockUpdate_10: (+1)
+   \       0xA4   0xEB02 0x0382      ADD      R3,R2,R2, LSL #+2
+   \       0xA8   0x021A             LSLS     R2,R3,#+8
+   \       0xAA   0xE7F2             B.N      ??SystemCoreClockUpdate_17
+   \                     ??SystemCoreClockUpdate_11: (+1)
+   \       0xAC   0xEBC2 0x1002      RSB      R0,R2,R2, LSL #+4
+   \       0xB0   0x01C2             LSLS     R2,R0,#+7
+   \       0xB2   0xE7EE             B.N      ??SystemCoreClockUpdate_17
+   \                     ??SystemCoreClockUpdate_12: (+1)
+   \       0xB4   0xEB02 0x0382      ADD      R3,R2,R2, LSL #+2
+   \       0xB8   0x025A             LSLS     R2,R3,#+9
+   \       0xBA   0xE7EA             B.N      ??SystemCoreClockUpdate_17
+   \                     ??SystemCoreClockUpdate_13: (+1)
+   \       0xBC   0xF44F 0x7137      MOV      R1,#+732
+   \                     ??SystemCoreClockUpdate_19: (+1)
+   \       0xC0   0x434A             MULS     R2,R1,R2
+   \       0xC2   0xE7E6             B.N      ??SystemCoreClockUpdate_17
+   \                     ??SystemCoreClockUpdate_14: (+1)
+   \       0xC4   0xF44F 0x60B7      MOV      R0,#+1464
+   \                     ??SystemCoreClockUpdate_20: (+1)
+   \       0xC8   0x4342             MULS     R2,R0,R2
+   \       0xCA   0xE7E2             B.N      ??SystemCoreClockUpdate_17
+   \                     ??SystemCoreClockUpdate_15: (+1)
+   \       0xCC   0xF640 0x0195      MOVW     R1,#+2197
+   \       0xD0   0xE7F6             B.N      ??SystemCoreClockUpdate_19
+   \                     ??SystemCoreClockUpdate_16: (+1)
+   \       0xD2   0xF640 0x3071      MOVW     R0,#+2929
+   \       0xD6   0xE7F7             B.N      ??SystemCoreClockUpdate_20
+   \                     ??SystemCoreClockUpdate_1: (+1)
+   \       0xD8   0x7901             LDRB     R1,[R0, #+4]
+   \       0xDA   0x7940             LDRB     R0,[R0, #+5]
+   \       0xDC   0x....             LDR.N    R2,??DataTable1_2  ;; 0x3d0900
+   \       0xDE   0xF001 0x011F      AND      R1,R1,#0x1F
+   \       0xE2   0x1C49             ADDS     R1,R1,#+1
+   \       0xE4   0xF000 0x001F      AND      R0,R0,#0x1F
+   \       0xE8   0xB289             UXTH     R1,R1
+   \       0xEA   0x3018             ADDS     R0,R0,#+24
+   \       0xEC   0xFBB2 0xF2F1      UDIV     R2,R2,R1
+   \       0xF0   0xB280             UXTH     R0,R0
+   \       0xF2   0xE7E9             B.N      ??SystemCoreClockUpdate_20
+   \                     ??SystemCoreClockUpdate_0: (+1)
+   \       0xF4   0x7801             LDRB     R1,[R0, #+0]
+   \       0xF6   0xF001 0x01C0      AND      R1,R1,#0xC0
+   \       0xFA   0x2940             CMP      R1,#+64
+   \       0xFC   0xD10F             BNE.N    ??SystemCoreClockUpdate_21
+   \       0xFE   0x7841             LDRB     R1,[R0, #+1]
+   \      0x100   0x07CA             LSLS     R2,R1,#+31
+   \      0x102   0xD402             BMI.N    ??SystemCoreClockUpdate_22
+   \                     ??SystemCoreClockUpdate_23: (+1)
+   \      0x104   0xF44F 0x4200      MOV      R2,#+32768
+   \      0x108   0xE7C3             B.N      ??SystemCoreClockUpdate_17
+   \                     ??SystemCoreClockUpdate_22: (+1)
+   \      0x10A   0x7A00             LDRB     R0,[R0, #+8]
+   \      0x10C   0x2201             MOVS     R2,#+1
+   \      0x10E   0xF3C0 0x0042      UBFX     R0,R0,#+1,#+3
+   \      0x112   0x4082             LSLS     R2,R2,R0
+   \      0x114   0x....             LDR.N    R1,??DataTable1_2  ;; 0x3d0900
+   \      0x116   0xB292             UXTH     R2,R2
+   \      0x118   0xFBB1 0xF2F2      UDIV     R2,R1,R2
+   \      0x11C   0xE7B9             B.N      ??SystemCoreClockUpdate_17
+   \                     ??SystemCoreClockUpdate_21: (+1)
+   \      0x11E   0x7801             LDRB     R1,[R0, #+0]
+   \      0x120   0xF001 0x01C0      AND      R1,R1,#0xC0
+   \      0x124   0x2980             CMP      R1,#+128
+   \      0x126   0xD1BC             BNE.N    ??SystemCoreClockUpdate_18
+   \      0x128   0x7B00             LDRB     R0,[R0, #+12]
+   \      0x12A   0x07C1             LSLS     R1,R0,#+31
+   \      0x12C   0xD4EA             BMI.N    ??SystemCoreClockUpdate_23
+   \      0x12E   0x....             LDR.N    R2,??DataTable1_2  ;; 0x3d0900
+   \      0x130   0xE7AF             B.N      ??SystemCoreClockUpdate_17
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \        0x0   0x4005'2000        DC32     0x40052000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \        0x0   0x4006'4000        DC32     0x40064000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \        0x0   0x003D'0900        DC32     0x3d0900
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \        0x0   0x4004'8044        DC32     0x40048044
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \        0x0   0x....'....        DC32     SystemCoreClock
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   ExtClk_Setup_HookUp
+       0   SystemCoreClockUpdate
+       0   SystemInit
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+     104  ExtClk_Setup_HookUp
+       4  SystemCoreClock
+     306  SystemCoreClockUpdate
+      22  SystemInit
+
+ 
+   4 bytes in section .data
+ 452 bytes in section .text
+ 
+ 348 bytes of CODE memory (+ 104 bytes shared)
+   4 bytes of DATA memory
+
+Errors: none
+Warnings: none

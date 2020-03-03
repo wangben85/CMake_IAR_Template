@@ -1,0 +1,350 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM         03/Mar/2020  16:31:27
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_lptmr.c
+#    Command line =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_lptmr.c
+#        "-IC:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc"
+#        -I..\..\..\..\..\CMSIS\Include -I..\..\..\..\..\devices -I..\..\..
+#        -I..\..\..\..\..\devices\MKW24D5\drivers
+#        -I..\..\..\..\..\devices\MKW24D5\utilities
+#        -I..\..\..\..\..\devices\MKW24D5 -I..\..\iar -I..\.. -I..\
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\include -DNDEBUG
+#        -DCPU_MKW24D512VHA5 -DIAR -DFSL_RTOS_FREE_RTOS -DPRINTF_FLOAT_ENABLE=0
+#        -DSCANF_FLOAT_ENABLE=0 -DPRINTF_ADVANCED_ENABLE=0
+#        -DSCANF_ADVANCED_ENABLE=0 -DTWR_KW24D512 -DTOWER --diag_suppress
+#        Pa082,Pa050,Pe167,Pa182 --endian=little --cpu=Cortex-M4 --fpu=None
+#        --no_path_in_file_macros --silent -lC . -e --dlib_config "C:/Program
+#        Files (x86)/IAR Systems/Embedded Workbench
+#        8.1/arm/inc/c/DLib_Config_Normal.h" -Oh --dependencies=ns
+#        CMakeFiles\freertos_sem.dir\cd0b8de2f727f3af9b2948347d59898c\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_lptmr.c.obj.d
+#        -o
+#        CMakeFiles\freertos_sem.dir\cd0b8de2f727f3af9b2948347d59898c\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_lptmr.c.obj
+#    Locale       =  C
+#    List file    =  .\fsl_tickless_lptmr.c.lst
+#    Object file  =  
+#        CMakeFiles\freertos_sem.dir\cd0b8de2f727f3af9b2948347d59898c\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_lptmr.c.obj
+#
+###############################################################################
+
+C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_lptmr.c
+      1          /*
+      2              FreeRTOS V9.0.0 - Copyright (C) 2016 Real Time Engineers Ltd.
+      3              All rights reserved
+      4          
+      5              VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
+      6          
+      7              This file is part of the FreeRTOS distribution.
+      8          
+      9              FreeRTOS is free software; you can redistribute it and/or modify it under
+     10              the terms of the GNU General Public License (version 2) as published by the
+     11              Free Software Foundation >>>> AND MODIFIED BY <<<< the FreeRTOS exception.
+     12          
+     13              ***************************************************************************
+     14              >>!   NOTE: The modification to the GPL is included to allow you to     !<<
+     15              >>!   distribute a combined work that includes FreeRTOS without being   !<<
+     16              >>!   obliged to provide the source code for proprietary components     !<<
+     17              >>!   outside of the FreeRTOS kernel.                                   !<<
+     18              ***************************************************************************
+     19          
+     20              FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
+     21              WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+     22              FOR A PARTICULAR PURPOSE.  Full license text is available on the following
+     23              link: http://www.freertos.org/a00114.html
+     24          
+     25              ***************************************************************************
+     26               *                                                                       *
+     27               *    FreeRTOS provides completely free yet professionally developed,    *
+     28               *    robust, strictly quality controlled, supported, and cross          *
+     29               *    platform software that is more than just the market leader, it     *
+     30               *    is the industry's de facto standard.                               *
+     31               *                                                                       *
+     32               *    Help yourself get started quickly while simultaneously helping     *
+     33               *    to support the FreeRTOS project by purchasing a FreeRTOS           *
+     34               *    tutorial book, reference manual, or both:                          *
+     35               *    http://www.FreeRTOS.org/Documentation                              *
+     36               *                                                                       *
+     37              ***************************************************************************
+     38          
+     39              http://www.FreeRTOS.org/FAQHelp.html - Having a problem?  Start by reading
+     40              the FAQ page "My application does not run, what could be wrong?".  Have you
+     41              defined configASSERT()?
+     42          
+     43              http://www.FreeRTOS.org/support - In return for receiving this top quality
+     44              embedded software for free we request you assist our global community by
+     45              participating in the support forum.
+     46          
+     47              http://www.FreeRTOS.org/training - Investing in training allows your team to
+     48              be as productive as possible as early as possible.  Now you can receive
+     49              FreeRTOS training directly from Richard Barry, CEO of Real Time Engineers
+     50              Ltd, and the world's leading authority on the world's leading RTOS.
+     51          
+     52              http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
+     53              including FreeRTOS+Trace - an indispensable productivity tool, a DOS
+     54              compatible FAT file system, and our tiny thread aware UDP/IP stack.
+     55          
+     56              http://www.FreeRTOS.org/labs - Where new FreeRTOS products go to incubate.
+     57              Come and try FreeRTOS+TCP, our new open source TCP/IP stack for FreeRTOS.
+     58          
+     59              http://www.OpenRTOS.com - Real Time Engineers ltd. license FreeRTOS to High
+     60              Integrity Systems ltd. to sell under the OpenRTOS brand.  Low cost OpenRTOS
+     61              licenses offer ticketed support, indemnification and commercial middleware.
+     62          
+     63              http://www.SafeRTOS.com - High Integrity Systems also provide a safety
+     64              engineered and independently SIL3 certified version for use in safety and
+     65              mission critical applications that require provable dependability.
+     66          
+     67              1 tab == 4 spaces!
+     68          */
+     69          /* Compiler includes. */
+     70          #include <intrinsics.h>
+     71          
+     72          /* Scheduler includes. */
+     73          #include "FreeRTOS.h"
+     74          #include "task.h"
+     75          #include "fsl_tickless_generic.h"
+     76          
+     77          #if configUSE_TICKLESS_IDLE == 1
+     78          #include "fsl_lptmr.h"
+     79          #endif
+     80          
+     81          extern uint32_t SystemCoreClock; /* in Kinetis SDK, this contains the system core clock speed */
+     82          
+     83          /*
+     84           * LPT timer base address and interrupt number
+     85           */
+     86          
+     87          #if configUSE_TICKLESS_IDLE == 1
+     88             extern LPTMR_Type *vPortGetLptrmBase(void);
+     89             extern IRQn_Type vPortGetLptmrIrqn(void);
+     90          #endif /* configUSE_TICKLESS_IDLE */
+     91          
+     92          /*-----------------------------------------------------------*/
+     93          
+     94          /*
+     95           * The number of SysTick increments that make up one tick period.
+     96           */
+     97          #if configUSE_TICKLESS_IDLE == 1
+     98          	static uint32_t ulTimerCountsForOneTick = 0;
+     99          #endif /* configUSE_TICKLESS_IDLE */
+    100          
+    101          /*
+    102           * The maximum number of tick periods that can be suppressed is limited by the
+    103           * 24 bit resolution of the SysTick timer.
+    104           */
+    105          #if configUSE_TICKLESS_IDLE == 1
+    106          	static uint32_t xMaximumPossibleSuppressedTicks = 0;
+    107          #endif /* configUSE_TICKLESS_IDLE */
+    108          
+    109          /*
+    110           * The number of LPTIMER increments that make up one tick period.
+    111           */
+    112          #if configUSE_TICKLESS_IDLE == 1
+    113          	static uint32_t ulLPTimerCountsForOneTick = 0;
+    114          #endif /* configUSE_TICKLESS_IDLE */
+    115          
+    116          /*
+    117           * The flag of LPTIMER is occurs or not.
+    118           */
+    119          #if configUSE_TICKLESS_IDLE == 1
+    120          	static volatile bool ulLPTimerInterruptFired = false;
+    121          #endif /* configUSE_TICKLESS_IDLE */
+    122          
+    123          #if configUSE_TICKLESS_IDLE == 1
+    124          	void vPortLptmrIsr(void)
+    125          	{
+    126          	  ulLPTimerInterruptFired = true;
+    127          	  LPTMR_ClearStatusFlags(vPortGetLptrmBase(), kLPTMR_TimerCompareFlag);
+    128          
+    129          	}
+    130          
+    131          	void vPortSuppressTicksAndSleep( TickType_t xExpectedIdleTime )
+    132          	{
+    133          		uint32_t ulReloadValue, ulCompleteTickPeriods;
+    134          		TickType_t xModifiableIdleTime;
+    135          		LPTMR_Type *pxLptmrBase;
+    136          
+    137          		pxLptmrBase = vPortGetLptrmBase();
+    138          		if (pxLptmrBase == 0) return;
+    139          		/* Make sure the SysTick reload value does not overflow the counter. */
+    140          		if( xExpectedIdleTime > xMaximumPossibleSuppressedTicks )
+    141          		{
+    142          			xExpectedIdleTime = xMaximumPossibleSuppressedTicks;
+    143          		}
+    144          		if (xExpectedIdleTime == 0) return;
+    145          		/* Calculate the reload value required to wait xExpectedIdleTime
+    146          		tick periods.  -1 is used because this code will execute part way
+    147          		through one of the tick periods. */
+    148          		ulReloadValue = LPTMR_GetCurrentTimerCount(pxLptmrBase) + ( ulLPTimerCountsForOneTick * ( xExpectedIdleTime - 1UL ) );
+    149          
+    150          		/* Stop the LPTMR and systick momentarily.  The time the LPTMR and systick is stopped for
+    151          		is accounted for as best it can be, but using the tickless mode will
+    152          		inevitably result in some tiny drift of the time maintained by the
+    153          		kernel with respect to calendar time. */
+    154          		LPTMR_StopTimer(pxLptmrBase);
+    155          		portNVIC_SYSTICK_CTRL_REG &= ~portNVIC_SYSTICK_ENABLE_BIT;
+    156          
+    157          		/* Enter a critical section but don't use the taskENTER_CRITICAL()
+    158          		method as that will mask interrupts that should exit sleep mode. */
+    159          		__disable_interrupt();
+    160          		__DSB();
+    161          		__ISB();
+    162          
+    163          
+    164          		/* If a context switch is pending or a task is waiting for the scheduler
+    165          		to be unsuspended then abandon the low power entry. */
+    166          		if( eTaskConfirmSleepModeStatus() == eAbortSleep )
+    167          		{
+    168          			/* Restart from whatever is left in the count register to complete
+    169          			this tick period. */
+    170          			portNVIC_SYSTICK_LOAD_REG = portNVIC_SYSTICK_CURRENT_VALUE_REG;
+    171          
+    172          			/* Restart SysTick. */
+    173          			portNVIC_SYSTICK_CTRL_REG |= portNVIC_SYSTICK_ENABLE_BIT;
+    174          
+    175          			/* Reset the reload register to the value required for normal tick
+    176          			periods. */
+    177          			portNVIC_SYSTICK_LOAD_REG = ulTimerCountsForOneTick - 1UL;
+    178          
+    179          			/* Re-enable interrupts - see comments above __disable_interrupt()
+    180          			call above. */
+    181          			__enable_interrupt();
+    182          		}
+    183          		else
+    184          		{
+    185          			/* Set the new reload value. */
+    186          			LPTMR_SetTimerPeriod(pxLptmrBase, ulReloadValue);
+    187          
+    188          			/* Enable LPTMR. */
+    189          			LPTMR_StartTimer(pxLptmrBase);
+    190          
+    191          
+    192          			/* Sleep until something happens.  configPRE_SLEEP_PROCESSING() can
+    193          			set its parameter to 0 to indicate that its implementation contains
+    194          			its own wait for interrupt or wait for event instruction, and so wfi
+    195          			should not be executed again.  However, the original expected idle
+    196          			time variable must remain unmodified, so a copy is taken. */
+    197          			xModifiableIdleTime = xExpectedIdleTime;
+    198          			configPRE_SLEEP_PROCESSING( xModifiableIdleTime );
+    199          			if( xModifiableIdleTime > 0 )
+    200          			{
+    201          				__DSB();
+    202          				__WFI();
+    203          				__ISB();
+    204          			}
+    205          			configPOST_SLEEP_PROCESSING( xExpectedIdleTime );
+    206          
+    207          			ulLPTimerInterruptFired = false;
+    208          
+    209          			/* Re-enable interrupts - see comments above __disable_interrupt()
+    210          			call above. */
+    211          			__enable_interrupt();
+    212          			__NOP();
+    213          			if( ulLPTimerInterruptFired )
+    214          			{
+    215          
+    216          
+    217          				/* The tick interrupt handler will already have pended the tick
+    218          				processing in the kernel.  As the pending tick will be
+    219          				processed as soon as this function exits, the tick value
+    220          				maintained by the tick is stepped forward by one less than the
+    221          				time spent waiting. */
+    222          				ulCompleteTickPeriods = xExpectedIdleTime - 1UL;
+    223          				ulLPTimerInterruptFired = false;
+    224          			}
+    225          			else
+    226          			{
+    227          				/* Something other than the tick interrupt ended the sleep.
+    228          				Work out how long the sleep lasted rounded to complete tick
+    229          				periods (not the ulReload value which accounted for part
+    230          				ticks). */
+    231          				ulCompleteTickPeriods = LPTMR_GetCurrentTimerCount(pxLptmrBase)/ulLPTimerCountsForOneTick;
+    232          
+    233          			}
+    234          
+    235          			/* Stop LPTMR when CPU waked up then set portNVIC_SYSTICK_LOAD_REG back to its standard
+    236          			value.  The critical section is used to ensure the tick interrupt
+    237          			can only execute once in the case that the reload register is near
+    238          			zero. */
+    239          			LPTMR_StopTimer(pxLptmrBase);
+    240          			portENTER_CRITICAL();
+    241          			{
+    242          				portNVIC_SYSTICK_CTRL_REG |= portNVIC_SYSTICK_ENABLE_BIT;
+    243          				vTaskStepTick( ulCompleteTickPeriods );
+    244          				portNVIC_SYSTICK_LOAD_REG = ulTimerCountsForOneTick - 1UL;
+    245          			}
+    246          			portEXIT_CRITICAL();
+    247          		}
+    248          	}
+    249          #endif /* #if configUSE_TICKLESS_IDLE */
+    250          /*-----------------------------------------------------------*/
+    251          
+    252          /*
+    253           * Setup the systick timer to generate the tick interrupts at the required
+    254           * frequency.
+    255           */
+
+   \                                 In section .text, align 4, keep-with-next
+    256          void vPortSetupTimerInterrupt( void )
+    257          {
+    258          	/* Calculate the constants required to configure the tick interrupt. */
+    259          	#if( configUSE_TICKLESS_IDLE == 1 )
+    260          	{
+    261          		ulTimerCountsForOneTick = ( configSYSTICK_CLOCK_HZ / configTICK_RATE_HZ );
+    262          		ulLPTimerCountsForOneTick = ( configLPTMR_CLOCK_HZ / configTICK_RATE_HZ );
+    263          		xMaximumPossibleSuppressedTicks = portMAX_16_BIT_NUMBER / ulLPTimerCountsForOneTick;
+    264          		NVIC_EnableIRQ(vPortGetLptmrIrqn());
+    265          	}
+    266          	#endif /* configUSE_TICKLESS_IDLE */
+    267          
+    268          	/* Configure SysTick to interrupt at the requested rate. */
+    269          	portNVIC_SYSTICK_LOAD_REG = ( configSYSTICK_CLOCK_HZ / configTICK_RATE_HZ ) - 1UL;
+   \                     vPortSetupTimerInterrupt: (+1)
+   \        0x0   0x4907             LDR.N    R1,??vPortSetupTimerInterrupt_0
+   \        0x2   0xF8DF 0xC020      LDR.W    R12,??vPortSetupTimerInterrupt_0+0x4  ;; 0x83126e98
+   \        0x6   0x680A             LDR      R2,[R1, #+0]
+   \        0x8   0x4807             LDR.N    R0,??vPortSetupTimerInterrupt_0+0x8  ;; 0xe000e010
+   \        0xA   0xFBA2 0xC30C      UMULL    R12,R3,R2,R12
+   \        0xE   0x0A5B             LSRS     R3,R3,#+9
+   \       0x10   0x1E5B             SUBS     R3,R3,#+1
+   \       0x12   0x6043             STR      R3,[R0, #+4]
+    270          	portNVIC_SYSTICK_CURRENT_VALUE_REG = 0UL;
+   \       0x14   0x2100             MOVS     R1,#+0
+   \       0x16   0x6081             STR      R1,[R0, #+8]
+    271          	portNVIC_SYSTICK_CTRL_REG = ( portNVIC_SYSTICK_CLK_BIT | portNVIC_SYSTICK_INT_BIT | portNVIC_SYSTICK_ENABLE_BIT );
+   \       0x18   0x2207             MOVS     R2,#+7
+   \       0x1A   0x6002             STR      R2,[R0, #+0]
+    272          }
+   \       0x1C   0x4770             BX       LR               ;; return
+   \       0x1E   0xBF00             Nop      
+   \                     ??vPortSetupTimerInterrupt_0:
+   \       0x20   0x....'....        DC32     SystemCoreClock
+   \       0x24   0x8312'6E98        DC32     0x83126e98
+   \       0x28   0xE000'E010        DC32     0xe000e010
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   vPortSetupTimerInterrupt
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      44  vPortSetupTimerInterrupt
+
+ 
+ 44 bytes in section .text
+ 
+ 44 bytes of CODE memory
+
+Errors: none
+Warnings: none

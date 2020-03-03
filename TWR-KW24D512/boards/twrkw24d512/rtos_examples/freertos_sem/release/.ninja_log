@@ -1,0 +1,26 @@
+# ninja log v5
+2	88	6049274824960988	CMakeFiles/asm.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/iar/startup_MKW24D5.s.obj	a69f4f06424f9da3
+22	100	6049274825040774	CMakeFiles/asm.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/portable/IAR/ARM_CM3/portasm.s.obj	688ca73bfe116511
+101	2166	6049274836131142	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/drivers/fsl_uart.c.obj	13adedf44907f740
+236	2354	6049274830725588	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/drivers/fsl_common.c.obj	dc93524d91850de7
+394	2643	6049274842254778	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/utilities/fsl_debug_console.c.obj	15e181241b2426c0
+561	2865	6049274835582608	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/system_MKW24D5.c.obj	980da1bfc186eba0
+759	3080	6049274837766774	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/drivers/fsl_smc.c.obj	bc5a93594857b5fb
+1017	3297	6049274840678988	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/drivers/fsl_gpio.c.obj	71ccf00736916364
+1296	3569	6049274843042671	CMakeFiles/freertos_sem.dir/pin_mux.c.obj	1a87d3abbbb676e2
+1523	3840	6049274857972776	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/drivers/fsl_flash.c.obj	5f35cddf66fbca46
+1745	4051	6049274859129683	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/devices/MKW24D5/drivers/fsl_clock.c.obj	feea02e8e221c6e
+1979	4268	6049274850791966	CMakeFiles/freertos_sem.dir/freertos_sem.c.obj	5515e561849de9e6
+2167	4565	6049274852607114	CMakeFiles/freertos_sem.dir/board.c.obj	5f4f5b0a19b405ff
+2355	4861	6049274855150317	CMakeFiles/freertos_sem.dir/clock_config.c.obj	be8551689a63f457
+2644	5072	6049274858301898	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/event_groups.c.obj	4b59ea7438752a44
+2866	5073	6049274858860405	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/list.c.obj	6e3cb3772f8fd9fe
+3081	5074	6049274859738062	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/croutine.c.obj	e90b5a9d19ba41a5
+3298	5075	6049274870170184	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/queue.c.obj	e88ff4da51fbc1f5
+3841	5076	6049274872623628	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/timers.c.obj	e87fa94483a2eb5b
+4051	5077	6049274869482032	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/portable/IAR/ARM_CM3/port.c.obj	69941edeed4850dc
+4269	5078	6049274872683474	CMakeFiles/freertos_sem.dir/cd0b8de2f727f3af9b2948347d59898c/rtos/freertos_9.0.0/Source/portable/IAR/ARM_CM3/fsl_tickless_systick.c.obj	bbe96400d7909522
+4861	5402	6049274876782521	CMakeFiles/freertos_sem.dir/cd0b8de2f727f3af9b2948347d59898c/rtos/freertos_9.0.0/Source/portable/IAR/ARM_CM3/fsl_tickless_lptmr.c.obj	520d14a3e5d3d716
+4566	5433	6049274876692754	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/portable/MemMang/heap_4.c.obj	fc8e7da8fce181ef
+3592	5706	6049274880253242	CMakeFiles/freertos_sem.dir/C_/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/rtos/freertos_9.0.0/Source/tasks.c.obj	601c53464a1afefc
+5707	6010	6049274883494582	../iar/release/Exe/freertos_sem.out	13fbf1c85bb6604c

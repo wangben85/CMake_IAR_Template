@@ -1,0 +1,187 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM         03/Mar/2020  16:31:25
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\boards\twrkw24d512\rtos_examples\freertos_sem\board.c
+#    Command line =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\boards\twrkw24d512\rtos_examples\freertos_sem\board.c
+#        "-IC:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc"
+#        -I..\..\..\..\..\CMSIS\Include -I..\..\..\..\..\devices -I..\..\..
+#        -I..\..\..\..\..\devices\MKW24D5\drivers
+#        -I..\..\..\..\..\devices\MKW24D5\utilities
+#        -I..\..\..\..\..\devices\MKW24D5 -I..\..\iar -I..\.. -I..\
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\include -DNDEBUG
+#        -DCPU_MKW24D512VHA5 -DIAR -DFSL_RTOS_FREE_RTOS -DPRINTF_FLOAT_ENABLE=0
+#        -DSCANF_FLOAT_ENABLE=0 -DPRINTF_ADVANCED_ENABLE=0
+#        -DSCANF_ADVANCED_ENABLE=0 -DTWR_KW24D512 -DTOWER --diag_suppress
+#        Pa082,Pa050,Pe167,Pa182 --endian=little --cpu=Cortex-M4 --fpu=None
+#        --no_path_in_file_macros --silent -lC . -e --dlib_config "C:/Program
+#        Files (x86)/IAR Systems/Embedded Workbench
+#        8.1/arm/inc/c/DLib_Config_Normal.h" -Oh --dependencies=ns
+#        CMakeFiles\freertos_sem.dir\board.c.obj.d -o
+#        CMakeFiles\freertos_sem.dir\board.c.obj
+#    Locale       =  C
+#    List file    =  .\board.c.lst
+#    Object file  =  CMakeFiles\freertos_sem.dir\board.c.obj
+#
+###############################################################################
+
+C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\boards\twrkw24d512\rtos_examples\freertos_sem\board.c
+      1          /*
+      2           * Copyright (c) 2015, Freescale Semiconductor, Inc.
+      3           * Copyright 2016-2017 NXP
+      4           *
+      5           * Redistribution and use in source and binary forms, with or without modification,
+      6           * are permitted provided that the following conditions are met:
+      7           *
+      8           * o Redistributions of source code must retain the above copyright notice, this list
+      9           *   of conditions and the following disclaimer.
+     10           *
+     11           * o Redistributions in binary form must reproduce the above copyright notice, this
+     12           *   list of conditions and the following disclaimer in the documentation and/or
+     13           *   other materials provided with the distribution.
+     14           *
+     15           * o Neither the name of the copyright holder nor the names of its
+     16           *   contributors may be used to endorse or promote products derived from this
+     17           *   software without specific prior written permission.
+     18           *
+     19           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+     20           * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     21           * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     22           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+     23           * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+     24           * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+     25           * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+     26           * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+     27           * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     28           * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     29           */
+     30          
+     31          #include <stdint.h>
+     32          #include "fsl_common.h"
+     33          #include "fsl_debug_console.h"
+     34          #include "board.h"
+     35          
+     36          /*******************************************************************************
+     37           * Variables
+     38           ******************************************************************************/
+     39          
+     40          /*******************************************************************************
+     41           * Code
+     42           ******************************************************************************/
+     43          /* Initialize debug console. */
+
+   \                                 In section .text, align 2, keep-with-next
+     44          void BOARD_InitDebugConsole(void)
+     45          {
+   \                     BOARD_InitDebugConsole: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     46              uint32_t uartClkSrcFreq = BOARD_DEBUG_UART_CLK_FREQ;
+   \        0x2   0x.... 0x....      BL       CLOCK_GetCoreSysClkFreq
+     47          
+     48              DbgConsole_Init(BOARD_DEBUG_UART_BASEADDR, BOARD_DEBUG_UART_BAUDRATE, BOARD_DEBUG_UART_TYPE, uartClkSrcFreq);
+   \        0x6   0xE8BD 0x5000      POP      {R12,LR}
+   \        0xA   0x4603             MOV      R3,R0
+   \        0xC   0x2201             MOVS     R2,#+1
+   \        0xE   0xF44F 0x31E1      MOV      R1,#+115200
+   \       0x12   0x....             LDR.N    R0,??DataTable1  ;; 0x4006b000
+   \       0x14   0x.... 0x....      B.W      DbgConsole_Init
+     49          }
+     50          
+
+   \                                 In section .text, align 2, keep-with-next
+     51          void setModemClock()
+     52          {
+     53              /* Start XCVR clock in order to derive MCGOUTCLK */
+     54              SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK; /* Ungate PORTB and PORTC clock*/
+   \                     setModemClock: (+1)
+   \        0x0   0x....             LDR.N    R0,??DataTable1_1  ;; 0x40048038
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0xF441 0x6140      ORR      R1,R1,#0xC00
+   \        0x8   0x6001             STR      R1,[R0, #+0]
+     55              GPIOB->PDDR |= 0x00080000u;                                /* Set PORTB.19 as output - XCVR RESET pin */
+   \        0xA   0x....             LDR.N    R0,??DataTable1_2  ;; 0x400ff044
+   \        0xC   0x6901             LDR      R1,[R0, #+16]
+   \        0xE   0xF441 0x2100      ORR      R1,R1,#0x80000
+   \       0x12   0x6101             STR      R1,[R0, #+16]
+     56              GPIOC->PDDR |= 0x00000001u;                                /* Set PORTC.0 as output - XCVR GPIO5 pin */
+   \       0x14   0x6D01             LDR      R1,[R0, #+80]
+   \       0x16   0xF041 0x0101      ORR      R1,R1,#0x1
+   \       0x1A   0x6501             STR      R1,[R0, #+80]
+     57              PORTB->PCR[19] = (PORTB->PCR[19] & ~PORT_PCR_MUX_MASK) | PORT_PCR_MUX(0x01u); /* PORTB.19 as GPIO */
+   \       0x1C   0x....             LDR.N    R1,??DataTable1_3  ;; 0x4004a04c
+   \       0x1E   0x680A             LDR      R2,[R1, #+0]
+   \       0x20   0xF422 0x62E0      BIC      R2,R2,#0x700
+   \       0x24   0xF442 0x7280      ORR      R2,R2,#0x100
+   \       0x28   0x600A             STR      R2,[R1, #+0]
+     58              PORTC->PCR[0] = (PORTC->PCR[0] & ~PORT_PCR_MUX_MASK) | PORT_PCR_MUX(0x01u);   /* PORTC.0 as GPIO*/
+   \       0x2A   0x....             LDR.N    R1,??DataTable1_4  ;; 0x4004b000
+   \       0x2C   0x680A             LDR      R2,[R1, #+0]
+   \       0x2E   0xF422 0x62E0      BIC      R2,R2,#0x700
+   \       0x32   0xF442 0x7280      ORR      R2,R2,#0x100
+   \       0x36   0x600A             STR      R2,[R1, #+0]
+     59              GPIOC->PCOR = 0x00000001u;                                                    /* Clear XCVR GPIO5 pin*/
+   \       0x38   0x2101             MOVS     R1,#+1
+   \       0x3A   0x6441             STR      R1,[R0, #+68]
+     60              GPIOB->PCOR = 0x00080000u;                                                    /* Clear XCVR RESET pin*/
+   \       0x3C   0xF44F 0x2100      MOV      R1,#+524288
+   \       0x40   0x6041             STR      R1,[R0, #+4]
+     61              GPIOB->PSOR = 0x00080000u;                                                    /* Set XCVR RESET pin*/
+   \       0x42   0x6001             STR      R1,[R0, #+0]
+     62          }
+   \       0x44   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \        0x0   0x4006'B000        DC32     0x4006b000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \        0x0   0x4004'8038        DC32     0x40048038
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \        0x0   0x400F'F044        DC32     0x400ff044
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \        0x0   0x4004'A04C        DC32     0x4004a04c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \        0x0   0x4004'B000        DC32     0x4004b000
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   BOARD_InitDebugConsole
+         8   -> CLOCK_GetCoreSysClkFreq
+         0   -> DbgConsole_Init
+       0   setModemClock
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+      24  BOARD_InitDebugConsole
+      70  setModemClock
+
+ 
+ 114 bytes in section .text
+ 
+ 114 bytes of CODE memory
+
+Errors: none
+Warnings: none

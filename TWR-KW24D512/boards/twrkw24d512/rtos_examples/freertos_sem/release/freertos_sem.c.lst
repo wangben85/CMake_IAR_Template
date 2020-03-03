@@ -1,0 +1,587 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM         03/Mar/2020  16:31:25
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\boards\twrkw24d512\rtos_examples\freertos_sem\freertos_sem.c
+#    Command line =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\boards\twrkw24d512\rtos_examples\freertos_sem\freertos_sem.c
+#        "-IC:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc"
+#        -I..\..\..\..\..\CMSIS\Include -I..\..\..\..\..\devices -I..\..\..
+#        -I..\..\..\..\..\devices\MKW24D5\drivers
+#        -I..\..\..\..\..\devices\MKW24D5\utilities
+#        -I..\..\..\..\..\devices\MKW24D5 -I..\..\iar -I..\.. -I..\
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\include -DNDEBUG
+#        -DCPU_MKW24D512VHA5 -DIAR -DFSL_RTOS_FREE_RTOS -DPRINTF_FLOAT_ENABLE=0
+#        -DSCANF_FLOAT_ENABLE=0 -DPRINTF_ADVANCED_ENABLE=0
+#        -DSCANF_ADVANCED_ENABLE=0 -DTWR_KW24D512 -DTOWER --diag_suppress
+#        Pa082,Pa050,Pe167,Pa182 --endian=little --cpu=Cortex-M4 --fpu=None
+#        --no_path_in_file_macros --silent -lC . -e --dlib_config "C:/Program
+#        Files (x86)/IAR Systems/Embedded Workbench
+#        8.1/arm/inc/c/DLib_Config_Normal.h" -Oh --dependencies=ns
+#        CMakeFiles\freertos_sem.dir\freertos_sem.c.obj.d -o
+#        CMakeFiles\freertos_sem.dir\freertos_sem.c.obj
+#    Locale       =  C
+#    List file    =  .\freertos_sem.c.lst
+#    Object file  =  CMakeFiles\freertos_sem.dir\freertos_sem.c.obj
+#
+###############################################################################
+
+C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\boards\twrkw24d512\rtos_examples\freertos_sem\freertos_sem.c
+      1          /*
+      2           * Copyright (c) 2015, Freescale Semiconductor, Inc.
+      3           * Copyright 2016-2017 NXP
+      4           *
+      5           * Redistribution and use in source and binary forms, with or without modification,
+      6           * are permitted provided that the following conditions are met:
+      7           *
+      8           * o Redistributions of source code must retain the above copyright notice, this list
+      9           *   of conditions and the following disclaimer.
+     10           *
+     11           * o Redistributions in binary form must reproduce the above copyright notice, this
+     12           *   list of conditions and the following disclaimer in the documentation and/or
+     13           *   other materials provided with the distribution.
+     14           *
+     15           * o Neither the name of the copyright holder nor the names of its
+     16           *   contributors may be used to endorse or promote products derived from this
+     17           *   software without specific prior written permission.
+     18           *
+     19           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+     20           * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     21           * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     22           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+     23           * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+     24           * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+     25           * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+     26           * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+     27           * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     28           * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     29           */
+     30          
+     31          /* FreeRTOS includes. */
+     32          #include "FreeRTOS.h"
+     33          #include "task.h"
+     34          #include "queue.h"
+     35          #include "timers.h"
+     36          #include "semphr.h"
+     37          
+     38          /* Freescale includes. */
+     39          #include "fsl_device_registers.h"
+     40          #include "fsl_debug_console.h"
+     41          #include "board.h"
+     42          
+     43          #include "fsl_common.h"
+     44          #include "pin_mux.h"
+     45          #include "clock_config.h"
+     46          /*******************************************************************************
+     47           * Definitions
+     48           ******************************************************************************/
+     49          
+     50          #define TASK_PRIO (configMAX_PRIORITIES - 1)
+     51          #define CONSUMER_LINE_SIZE 3
+
+   \                                 In section .bss, align 4
+     52          SemaphoreHandle_t xSemaphore_producer;
+   \                     xSemaphore_producer:
+   \        0x0                      DS8 4
+     53          SemaphoreHandle_t xSemaphore_consumer;
+   \                     xSemaphore_consumer:
+   \        0x4                      DS8 4
+     54          /*******************************************************************************
+     55           * Prototypes
+     56           ******************************************************************************/
+     57          static void producer_task(void *pvParameters);
+     58          static void consumer_task(void *pvParameters);
+     59          
+     60          /*******************************************************************************
+     61           * Code
+     62           ******************************************************************************/
+     63          /*!
+     64           * @brief Main function
+     65           */
+
+   \                                 In section .text, align 4, keep-with-next
+     66          int main(void)
+     67          {
+   \                     main: (+1)
+   \        0x0   0xB5E0             PUSH     {R5-R7,LR}
+     68              /* Init board hardware. */
+     69              BOARD_InitPins();
+   \        0x2   0x.... 0x....      BL       BOARD_InitPins
+     70              BOARD_BootClockRUN();
+   \        0x6   0x.... 0x....      BL       BOARD_BootClockRUN
+     71              BOARD_InitDebugConsole();
+   \        0xA   0x.... 0x....      BL       BOARD_InitDebugConsole
+     72              xTaskCreate(producer_task, "PRODUCER_TASK", configMINIMAL_STACK_SIZE + 128, NULL, TASK_PRIO, NULL);
+   \        0xE   0x2000             MOVS     R0,#+0
+   \       0x10   0x2104             MOVS     R1,#+4
+   \       0x12   0x9001             STR      R0,[SP, #+4]
+   \       0x14   0x9100             STR      R1,[SP, #+0]
+   \       0x16   0x2300             MOVS     R3,#+0
+   \       0x18   0xF44F 0x72C0      MOV      R2,#+384
+   \       0x1C   0x....             ADR.N    R1,?_0
+   \       0x1E   0x.... 0x....      ADR.W    R0,producer_task
+   \       0x22   0x.... 0x....      BL       xTaskCreate
+     73              /* Start scheduling. */
+     74              vTaskStartScheduler();
+   \       0x26   0x.... 0x....      BL       vTaskStartScheduler
+     75              for (;;)
+   \                     ??main_0: (+1)
+   \       0x2A   0xE7FE             B.N      ??main_0
+     76                  ;
+     77          }
+     78          
+     79          /*!
+     80           * @brief Task producer_task.
+     81           */
+
+   \                                 In section .text, align 4, keep-with-next
+     82          static void producer_task(void *pvParameters)
+     83          {
+   \                     producer_task: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+     84              uint32_t i;
+     85              
+     86              PRINTF("Producer_task created.\r\n");
+   \        0x2   0xBF00             Nop      
+   \        0x4   0x....             ADR.N    R0,?_1
+   \        0x6   0x....             LDR.N    R4,??DataTable13
+   \        0x8   0x.... 0x....      BL       DbgConsole_Printf
+     87              xSemaphore_producer = xSemaphoreCreateBinary();
+   \        0xC   0x2203             MOVS     R2,#+3
+   \        0xE   0x2100             MOVS     R1,#+0
+   \       0x10   0x2001             MOVS     R0,#+1
+   \       0x12   0x.... 0x....      BL       xQueueGenericCreate
+   \       0x16   0x6020             STR      R0,[R4, #+0]
+     88              if (xSemaphore_producer == NULL)
+   \       0x18   0xB930             CBNZ.N   R0,??producer_task_0
+     89              {
+     90                  PRINTF("xSemaphore_producer creation failed.\r\n");
+   \       0x1A   0xBF00             Nop      
+   \       0x1C   0x....             ADR.N    R0,?_2
+   \       0x1E   0x.... 0x....      BL       DbgConsole_Printf
+     91                  vTaskSuspend(NULL);
+   \       0x22   0x2000             MOVS     R0,#+0
+   \       0x24   0x.... 0x....      BL       vTaskSuspend
+     92              }
+     93          
+     94              xSemaphore_consumer = xSemaphoreCreateBinary();
+   \                     ??producer_task_0: (+1)
+   \       0x28   0x2203             MOVS     R2,#+3
+   \       0x2A   0x2100             MOVS     R1,#+0
+   \       0x2C   0x2001             MOVS     R0,#+1
+   \       0x2E   0x.... 0x....      BL       xQueueGenericCreate
+   \       0x32   0x6060             STR      R0,[R4, #+4]
+     95              if (xSemaphore_consumer == NULL)
+   \       0x34   0xB930             CBNZ.N   R0,??producer_task_1
+     96              {
+     97                  PRINTF("xSemaphore_consumer creation failed.\r\n");
+   \       0x36   0xBF00             Nop      
+   \       0x38   0x....             ADR.N    R0,?_3
+   \       0x3A   0x.... 0x....      BL       DbgConsole_Printf
+     98                  vTaskSuspend(NULL);
+   \       0x3E   0x2000             MOVS     R0,#+0
+   \       0x40   0x.... 0x....      BL       vTaskSuspend
+     99              }
+    100          
+    101              for (i = 0; i < CONSUMER_LINE_SIZE; i++)
+   \                     ??producer_task_1: (+1)
+   \       0x44   0x2000             MOVS     R0,#+0
+   \       0x46   0x2104             MOVS     R1,#+4
+   \       0x48   0x9001             STR      R0,[SP, #+4]
+   \       0x4A   0x9100             STR      R1,[SP, #+0]
+   \       0x4C   0x.... 0x....      ADR.W    R6,consumer_task
+   \       0x50   0x....             ADR.N    R7,?_4
+   \       0x52   0x2300             MOVS     R3,#+0
+   \       0x54   0xF44F 0x7280      MOV      R2,#+256
+   \       0x58   0x4639             MOV      R1,R7
+   \       0x5A   0x4630             MOV      R0,R6
+   \       0x5C   0x.... 0x....      BL       xTaskCreate
+   \       0x60   0x....             ADR.N    R5,?_5
+   \       0x62   0x2100             MOVS     R1,#+0
+   \       0x64   0x4628             MOV      R0,R5
+   \       0x66   0x.... 0x....      BL       DbgConsole_Printf
+    102              {
+    103                  xTaskCreate(consumer_task, "CONSUMER_TASK", configMINIMAL_STACK_SIZE, (void *)i, TASK_PRIO, NULL);
+   \       0x6A   0x2000             MOVS     R0,#+0
+   \       0x6C   0x2104             MOVS     R1,#+4
+   \       0x6E   0x9001             STR      R0,[SP, #+4]
+   \       0x70   0x9100             STR      R1,[SP, #+0]
+   \       0x72   0x2301             MOVS     R3,#+1
+   \       0x74   0xF44F 0x7280      MOV      R2,#+256
+   \       0x78   0x4639             MOV      R1,R7
+   \       0x7A   0x4630             MOV      R0,R6
+   \       0x7C   0x.... 0x....      BL       xTaskCreate
+    104                  PRINTF("Consumer_task %d created.\r\n", i);
+   \       0x80   0x2101             MOVS     R1,#+1
+   \       0x82   0x4628             MOV      R0,R5
+   \       0x84   0x.... 0x....      BL       DbgConsole_Printf
+   \       0x88   0x2000             MOVS     R0,#+0
+   \       0x8A   0x2104             MOVS     R1,#+4
+   \       0x8C   0x9001             STR      R0,[SP, #+4]
+   \       0x8E   0x9100             STR      R1,[SP, #+0]
+   \       0x90   0x2302             MOVS     R3,#+2
+   \       0x92   0xF44F 0x7280      MOV      R2,#+256
+   \       0x96   0x4639             MOV      R1,R7
+   \       0x98   0x4630             MOV      R0,R6
+   \       0x9A   0x.... 0x....      BL       xTaskCreate
+   \       0x9E   0x2102             MOVS     R1,#+2
+   \       0xA0   0x4628             MOV      R0,R5
+   \       0xA2   0x.... 0x....      BL       DbgConsole_Printf
+    105              }
+   \       0xA6   0xBF00             Nop      
+   \       0xA8   0x.... 0x....      ADR.W    R5,?_7
+   \       0xAC   0x....             ADR.N    R6,?_6
+   \       0xAE   0xE001             B.N      ??producer_task_2
+    106          
+    107              while (1)
+    108              {
+    109                  /* Producer is ready to provide item. */
+    110                  xSemaphoreGive(xSemaphore_consumer);
+    111                  /* Producer is waiting when consumer will be ready to accept item. */
+    112                  if (xSemaphoreTake(xSemaphore_producer, portMAX_DELAY) == pdTRUE)
+    113                  {
+    114                      PRINTF("Producer released item.\r\n");
+   \                     ??producer_task_3: (+1)
+   \       0xB0   0x.... 0x....      BL       DbgConsole_Printf
+   \                     ??producer_task_2: (+1)
+   \       0xB4   0x6860             LDR      R0,[R4, #+4]
+   \       0xB6   0x2300             MOVS     R3,#+0
+   \       0xB8   0x2200             MOVS     R2,#+0
+   \       0xBA   0x2100             MOVS     R1,#+0
+   \       0xBC   0x.... 0x....      BL       xQueueGenericSend
+   \       0xC0   0x6820             LDR      R0,[R4, #+0]
+   \       0xC2   0x2300             MOVS     R3,#+0
+   \       0xC4   0xF04F 0x32FF      MOV      R2,#-1
+   \       0xC8   0x2100             MOVS     R1,#+0
+   \       0xCA   0x.... 0x....      BL       xQueueGenericReceive
+   \       0xCE   0x2801             CMP      R0,#+1
+   \       0xD0   0xBF14             ITE      NE 
+   \       0xD2   0x4628             MOVNE    R0,R5
+   \       0xD4   0x4630             MOVEQ    R0,R6
+    115                  }
+    116                  else
+    117                  {
+    118                      PRINTF("Producer is waiting for customer.\r\n");
+   \       0xD6   0xE7EB             B.N      ??producer_task_3
+    119                  }
+    120              }
+    121          }
+    122          
+    123          /*!
+    124           * @brief Task consumer_task.
+    125           */
+
+   \                                 In section .text, align 4, keep-with-next
+    126          static void consumer_task(void *pvParameters)
+    127          {
+   \                     consumer_task: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x4604             MOV      R4,R0
+    128              PRINTF("Consumer number: %d\r\n", pvParameters);
+   \        0x4   0xEA4F 0x0104      MOV.W    R1,R4
+   \        0x8   0x.... 0x....      ADR.W    R0,?_8
+   \        0xC   0x.... 0x....      ADR.W    R5,?_10
+   \       0x10   0x....             ADR.N    R6,?_9
+   \       0x12   0x....             LDR.N    R7,??DataTable13
+   \       0x14   0x.... 0x....      BL       DbgConsole_Printf
+   \       0x18   0xE001             B.N      ??consumer_task_0
+    129              while (1)
+    130              {
+    131                  /* Consumer is ready to accept. */
+    132                  xSemaphoreGive(xSemaphore_producer);
+    133                  /* Consumer is waiting when producer will be ready to produce item. */
+    134                  if (xSemaphoreTake(xSemaphore_consumer, portMAX_DELAY) == pdTRUE)
+    135                  {
+    136                      PRINTF("Consumer %d accepted item.\r\n", pvParameters);
+   \                     ??consumer_task_1: (+1)
+   \       0x1A   0x.... 0x....      BL       DbgConsole_Printf
+   \                     ??consumer_task_0: (+1)
+   \       0x1E   0x6838             LDR      R0,[R7, #+0]
+   \       0x20   0x2300             MOVS     R3,#+0
+   \       0x22   0x2200             MOVS     R2,#+0
+   \       0x24   0x2100             MOVS     R1,#+0
+   \       0x26   0x.... 0x....      BL       xQueueGenericSend
+   \       0x2A   0x6878             LDR      R0,[R7, #+4]
+   \       0x2C   0x2300             MOVS     R3,#+0
+   \       0x2E   0xF04F 0x32FF      MOV      R2,#-1
+   \       0x32   0x2100             MOVS     R1,#+0
+   \       0x34   0x.... 0x....      BL       xQueueGenericReceive
+   \       0x38   0x2801             CMP      R0,#+1
+   \       0x3A   0x4621             MOV      R1,R4
+   \       0x3C   0xBF14             ITE      NE 
+   \       0x3E   0x4628             MOVNE    R0,R5
+   \       0x40   0x4630             MOVEQ    R0,R6
+    137                  }
+    138                  else
+    139                  {
+    140                      PRINTF("Consumer %d is waiting for producer.\r\n", pvParameters);
+   \       0x42   0xE7EA             B.N      ??consumer_task_1
+    141                  }
+    142              }
+    143          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13:
+   \        0x0   0x....'....        DC32     xSemaphore_producer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_0:
+   \        0x0   0x50 0x52          DC8 "PRODUCER_TASK"
+   \              0x4F 0x44    
+   \              0x55 0x43    
+   \              0x45 0x52    
+   \              0x5F 0x54    
+   \              0x41 0x53    
+   \              0x4B 0x00    
+   \        0xE   0x00 0x00          DC8 0, 0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_1:
+   \        0x0   0x50 0x72          DC8 "Producer_task created.\015\012"
+   \              0x6F 0x64    
+   \              0x75 0x63    
+   \              0x65 0x72    
+   \              0x5F 0x74    
+   \              0x61 0x73    
+   \              0x6B 0x20    
+   \              0x63 0x72    
+   \              0x65 0x61    
+   \              0x74 0x65    
+   \              0x64 0x2E    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x19   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_2:
+   \        0x0   0x78 0x53          DC8 "xSemaphore_producer creation failed.\015\012"
+   \              0x65 0x6D    
+   \              0x61 0x70    
+   \              0x68 0x6F    
+   \              0x72 0x65    
+   \              0x5F 0x70    
+   \              0x72 0x6F    
+   \              0x64 0x75    
+   \              0x63 0x65    
+   \              0x72 0x20    
+   \              0x63 0x72    
+   \              0x65 0x61    
+   \              0x74 0x69    
+   \              0x6F 0x6E    
+   \              0x20 0x66    
+   \              0x61 0x69    
+   \              0x6C 0x65    
+   \              0x64 0x2E    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x27   0x00               DC8 0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_3:
+   \        0x0   0x78 0x53          DC8 "xSemaphore_consumer creation failed.\015\012"
+   \              0x65 0x6D    
+   \              0x61 0x70    
+   \              0x68 0x6F    
+   \              0x72 0x65    
+   \              0x5F 0x63    
+   \              0x6F 0x6E    
+   \              0x73 0x75    
+   \              0x6D 0x65    
+   \              0x72 0x20    
+   \              0x63 0x72    
+   \              0x65 0x61    
+   \              0x74 0x69    
+   \              0x6F 0x6E    
+   \              0x20 0x66    
+   \              0x61 0x69    
+   \              0x6C 0x65    
+   \              0x64 0x2E    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x27   0x00               DC8 0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_4:
+   \        0x0   0x43 0x4F          DC8 "CONSUMER_TASK"
+   \              0x4E 0x53    
+   \              0x55 0x4D    
+   \              0x45 0x52    
+   \              0x5F 0x54    
+   \              0x41 0x53    
+   \              0x4B 0x00    
+   \        0xE   0x00 0x00          DC8 0, 0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_5:
+   \        0x0   0x43 0x6F          DC8 "Consumer_task %d created.\015\012"
+   \              0x6E 0x73    
+   \              0x75 0x6D    
+   \              0x65 0x72    
+   \              0x5F 0x74    
+   \              0x61 0x73    
+   \              0x6B 0x20    
+   \              0x25 0x64    
+   \              0x20 0x63    
+   \              0x72 0x65    
+   \              0x61 0x74    
+   \              0x65 0x64    
+   \              0x2E 0x0D    
+   \              0x0A 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_6:
+   \        0x0   0x50 0x72          DC8 "Producer released item.\015\012"
+   \              0x6F 0x64    
+   \              0x75 0x63    
+   \              0x65 0x72    
+   \              0x20 0x72    
+   \              0x65 0x6C    
+   \              0x65 0x61    
+   \              0x73 0x65    
+   \              0x64 0x20    
+   \              0x69 0x74    
+   \              0x65 0x6D    
+   \              0x2E 0x0D    
+   \              0x0A 0x00    
+   \       0x1A   0x00 0x00          DC8 0, 0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_7:
+   \        0x0   0x50 0x72          DC8 "Producer is waiting for customer.\015\012"
+   \              0x6F 0x64    
+   \              0x75 0x63    
+   \              0x65 0x72    
+   \              0x20 0x69    
+   \              0x73 0x20    
+   \              0x77 0x61    
+   \              0x69 0x74    
+   \              0x69 0x6E    
+   \              0x67 0x20    
+   \              0x66 0x6F    
+   \              0x72 0x20    
+   \              0x63 0x75    
+   \              0x73 0x74    
+   \              0x6F 0x6D    
+   \              0x65 0x72    
+   \              0x2E 0x0D    
+   \              0x0A 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_8:
+   \        0x0   0x43 0x6F          DC8 "Consumer number: %d\015\012"
+   \              0x6E 0x73    
+   \              0x75 0x6D    
+   \              0x65 0x72    
+   \              0x20 0x6E    
+   \              0x75 0x6D    
+   \              0x62 0x65    
+   \              0x72 0x3A    
+   \              0x20 0x25    
+   \              0x64 0x0D    
+   \              0x0A 0x00    
+   \       0x16   0x00 0x00          DC8 0, 0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_9:
+   \        0x0   0x43 0x6F          DC8 "Consumer %d accepted item.\015\012"
+   \              0x6E 0x73    
+   \              0x75 0x6D    
+   \              0x65 0x72    
+   \              0x20 0x25    
+   \              0x64 0x20    
+   \              0x61 0x63    
+   \              0x63 0x65    
+   \              0x70 0x74    
+   \              0x65 0x64    
+   \              0x20 0x69    
+   \              0x74 0x65    
+   \              0x6D 0x2E    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x1D   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_10:
+   \        0x0   0x43 0x6F          DC8 "Consumer %d is waiting for producer.\015\012"
+   \              0x6E 0x73    
+   \              0x75 0x6D    
+   \              0x65 0x72    
+   \              0x20 0x25    
+   \              0x64 0x20    
+   \              0x69 0x73    
+   \              0x20 0x77    
+   \              0x61 0x69    
+   \              0x74 0x69    
+   \              0x6E 0x67    
+   \              0x20 0x66    
+   \              0x6F 0x72    
+   \              0x20 0x70    
+   \              0x72 0x6F    
+   \              0x64 0x75    
+   \              0x63 0x65    
+   \              0x72 0x2E    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x27   0x00               DC8 0
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      24   consumer_task
+        24   -> DbgConsole_Printf
+        24   -> xQueueGenericReceive
+        24   -> xQueueGenericSend
+      16   main
+        16   -> BOARD_BootClockRUN
+        16   -> BOARD_InitDebugConsole
+        16   -> BOARD_InitPins
+        16   -> vTaskStartScheduler
+        16   -> xTaskCreate
+      32   producer_task
+        32   -> DbgConsole_Printf
+        32   -> vTaskSuspend
+        32   -> xQueueGenericCreate
+        32   -> xQueueGenericReceive
+        32   -> xQueueGenericSend
+        32   -> xTaskCreate
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable13
+      16  ?_0
+      28  ?_1
+      40  ?_10
+      40  ?_2
+      40  ?_3
+      16  ?_4
+      28  ?_5
+      28  ?_6
+      36  ?_7
+      24  ?_8
+      32  ?_9
+      68  consumer_task
+      44  main
+     216  producer_task
+       8  xSemaphore_producer
+          xSemaphore_consumer
+
+ 
+   8 bytes in section .bss
+ 660 bytes in section .text
+ 
+ 660 bytes of CODE memory
+   8 bytes of DATA memory
+
+Errors: none
+Warnings: none

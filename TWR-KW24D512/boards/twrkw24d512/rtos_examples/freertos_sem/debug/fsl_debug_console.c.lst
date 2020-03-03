@@ -1,0 +1,3115 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM         03/Mar/2020  16:31:35
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\utilities\fsl_debug_console.c
+#    Command line =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\utilities\fsl_debug_console.c
+#        "-IC:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc"
+#        -I..\..\..\..\..\CMSIS\Include -I..\..\..\..\..\devices -I..\..\..
+#        -I..\..\..\..\..\devices\MKW24D5\drivers
+#        -I..\..\..\..\..\devices\MKW24D5\utilities
+#        -I..\..\..\..\..\devices\MKW24D5 -I..\..\iar -I..\.. -I..\
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\include
+#        -DCPU_MKW24D512VHA5 -DIAR -DFSL_RTOS_FREE_RTOS -DPRINTF_FLOAT_ENABLE=0
+#        -DSCANF_FLOAT_ENABLE=0 -DPRINTF_ADVANCED_ENABLE=0
+#        -DSCANF_ADVANCED_ENABLE=0 -DTWR_KW24D512 -DTOWER --diag_suppress
+#        Pa082,Pa050,Pe167,Pa182 --endian=little --cpu=Cortex-M4 --fpu=None
+#        --no_path_in_file_macros --silent -lC . -e --dlib_config "C:/Program
+#        Files (x86)/IAR Systems/Embedded Workbench
+#        8.1/arm/inc/c/DLib_Config_Normal.h" -Om --debug --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling
+#        --dependencies=ns
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\utilities\fsl_debug_console.c.obj.d
+#        -o
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\utilities\fsl_debug_console.c.obj
+#    Locale       =  C
+#    List file    =  .\fsl_debug_console.c.lst
+#    Object file  =  
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\utilities\fsl_debug_console.c.obj
+#
+###############################################################################
+
+C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\utilities\fsl_debug_console.c
+      1          /*
+      2           * This is a modified version of the file printf.c, which was distributed
+      3           * by Motorola as part of the M5407C3BOOT.zip package used to initialize
+      4           * the M5407C3 evaluation board.
+      5           *
+      6           * Copyright:
+      7           *      1999-2000 MOTOROLA, INC. All Rights Reserved.
+      8           *  You are hereby granted a copyright license to use, modify, and
+      9           *  distribute the SOFTWARE so long as this entire notice is
+     10           *  retained without alteration in any modified and/or redistributed
+     11           *  versions, and that such modified versions are clearly identified
+     12           *  as such. No licenses are granted by implication, estoppel or
+     13           *  otherwise under any patents or trademarks of Motorola, Inc. This
+     14           *  software is provided on an "AS IS" basis and without warranty.
+     15           *
+     16           *  To the maximum extent permitted by applicable law, MOTOROLA
+     17           *  DISCLAIMS ALL WARRANTIES WHETHER EXPRESS OR IMPLIED, INCLUDING
+     18           *  IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+     19           *  PURPOSE AND ANY WARRANTY AGAINST INFRINGEMENT WITH REGARD TO THE
+     20           *  SOFTWARE (INCLUDING ANY MODIFIED VERSIONS THEREOF) AND ANY
+     21           *  ACCOMPANYING WRITTEN MATERIALS.
+     22           *
+     23           *  To the maximum extent permitted by applicable law, IN NO EVENT
+     24           *  SHALL MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER (INCLUDING
+     25           *  WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS
+     26           *  INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY
+     27           *  LOSS) ARISING OF THE USE OR INABILITY TO USE THE SOFTWARE.
+     28           *
+     29           *  Motorola assumes no responsibility for the maintenance and support
+     30           *  of this software
+     31          
+     32           * Copyright (c) 2015, Freescale Semiconductor, Inc.
+     33           * Copyright 2016-2017 NXP
+     34           *
+     35           * Redistribution and use in source and binary forms, with or without modification,
+     36           * are permitted provided that the following conditions are met:
+     37           *
+     38           * o Redistributions of source code must retain the above copyright notice, this list
+     39           *   of conditions and the following disclaimer.
+     40           *
+     41           * o Redistributions in binary form must reproduce the above copyright notice, this
+     42           *   list of conditions and the following disclaimer in the documentation and/or
+     43           *   other materials provided with the distribution.
+     44           *
+     45           * o Neither the name of the copyright holder nor the names of its
+     46           *   contributors may be used to endorse or promote products derived from this
+     47           *   software without specific prior written permission.
+     48           *
+     49           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+     50           * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     51           * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     52           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+     53           * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+     54           * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+     55           * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+     56           * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+     57           * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     58           * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     59           */
+     60          
+     61          #include <stdarg.h>
+     62          #include <stdlib.h>
+     63          #if defined(__CC_ARM)
+     64          #include <stdio.h>
+     65          #endif
+     66          #include <math.h>
+     67          #include "fsl_debug_console.h"
+     68          
+     69          #if (defined(FSL_FEATURE_SOC_UART_COUNT) && (FSL_FEATURE_SOC_UART_COUNT > 0)) || \
+     70              (defined(FSL_FEATURE_SOC_IUART_COUNT) && (FSL_FEATURE_SOC_IUART_COUNT > 0))
+     71          #include "fsl_uart.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void UART_EnableTx(UART_Type *, bool)
+   \                     UART_EnableTx: (+1)
+   \        0x0   0x2900             CMP      R1,#+0
+   \        0x2   0x78C1             LDRB     R1,[R0, #+3]
+   \        0x4   0xD003             BEQ.N    ??UART_EnableTx_0
+   \        0x6   0xF041 0x0108      ORR      R1,R1,#0x8
+   \        0xA   0x70C1             STRB     R1,[R0, #+3]
+   \        0xC   0x4770             BX       LR
+   \                     ??UART_EnableTx_0: (+1)
+   \        0xE   0xF001 0x01F7      AND      R1,R1,#0xF7
+   \       0x12   0x70C1             STRB     R1,[R0, #+3]
+   \       0x14   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void UART_EnableRx(UART_Type *, bool)
+   \                     UART_EnableRx: (+1)
+   \        0x0   0x2900             CMP      R1,#+0
+   \        0x2   0x78C1             LDRB     R1,[R0, #+3]
+   \        0x4   0xD003             BEQ.N    ??UART_EnableRx_0
+   \        0x6   0xF041 0x0104      ORR      R1,R1,#0x4
+   \        0xA   0x70C1             STRB     R1,[R0, #+3]
+   \        0xC   0x4770             BX       LR
+   \                     ??UART_EnableRx_0: (+1)
+   \        0xE   0xF001 0x01FB      AND      R1,R1,#0xFB
+   \       0x12   0x70C1             STRB     R1,[R0, #+3]
+   \       0x14   0x4770             BX       LR               ;; return
+     72          #endif /* FSL_FEATURE_SOC_UART_COUNT || FSL_FEATURE_SOC_IUART_COUNT */
+     73          
+     74          #if defined(FSL_FEATURE_SOC_LPSCI_COUNT) && (FSL_FEATURE_SOC_LPSCI_COUNT > 0)
+     75          #include "fsl_lpsci.h"
+     76          #endif /* FSL_FEATURE_SOC_LPSCI_COUNT */
+     77          
+     78          #if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 0)
+     79          #include "fsl_lpuart.h"
+     80          #endif /* FSL_FEATURE_SOC_LPUART_COUNT */
+     81          
+     82          #if defined(FSL_FEATURE_SOC_USB_COUNT) && (FSL_FEATURE_SOC_USB_COUNT > 0) && defined(BOARD_USE_VIRTUALCOM)
+     83          #include "usb_device_config.h"
+     84          #include "usb.h"
+     85          #include "usb_device_cdc_acm.h"
+     86          #include "usb_device_ch9.h"
+     87          #include "virtual_com.h"
+     88          #endif
+     89          
+     90          #if defined(FSL_FEATURE_SOC_FLEXCOMM_COUNT) && (FSL_FEATURE_SOC_FLEXCOMM_COUNT > 0)
+     91          #include "fsl_usart.h"
+     92          #endif /* FSL_FEATURE_SOC_FLEXCOMM_COUNT */
+     93          
+     94          /*! @brief Keil: suppress ellipsis warning in va_arg usage below. */
+     95          #if defined(__CC_ARM)
+     96          #pragma diag_suppress 1256
+     97          #endif /* __CC_ARM */
+     98          
+     99          /*******************************************************************************
+    100           * Definitions
+    101           ******************************************************************************/
+    102          
+    103          /*! @brief This definition is maximum line that debugconsole can scanf each time.*/
+    104          #define IO_MAXLINE 20U
+    105          
+    106          /*! @brief The overflow value.*/
+    107          #ifndef HUGE_VAL
+    108          #define HUGE_VAL (99.e99)
+    109          #endif /* HUGE_VAL */
+    110          
+    111          #if SCANF_FLOAT_ENABLE
+    112          static double fnum = 0.0;
+    113          #endif /* SCANF_FLOAT_ENABLE */
+    114          
+    115          /*! @brief Operation functions definitions for debug console. */
+    116          typedef struct DebugConsoleOperationFunctions
+    117          {
+    118              union
+    119              {
+    120                  void (*PutChar)(void *base, const uint8_t *buffer, size_t length);
+    121          #if (defined(FSL_FEATURE_SOC_UART_COUNT) && (FSL_FEATURE_SOC_UART_COUNT > 0)) || \
+    122              (defined(FSL_FEATURE_SOC_IUART_COUNT) && (FSL_FEATURE_SOC_IUART_COUNT > 0))
+    123                  void (*UART_PutChar)(UART_Type *base, const uint8_t *buffer, size_t length);
+    124          #endif /* FSL_FEATURE_SOC_UART_COUNT || FSL_FEATURE_SOC_IUART_COUNT */
+    125          #if defined(FSL_FEATURE_SOC_LPSCI_COUNT) && (FSL_FEATURE_SOC_LPSCI_COUNT > 0)
+    126                  void (*LPSCI_PutChar)(UART0_Type *base, const uint8_t *buffer, size_t length);
+    127          #endif /* FSL_FEATURE_SOC_LPSCI_COUNT */
+    128          #if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 0)
+    129                  void (*LPUART_PutChar)(LPUART_Type *base, const uint8_t *buffer, size_t length);
+    130          #endif /* FSL_FEATURE_SOC_LPUART_COUNT */
+    131          #if defined(FSL_FEATURE_SOC_USB_COUNT) && (FSL_FEATURE_SOC_USB_COUNT > 0) && defined(BOARD_USE_VIRTUALCOM)
+    132                  void (*USB_PutChar)(usb_device_handle base, const uint8_t *buf, size_t count);
+    133          #endif /* FSL_FEATURE_SOC_USB_COUNT && BOARD_USE_VIRTUALCOM*/
+    134          #if defined(FSL_FEATURE_SOC_FLEXCOMM_COUNT) && (FSL_FEATURE_SOC_FLEXCOMM_COUNT > 0)
+    135                  void (*USART_PutChar)(USART_Type *base, const uint8_t *data, size_t length);
+    136          #endif /* FSL_FEATURE_SOC_FLEXCOMM_COUNT */
+    137              } tx_union;
+    138              union
+    139              {
+    140                  status_t (*GetChar)(void *base, const uint8_t *buffer, size_t length);
+    141          #if (defined(FSL_FEATURE_SOC_UART_COUNT) && (FSL_FEATURE_SOC_UART_COUNT > 0)) || \
+    142              (defined(FSL_FEATURE_SOC_IUART_COUNT) && (FSL_FEATURE_SOC_IUART_COUNT > 0))
+    143                  status_t (*UART_GetChar)(UART_Type *base, uint8_t *buffer, size_t length);
+    144          #endif /* FSL_FEATURE_SOC_UART_COUNT || FSL_FEATURE_SOC_IUART_COUNT*/
+    145          #if defined(FSL_FEATURE_SOC_LPSCI_COUNT) && (FSL_FEATURE_SOC_LPSCI_COUNT > 0)
+    146                  status_t (*LPSCI_GetChar)(UART0_Type *base, uint8_t *buffer, size_t length);
+    147          #endif /* FSL_FEATURE_SOC_LPSCI_COUNT */
+    148          #if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 0)
+    149                  status_t (*LPUART_GetChar)(LPUART_Type *base, uint8_t *buffer, size_t length);
+    150          #endif /* FSL_FEATURE_SOC_LPUART_COUNT */
+    151          #if defined(FSL_FEATURE_SOC_USB_COUNT) && (FSL_FEATURE_SOC_USB_COUNT > 0) && defined(BOARD_USE_VIRTUALCOM)
+    152                  status_t (*USB_GetChar)(usb_device_handle base, uint8_t *buf, size_t count);
+    153          #endif /* FSL_FEATURE_SOC_USB_COUNT && BOARD_USE_VIRTUALCOM*/
+    154          #if defined(FSL_FEATURE_SOC_FLEXCOMM_COUNT) && (FSL_FEATURE_SOC_FLEXCOMM_COUNT > 0)
+    155                  status_t (*USART_GetChar)(USART_Type *base, uint8_t *data, size_t length);
+    156          #endif
+    157              } rx_union;
+    158          } debug_console_ops_t;
+    159          
+    160          /*! @brief State structure storing debug console. */
+    161          typedef struct DebugConsoleState
+    162          {
+    163              uint8_t type;            /*!< Indicator telling whether the debug console is initialized. */
+    164              void *base;              /*!< Base of the IP register. */
+    165              debug_console_ops_t ops; /*!< Operation function pointers for debug UART operations. */
+    166          } debug_console_state_t;
+    167          
+    168          /*! @brief Type of KSDK printf function pointer. */
+    169          typedef int (*PUTCHAR_FUNC)(int a);
+    170          
+    171          #if PRINTF_ADVANCED_ENABLE
+    172          /*! @brief Specification modifier flags for printf. */
+    173          enum _debugconsole_printf_flag
+    174          {
+    175              kPRINTF_Minus = 0x01U,              /*!< Minus FLag. */
+    176              kPRINTF_Plus = 0x02U,               /*!< Plus Flag. */
+    177              kPRINTF_Space = 0x04U,              /*!< Space Flag. */
+    178              kPRINTF_Zero = 0x08U,               /*!< Zero Flag. */
+    179              kPRINTF_Pound = 0x10U,              /*!< Pound Flag. */
+    180              kPRINTF_LengthChar = 0x20U,         /*!< Length: Char Flag. */
+    181              kPRINTF_LengthShortInt = 0x40U,     /*!< Length: Short Int Flag. */
+    182              kPRINTF_LengthLongInt = 0x80U,      /*!< Length: Long Int Flag. */
+    183              kPRINTF_LengthLongLongInt = 0x100U, /*!< Length: Long Long Int Flag. */
+    184          };
+    185          #endif /* PRINTF_ADVANCED_ENABLE */
+    186          
+    187          /*! @brief Specification modifier flags for scanf. */
+    188          enum _debugconsole_scanf_flag
+    189          {
+    190              kSCANF_Suppress = 0x2U,      /*!< Suppress Flag. */
+    191              kSCANF_DestMask = 0x7cU,     /*!< Destination Mask. */
+    192              kSCANF_DestChar = 0x4U,      /*!< Destination Char Flag. */
+    193              kSCANF_DestString = 0x8U,    /*!< Destination String FLag. */
+    194              kSCANF_DestSet = 0x10U,      /*!< Destination Set Flag. */
+    195              kSCANF_DestInt = 0x20U,      /*!< Destination Int Flag. */
+    196              kSCANF_DestFloat = 0x30U,    /*!< Destination Float Flag. */
+    197              kSCANF_LengthMask = 0x1f00U, /*!< Length Mask Flag. */
+    198          #if SCANF_ADVANCED_ENABLE
+    199              kSCANF_LengthChar = 0x100U,        /*!< Length Char Flag. */
+    200              kSCANF_LengthShortInt = 0x200U,    /*!< Length ShortInt Flag. */
+    201              kSCANF_LengthLongInt = 0x400U,     /*!< Length LongInt Flag. */
+    202              kSCANF_LengthLongLongInt = 0x800U, /*!< Length LongLongInt Flag. */
+    203          #endif                                 /* SCANF_ADVANCED_ENABLE */
+    204          #if PRINTF_FLOAT_ENABLE
+    205              kSCANF_LengthLongLongDouble = 0x1000U, /*!< Length LongLongDuoble Flag. */
+    206          #endif                                     /*PRINTF_FLOAT_ENABLE */
+    207              kSCANF_TypeSinged = 0x2000U,           /*!< TypeSinged Flag. */
+    208          };
+    209          
+    210          /*******************************************************************************
+    211           * Variables
+    212           ******************************************************************************/
+    213          /*! @brief Debug UART state information. */
+
+   \                                 In section .bss, align 4
+    214          static debug_console_state_t s_debugConsole = {.type = DEBUG_CONSOLE_DEVICE_TYPE_NONE, .base = NULL, .ops = {{0}, {0}}};
+   \                     s_debugConsole:
+   \        0x0                      DS8 16
+    215          
+    216          /*******************************************************************************
+    217           * Prototypes
+    218           ******************************************************************************/
+    219          #if SDK_DEBUGCONSOLE
+    220          static int DbgConsole_PrintfFormattedData(PUTCHAR_FUNC func_ptr, const char *fmt, va_list ap);
+    221          static int DbgConsole_ScanfFormattedData(const char *line_ptr, char *format, va_list args_ptr);
+    222          double modf(double input_dbl, double *intpart_ptr);
+    223          #endif /* SDK_DEBUGCONSOLE */
+    224          
+    225          /*******************************************************************************
+    226           * Code
+    227           ******************************************************************************/
+    228          
+    229          /*************Code for DbgConsole Init, Deinit, Printf, Scanf *******************************/
+    230          
+    231          /* See fsl_debug_console.h for documentation of this function. */
+
+   \                                 In section .text, align 2, keep-with-next
+    232          status_t DbgConsole_Init(uint32_t baseAddr, uint32_t baudRate, uint8_t device, uint32_t clkSrcFreq)
+    233          {
+   \                     DbgConsole_Init: (+1)
+   \        0x0   0xB57F             PUSH     {R0-R6,LR}
+   \        0x2   0x460D             MOV      R5,R1
+   \        0x4   0x461E             MOV      R6,R3
+    234              if (s_debugConsole.type != DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \        0x6   0x....             LDR.N    R4,??DataTable6
+   \        0x8   0x7821             LDRB     R1,[R4, #+0]
+   \        0xA   0x2900             CMP      R1,#+0
+   \        0xC   0xD001             BEQ.N    ??DbgConsole_Init_0
+    235              {
+    236                  return kStatus_Fail;
+   \        0xE   0x2001             MOVS     R0,#+1
+   \       0x10   0xE01D             B.N      ??DbgConsole_Init_1
+    237              }
+    238          
+    239              /* Set debug console to initialized to avoid duplicated initialized operation. */
+    240              s_debugConsole.type = device;
+   \                     ??DbgConsole_Init_0: (+1)
+   \       0x12   0x7022             STRB     R2,[R4, #+0]
+    241          
+    242              /* Switch between different device. */
+    243              switch (device)
+   \       0x14   0x2A01             CMP      R2,#+1
+   \       0x16   0xD001             BEQ.N    ??DbgConsole_Init_2
+   \       0x18   0x2A06             CMP      R2,#+6
+   \       0x1A   0xD117             BNE.N    ??DbgConsole_Init_3
+    244              {
+    245          #if (defined(FSL_FEATURE_SOC_UART_COUNT) && (FSL_FEATURE_SOC_UART_COUNT > 0)) || \
+    246              (defined(FSL_FEATURE_SOC_IUART_COUNT) && (FSL_FEATURE_SOC_IUART_COUNT > 0))
+    247                  case DEBUG_CONSOLE_DEVICE_TYPE_UART:
+    248                  case DEBUG_CONSOLE_DEVICE_TYPE_IUART:
+    249                  {
+    250                      uart_config_t uart_config;
+    251                      s_debugConsole.base = (UART_Type *)baseAddr;
+   \                     ??DbgConsole_Init_2: (+1)
+   \       0x1C   0x6060             STR      R0,[R4, #+4]
+    252                      UART_GetDefaultConfig(&uart_config);
+   \       0x1E   0x4668             MOV      R0,SP
+   \       0x20   0x.... 0x....      BL       UART_GetDefaultConfig
+    253                      uart_config.baudRate_Bps = baudRate;
+   \       0x24   0x9500             STR      R5,[SP, #+0]
+    254                      /* Enable clock and initial UART module follow user configure structure. */
+    255                      UART_Init(s_debugConsole.base, &uart_config, clkSrcFreq);
+   \       0x26   0x4632             MOV      R2,R6
+   \       0x28   0x4669             MOV      R1,SP
+   \       0x2A   0x6860             LDR      R0,[R4, #+4]
+   \       0x2C   0x.... 0x....      BL       UART_Init
+    256                      UART_EnableTx(s_debugConsole.base, true);
+   \       0x30   0x2101             MOVS     R1,#+1
+   \       0x32   0x6860             LDR      R0,[R4, #+4]
+   \       0x34   0x.... 0x....      BL       UART_EnableTx
+    257                      UART_EnableRx(s_debugConsole.base, true);
+   \       0x38   0x2101             MOVS     R1,#+1
+   \       0x3A   0x6860             LDR      R0,[R4, #+4]
+   \       0x3C   0x.... 0x....      BL       UART_EnableRx
+    258                      /* Set the function pointer for send and receive for this kind of device. */
+    259                      s_debugConsole.ops.tx_union.UART_PutChar = UART_WriteBlocking;
+   \       0x40   0x....             LDR.N    R0,??DataTable6_1
+   \       0x42   0x60A0             STR      R0,[R4, #+8]
+    260                      s_debugConsole.ops.rx_union.UART_GetChar = UART_ReadBlocking;
+   \       0x44   0x....             LDR.N    R0,??DataTable6_2
+   \       0x46   0x60E0             STR      R0,[R4, #+12]
+    261                  }
+    262                  break;
+    263          #endif /* FSL_FEATURE_SOC_UART_COUNT */
+    264          #if defined(FSL_FEATURE_SOC_LPSCI_COUNT) && (FSL_FEATURE_SOC_LPSCI_COUNT > 0)
+    265                  case DEBUG_CONSOLE_DEVICE_TYPE_LPSCI:
+    266                  {
+    267                      lpsci_config_t lpsci_config;
+    268                      s_debugConsole.base = (UART0_Type *)baseAddr;
+    269                      LPSCI_GetDefaultConfig(&lpsci_config);
+    270                      lpsci_config.baudRate_Bps = baudRate;
+    271                      /* Enable clock and initial UART module follow user configure structure. */
+    272                      LPSCI_Init(s_debugConsole.base, &lpsci_config, clkSrcFreq);
+    273                      LPSCI_EnableTx(s_debugConsole.base, true);
+    274                      LPSCI_EnableRx(s_debugConsole.base, true);
+    275                      /* Set the function pointer for send and receive for this kind of device. */
+    276                      s_debugConsole.ops.tx_union.LPSCI_PutChar = LPSCI_WriteBlocking;
+    277                      s_debugConsole.ops.rx_union.LPSCI_GetChar = LPSCI_ReadBlocking;
+    278                  }
+    279                  break;
+    280          #endif /* FSL_FEATURE_SOC_LPSCI_COUNT */
+    281          #if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 0)
+    282                  case DEBUG_CONSOLE_DEVICE_TYPE_LPUART:
+    283                  {
+    284                      lpuart_config_t lpuart_config;
+    285                      s_debugConsole.base = (LPUART_Type *)baseAddr;
+    286                      LPUART_GetDefaultConfig(&lpuart_config);
+    287                      lpuart_config.baudRate_Bps = baudRate;
+    288                      /* Enable clock and initial UART module follow user configure structure. */
+    289                      LPUART_Init(s_debugConsole.base, &lpuart_config, clkSrcFreq);
+    290                      LPUART_EnableTx(s_debugConsole.base, true);
+    291                      LPUART_EnableRx(s_debugConsole.base, true);
+    292                      /* Set the function pointer for send and receive for this kind of device. */
+    293                      s_debugConsole.ops.tx_union.LPUART_PutChar = LPUART_WriteBlocking;
+    294                      s_debugConsole.ops.rx_union.LPUART_GetChar = LPUART_ReadBlocking;
+    295                  }
+    296                  break;
+    297          #endif /* FSL_FEATURE_SOC_LPUART_COUNT */
+    298          #if defined(FSL_FEATURE_SOC_USB_COUNT) && (FSL_FEATURE_SOC_USB_COUNT > 0) && defined(BOARD_USE_VIRTUALCOM)
+    299                  case DEBUG_CONSOLE_DEVICE_TYPE_USBCDC:
+    300                  {
+    301                      s_debugConsole.base = USB_VcomInit();
+    302                      s_debugConsole.ops.tx_union.USB_PutChar = USB_VcomWriteBlocking;
+    303                      s_debugConsole.ops.rx_union.USB_GetChar = USB_VcomReadBlocking;
+    304                  }
+    305                  break;
+    306          #endif /* FSL_FEATURE_SOC_USB_COUNT && BOARD_USE_VIRTUALCOM*/
+    307          #if defined(FSL_FEATURE_SOC_FLEXCOMM_COUNT) && (FSL_FEATURE_SOC_FLEXCOMM_COUNT > 0)
+    308                  case DEBUG_CONSOLE_DEVICE_TYPE_FLEXCOMM:
+    309                  {
+    310                      usart_config_t usart_config;
+    311                      s_debugConsole.base = (USART_Type *)baseAddr;
+    312                      USART_GetDefaultConfig(&usart_config);
+    313                      usart_config.baudRate_Bps = baudRate;
+    314                      /* Enable clock and initial UART module follow user configure structure. */
+    315                      USART_Init(s_debugConsole.base, &usart_config, clkSrcFreq);
+    316                      /* Set the function pointer for send and receive for this kind of device. */
+    317                      s_debugConsole.ops.tx_union.USART_PutChar = USART_WriteBlocking;
+    318                      s_debugConsole.ops.rx_union.USART_GetChar = USART_ReadBlocking;
+    319                  }
+    320                  break;
+    321          #endif  /* FSL_FEATURE_SOC_FLEXCOMM_COUNT*/
+    322                  /* If new device is required as the low level device for debug console,
+    323                   * Add the case branch and add the preprocessor macro to judge whether
+    324                   * this kind of device exist in this SOC. */
+    325                  default:
+    326                      /* Device identified is invalid, return invalid device error code. */
+    327                      return kStatus_InvalidArgument;
+    328              }
+    329          
+    330              return kStatus_Success;
+   \       0x48   0x2000             MOVS     R0,#+0
+   \       0x4A   0xE000             B.N      ??DbgConsole_Init_1
+   \                     ??DbgConsole_Init_3: (+1)
+   \       0x4C   0x2004             MOVS     R0,#+4
+   \                     ??DbgConsole_Init_1: (+1)
+   \       0x4E   0xB004             ADD      SP,SP,#+16
+   \       0x50   0xBD70             POP      {R4-R6,PC}       ;; return
+    331          }
+    332          
+    333          /* See fsl_debug_console.h for documentation of this function. */
+
+   \                                 In section .text, align 2, keep-with-next
+    334          status_t DbgConsole_Deinit(void)
+    335          {
+   \                     DbgConsole_Deinit: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    336              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \        0x2   0x....             LDR.N    R4,??DataTable6
+   \        0x4   0x7820             LDRB     R0,[R4, #+0]
+   \        0x6   0x2800             CMP      R0,#+0
+   \        0x8   0xD101             BNE.N    ??DbgConsole_Deinit_0
+    337              {
+    338                  return kStatus_Success;
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0xBD10             POP      {R4,PC}
+    339              }
+    340          
+    341              switch (s_debugConsole.type)
+   \                     ??DbgConsole_Deinit_0: (+1)
+   \        0xE   0x2801             CMP      R0,#+1
+   \       0x10   0xD001             BEQ.N    ??DbgConsole_Deinit_1
+   \       0x12   0x2806             CMP      R0,#+6
+   \       0x14   0xD103             BNE.N    ??DbgConsole_Deinit_2
+    342              {
+    343          #if (defined(FSL_FEATURE_SOC_UART_COUNT) && (FSL_FEATURE_SOC_UART_COUNT > 0)) || \
+    344              (defined(FSL_FEATURE_SOC_IUART_COUNT) && (FSL_FEATURE_SOC_IUART_COUNT > 0))
+    345                  case DEBUG_CONSOLE_DEVICE_TYPE_UART:
+    346                  case DEBUG_CONSOLE_DEVICE_TYPE_IUART:
+    347                      /* Disable UART module. */
+    348                      UART_Deinit(s_debugConsole.base);
+   \                     ??DbgConsole_Deinit_1: (+1)
+   \       0x16   0x6860             LDR      R0,[R4, #+4]
+   \       0x18   0x.... 0x....      BL       UART_Deinit
+    349                      break;
+   \       0x1C   0xE001             B.N      ??DbgConsole_Deinit_3
+    350          #endif /* FSL_FEATURE_SOC_UART_COUNT */
+    351          #if defined(FSL_FEATURE_SOC_LPSCI_COUNT) && (FSL_FEATURE_SOC_LPSCI_COUNT > 0)
+    352                  case DEBUG_CONSOLE_DEVICE_TYPE_LPSCI:
+    353                      /* Disable LPSCI module. */
+    354                      LPSCI_Deinit(s_debugConsole.base);
+    355                      break;
+    356          #endif /* FSL_FEATURE_SOC_LPSCI_COUNT */
+    357          #if defined(FSL_FEATURE_SOC_LPUART_COUNT) && (FSL_FEATURE_SOC_LPUART_COUNT > 0)
+    358                  case DEBUG_CONSOLE_DEVICE_TYPE_LPUART:
+    359                      /* Disable LPUART module. */
+    360                      LPUART_Deinit(s_debugConsole.base);
+    361                      break;
+    362          #endif /* FSL_FEATURE_SOC_LPUART_COUNT */
+    363          #if defined(FSL_FEATURE_SOC_USB_COUNT) && (FSL_FEATURE_SOC_USB_COUNT > 0) && defined(BOARD_USE_VIRTUALCOM)
+    364                  case DEBUG_CONSOLE_DEVICE_TYPE_USBCDC:
+    365                      /* Disable USBCDC module. */
+    366                      USB_VcomDeinit(s_debugConsole.base);
+    367                      break;
+    368          #endif /* FSL_FEATURE_SOC_USB_COUNT && BOARD_USE_VIRTUALCOM*/
+    369          #if defined(FSL_FEATURE_SOC_FLEXCOMM_COUNT) && (FSL_FEATURE_SOC_FLEXCOMM_COUNT > 0)
+    370                  case DEBUG_CONSOLE_DEVICE_TYPE_FLEXCOMM:
+    371                  {
+    372                      USART_Deinit((USART_Type *)s_debugConsole.base);
+    373                  }
+    374                  break;
+    375          #endif /* FSL_FEATURE_SOC_FLEXCOMM_COUNT*/
+    376                  default:
+    377                      s_debugConsole.type = DEBUG_CONSOLE_DEVICE_TYPE_NONE;
+   \                     ??DbgConsole_Deinit_2: (+1)
+   \       0x1E   0x2000             MOVS     R0,#+0
+   \       0x20   0x7020             STRB     R0,[R4, #+0]
+    378                      break;
+    379              }
+    380          
+    381              /* Device identified is invalid, return invalid device error code. */
+    382              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \                     ??DbgConsole_Deinit_3: (+1)
+   \       0x22   0x7820             LDRB     R0,[R4, #+0]
+   \       0x24   0x2800             CMP      R0,#+0
+   \       0x26   0xD101             BNE.N    ??DbgConsole_Deinit_4
+    383              {
+    384                  return kStatus_InvalidArgument;
+   \       0x28   0x2004             MOVS     R0,#+4
+   \       0x2A   0xBD10             POP      {R4,PC}
+    385              }
+    386          
+    387              s_debugConsole.type = DEBUG_CONSOLE_DEVICE_TYPE_NONE;
+   \                     ??DbgConsole_Deinit_4: (+1)
+   \       0x2C   0x2000             MOVS     R0,#+0
+   \       0x2E   0x7020             STRB     R0,[R4, #+0]
+    388              return kStatus_Success;
+   \       0x30   0xBD10             POP      {R4,PC}          ;; return
+    389          }
+    390          
+    391          #if SDK_DEBUGCONSOLE
+    392          /* See fsl_debug_console.h for documentation of this function. */
+
+   \                                 In section .text, align 2, keep-with-next
+    393          int DbgConsole_Printf(const char *fmt_s, ...)
+    394          {
+   \                     DbgConsole_Printf: (+1)
+   \        0x0   0xB40E             PUSH     {R1-R3}
+   \        0x2   0xB500             PUSH     {LR}
+    395              va_list ap;
+    396              int result;
+    397          
+    398              /* Do nothing if the debug UART is not initialized. */
+    399              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \        0x4   0x....             LDR.N    R1,??DataTable6
+   \        0x6   0x7809             LDRB     R1,[R1, #+0]
+   \        0x8   0x2900             CMP      R1,#+0
+   \        0xA   0xD102             BNE.N    ??DbgConsole_Printf_0
+    400              {
+    401                  return -1;
+   \        0xC   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x10   0xE005             B.N      ??DbgConsole_Printf_1
+    402              }
+    403              va_start(ap, fmt_s);
+   \                     ??DbgConsole_Printf_0: (+1)
+   \       0x12   0xAA01             ADD      R2,SP,#+4
+    404              result = DbgConsole_PrintfFormattedData(DbgConsole_Putchar, fmt_s, ap);
+    405              va_end(ap);
+    406          
+    407              return result;
+   \       0x14   0x4601             MOV      R1,R0
+   \       0x16   0x.... 0x....      ADR.W    R0,DbgConsole_Putchar
+   \       0x1A   0x.... 0x....      BL       DbgConsole_PrintfFormattedData
+   \                     ??DbgConsole_Printf_1: (+1)
+   \       0x1E   0xF85D 0xFB10      LDR      PC,[SP], #+16    ;; return
+    408          }
+    409          
+    410          /* See fsl_debug_console.h for documentation of this function. */
+
+   \                                 In section .text, align 4, keep-with-next
+    411          int DbgConsole_Putchar(int ch)
+    412          {
+   \                     DbgConsole_Putchar: (+1)
+   \        0x0   0xB501             PUSH     {R0,LR}
+    413              /* Do nothing if the debug UART is not initialized. */
+    414              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \        0x2   0x....             LDR.N    R3,??DataTable6
+   \        0x4   0x7818             LDRB     R0,[R3, #+0]
+   \        0x6   0x2800             CMP      R0,#+0
+   \        0x8   0xD102             BNE.N    ??DbgConsole_Putchar_0
+    415              {
+    416                  return -1;
+   \        0xA   0xF04F 0x30FF      MOV      R0,#-1
+   \        0xE   0xBD02             POP      {R1,PC}
+    417              }
+    418              s_debugConsole.ops.tx_union.PutChar(s_debugConsole.base, (uint8_t *)(&ch), 1);
+   \                     ??DbgConsole_Putchar_0: (+1)
+   \       0x10   0x2201             MOVS     R2,#+1
+   \       0x12   0x4669             MOV      R1,SP
+   \       0x14   0x6858             LDR      R0,[R3, #+4]
+   \       0x16   0x689B             LDR      R3,[R3, #+8]
+   \       0x18   0x4798             BLX      R3
+    419          
+    420              return 1;
+   \       0x1A   0x2001             MOVS     R0,#+1
+   \       0x1C   0xBD02             POP      {R1,PC}          ;; return
+    421          }
+    422          
+    423          /* See fsl_debug_console.h for documentation of this function. */
+
+   \                                 In section .text, align 2, keep-with-next
+    424          int DbgConsole_Scanf(char *fmt_ptr, ...)
+    425          {
+   \                     DbgConsole_Scanf: (+1)
+   \        0x0   0xB40E             PUSH     {R1-R3}
+   \        0x2   0xB578             PUSH     {R3-R6,LR}
+   \        0x4   0xB086             SUB      SP,SP,#+24
+   \        0x6   0x4605             MOV      R5,R0
+    426              /* Plus one to store end of string char */
+    427              char temp_buf[IO_MAXLINE + 1];
+    428              va_list ap;
+    429              int32_t i;
+    430              char result;
+    431          
+    432              /* Do nothing if the debug UART is not initialized. */
+    433              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \        0x8   0x....             LDR.N    R0,??DataTable6
+   \        0xA   0x7800             LDRB     R0,[R0, #+0]
+   \        0xC   0x2800             CMP      R0,#+0
+   \        0xE   0xD102             BNE.N    ??DbgConsole_Scanf_0
+    434              {
+    435                  return -1;
+   \       0x10   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x14   0xE022             B.N      ??DbgConsole_Scanf_1
+    436              }
+    437              va_start(ap, fmt_ptr);
+   \                     ??DbgConsole_Scanf_0: (+1)
+   \       0x16   0xAE0B             ADD      R6,SP,#+44
+    438              temp_buf[0] = '\0';
+   \       0x18   0x2000             MOVS     R0,#+0
+   \       0x1A   0xF88D 0x0000      STRB     R0,[SP, #+0]
+    439          
+    440              for (i = 0; i < IO_MAXLINE; i++)
+   \       0x1E   0x4604             MOV      R4,R0
+   \                     ??DbgConsole_Scanf_2: (+1)
+   \       0x20   0x2C14             CMP      R4,#+20
+   \       0x22   0xD21F             BCS.N    ??DbgConsole_Scanf_3
+    441              {
+    442                  temp_buf[i] = result = DbgConsole_Getchar();
+   \       0x24   0x.... 0x....      BL       DbgConsole_Getchar
+   \       0x28   0xB2C0             UXTB     R0,R0
+   \       0x2A   0x4669             MOV      R1,SP
+   \       0x2C   0x5508             STRB     R0,[R1, R4]
+    443          
+    444                  if ((result == '\r') || (result == '\n'))
+   \       0x2E   0x280D             CMP      R0,#+13
+   \       0x30   0xD001             BEQ.N    ??DbgConsole_Scanf_4
+   \       0x32   0x280A             CMP      R0,#+10
+   \       0x34   0xD106             BNE.N    ??DbgConsole_Scanf_5
+    445                  {
+    446                      /* End of Line. */
+    447                      if (i == 0)
+   \                     ??DbgConsole_Scanf_4: (+1)
+   \       0x36   0x2C00             CMP      R4,#+0
+   \       0x38   0xD114             BNE.N    ??DbgConsole_Scanf_3
+    448                      {
+    449                          temp_buf[i] = '\0';
+   \       0x3A   0x2000             MOVS     R0,#+0
+   \       0x3C   0xF88D 0x0000      STRB     R0,[SP, #+0]
+    450                          i = -1;
+   \       0x40   0xF04F 0x34FF      MOV      R4,#-1
+    451                      }
+    452                      else
+    453                      {
+    454                          break;
+    455                      }
+    456                  }
+    457              }
+   \                     ??DbgConsole_Scanf_5: (+1)
+   \       0x44   0x1C64             ADDS     R4,R4,#+1
+   \       0x46   0xE7EB             B.N      ??DbgConsole_Scanf_2
+    458          
+    459              if ((i == IO_MAXLINE))
+    460              {
+    461                  temp_buf[i] = '\0';
+    462              }
+    463              else
+    464              {
+    465                  temp_buf[i + 1] = '\0';
+   \                     ??DbgConsole_Scanf_6: (+1)
+   \       0x48   0x2000             MOVS     R0,#+0
+   \       0x4A   0x4669             MOV      R1,SP
+   \       0x4C   0x4421             ADD      R1,R1,R4
+   \       0x4E   0x7048             STRB     R0,[R1, #+1]
+    466              }
+    467              result = DbgConsole_ScanfFormattedData(temp_buf, fmt_ptr, ap);
+   \                     ??DbgConsole_Scanf_7: (+1)
+   \       0x50   0x4632             MOV      R2,R6
+   \       0x52   0x4629             MOV      R1,R5
+   \       0x54   0x4668             MOV      R0,SP
+   \       0x56   0x.... 0x....      BL       DbgConsole_ScanfFormattedData
+    468              va_end(ap);
+    469          
+    470              return result;
+   \       0x5A   0xB2C0             UXTB     R0,R0
+   \                     ??DbgConsole_Scanf_1: (+1)
+   \       0x5C   0xB007             ADD      SP,SP,#+28
+   \       0x5E   0xBC70             POP      {R4-R6}
+   \       0x60   0xF85D 0xFB10      LDR      PC,[SP], #+16    ;; return
+   \                     ??DbgConsole_Scanf_3: (+1)
+   \       0x64   0x2C14             CMP      R4,#+20
+   \       0x66   0xD1EF             BNE.N    ??DbgConsole_Scanf_6
+   \       0x68   0x2000             MOVS     R0,#+0
+   \       0x6A   0x4669             MOV      R1,SP
+   \       0x6C   0x5508             STRB     R0,[R1, R4]
+   \       0x6E   0xE7EF             B.N      ??DbgConsole_Scanf_7
+    471          }
+    472          
+    473          /* See fsl_debug_console.h for documentation of this function. */
+
+   \                                 In section .text, align 2, keep-with-next
+    474          int DbgConsole_Getchar(void)
+    475          {
+   \                     DbgConsole_Getchar: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    476              char ch;
+    477              /* Do nothing if the debug UART is not initialized. */
+    478              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \        0x2   0x....             LDR.N    R3,??DataTable6
+   \        0x4   0x7818             LDRB     R0,[R3, #+0]
+   \        0x6   0x2800             CMP      R0,#+0
+   \        0x8   0xD102             BNE.N    ??DbgConsole_Getchar_0
+    479              {
+    480                  return -1;
+   \        0xA   0xF04F 0x30FF      MOV      R0,#-1
+   \        0xE   0xBD02             POP      {R1,PC}
+    481              }
+    482              while (kStatus_Success != s_debugConsole.ops.rx_union.GetChar(s_debugConsole.base, (uint8_t *)(&ch), 1))
+   \                     ??DbgConsole_Getchar_0: (+1)
+   \       0x10   0x2201             MOVS     R2,#+1
+   \       0x12   0x4669             MOV      R1,SP
+   \       0x14   0x6858             LDR      R0,[R3, #+4]
+   \       0x16   0x68DB             LDR      R3,[R3, #+12]
+   \       0x18   0x4798             BLX      R3
+   \       0x1A   0x2800             CMP      R0,#+0
+   \       0x1C   0xD002             BEQ.N    ??DbgConsole_Getchar_1
+    483              {
+    484                  return -1;
+   \       0x1E   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x22   0xBD02             POP      {R1,PC}
+    485              }
+    486          
+    487              return ch;
+   \                     ??DbgConsole_Getchar_1: (+1)
+   \       0x24   0xF89D 0x0000      LDRB     R0,[SP, #+0]
+   \       0x28   0xBD02             POP      {R1,PC}          ;; return
+    488          }
+    489          
+    490          /*************Code for process formatted data*******************************/
+    491          /*!
+    492           * @brief Scanline function which ignores white spaces.
+    493           *
+    494           * @param[in]   s The address of the string pointer to update.
+    495           * @return      String without white spaces.
+    496           */
+
+   \                                 In section .text, align 2, keep-with-next
+    497          static uint32_t DbgConsole_ScanIgnoreWhiteSpace(const char **s)
+    498          {
+   \                     DbgConsole_ScanIgnoreWhiteSpace: (+1)
+   \        0x0   0x4601             MOV      R1,R0
+    499              uint8_t count = 0;
+   \        0x2   0x2000             MOVS     R0,#+0
+    500              uint8_t c;
+    501          
+    502              c = **s;
+   \        0x4   0x680A             LDR      R2,[R1, #+0]
+   \        0x6   0x7812             LDRB     R2,[R2, #+0]
+   \        0x8   0xE004             B.N      ??DbgConsole_ScanIgnoreWhiteSpace_0
+    503              while ((c == ' ') || (c == '\t') || (c == '\n') || (c == '\r') || (c == '\v') || (c == '\f'))
+    504              {
+    505                  count++;
+   \                     ??DbgConsole_ScanIgnoreWhiteSpace_1: (+1)
+   \        0xA   0x1C40             ADDS     R0,R0,#+1
+    506                  (*s)++;
+   \        0xC   0x680A             LDR      R2,[R1, #+0]
+   \        0xE   0x1C52             ADDS     R2,R2,#+1
+   \       0x10   0x600A             STR      R2,[R1, #+0]
+    507                  c = **s;
+   \       0x12   0x7812             LDRB     R2,[R2, #+0]
+    508              }
+   \                     ??DbgConsole_ScanIgnoreWhiteSpace_0: (+1)
+   \       0x14   0x2A20             CMP      R2,#+32
+   \       0x16   0xD0F8             BEQ.N    ??DbgConsole_ScanIgnoreWhiteSpace_1
+   \       0x18   0x2A09             CMP      R2,#+9
+   \       0x1A   0xD0F6             BEQ.N    ??DbgConsole_ScanIgnoreWhiteSpace_1
+   \       0x1C   0x2A0A             CMP      R2,#+10
+   \       0x1E   0xD0F4             BEQ.N    ??DbgConsole_ScanIgnoreWhiteSpace_1
+   \       0x20   0x2A0D             CMP      R2,#+13
+   \       0x22   0xD0F2             BEQ.N    ??DbgConsole_ScanIgnoreWhiteSpace_1
+   \       0x24   0x2A0B             CMP      R2,#+11
+   \       0x26   0xD0F0             BEQ.N    ??DbgConsole_ScanIgnoreWhiteSpace_1
+   \       0x28   0x2A0C             CMP      R2,#+12
+   \       0x2A   0xD0EE             BEQ.N    ??DbgConsole_ScanIgnoreWhiteSpace_1
+    509              return count;
+   \       0x2C   0xB2C0             UXTB     R0,R0
+   \       0x2E   0x4770             BX       LR               ;; return
+    510          }
+    511          
+    512          /*!
+    513           * @brief This function puts padding character.
+    514           *
+    515           * @param[in] c         Padding character.
+    516           * @param[in] curlen    Length of current formatted string .
+    517           * @param[in] width     Width of expected formatted string.
+    518           * @param[in] count     Number of characters.
+    519           * @param[in] func_ptr  Function to put character out.
+    520           */
+
+   \                                 In section .text, align 2, keep-with-next
+    521          static void DbgConsole_PrintfPaddingCharacter(
+    522              char c, int32_t curlen, int32_t width, int32_t *count, PUTCHAR_FUNC func_ptr)
+    523          {
+   \                     DbgConsole_PrintfPaddingCharacter: (+1)
+   \        0x0   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \        0x4   0x4604             MOV      R4,R0
+   \        0x6   0x460D             MOV      R5,R1
+   \        0x8   0x4616             MOV      R6,R2
+   \        0xA   0x461F             MOV      R7,R3
+   \        0xC   0xF8DD 0x8018      LDR      R8,[SP, #+24]
+    524              int32_t i;
+    525          
+    526              for (i = curlen; i < width; i++)
+   \       0x10   0xE005             B.N      ??DbgConsole_PrintfPaddingCharacter_0
+    527              {
+    528                  func_ptr(c);
+   \                     ??DbgConsole_PrintfPaddingCharacter_1: (+1)
+   \       0x12   0x4620             MOV      R0,R4
+   \       0x14   0x47C0             BLX      R8
+    529                  (*count)++;
+   \       0x16   0x6838             LDR      R0,[R7, #+0]
+   \       0x18   0x1C40             ADDS     R0,R0,#+1
+   \       0x1A   0x6038             STR      R0,[R7, #+0]
+    530              }
+   \       0x1C   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??DbgConsole_PrintfPaddingCharacter_0: (+1)
+   \       0x1E   0x42B5             CMP      R5,R6
+   \       0x20   0xDBF7             BLT.N    ??DbgConsole_PrintfPaddingCharacter_1
+    531          }
+   \       0x22   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+    532          
+    533          /*!
+    534           * @brief Converts a radix number to a string and return its length.
+    535           *
+    536           * @param[in] numstr    Converted string of the number.
+    537           * @param[in] nump      Pointer to the number.
+    538           * @param[in] neg       Polarity of the number.
+    539           * @param[in] radix     The radix to be converted to.
+    540           * @param[in] use_caps  Used to identify %x/X output format.
+    541          
+    542           * @return Length of the converted string.
+    543           */
+
+   \                                 In section .text, align 2, keep-with-next
+    544          static int32_t DbgConsole_ConvertRadixNumToString(char *numstr, void *nump, int32_t neg, int32_t radix, bool use_caps)
+    545          {
+   \                     DbgConsole_ConvertRadixNumToString: (+1)
+   \        0x0   0xB470             PUSH     {R4-R6}
+   \        0x2   0x4604             MOV      R4,R0
+    546          #if PRINTF_ADVANCED_ENABLE
+    547              int64_t a;
+    548              int64_t b;
+    549              int64_t c;
+    550          
+    551              uint64_t ua;
+    552              uint64_t ub;
+    553              uint64_t uc;
+    554          #else
+    555              int32_t a;
+    556              int32_t b;
+    557              int32_t c;
+    558          
+    559              uint32_t ua;
+    560              uint32_t ub;
+    561              uint32_t uc;
+    562          #endif /* PRINTF_ADVANCED_ENABLE */
+    563          
+    564              int32_t nlen;
+    565              char *nstrp;
+    566          
+    567              nlen = 0;
+   \        0x4   0x2500             MOVS     R5,#+0
+    568              nstrp = numstr;
+    569              *nstrp++ = '\0';
+   \        0x6   0x4628             MOV      R0,R5
+   \        0x8   0xF804 0x0B01      STRB     R0,[R4], #+1
+    570          
+    571              if (neg)
+   \        0xC   0x2A00             CMP      R2,#+0
+   \        0xE   0x6808             LDR      R0,[R1, #+0]
+   \       0x10   0xD014             BEQ.N    ??DbgConsole_ConvertRadixNumToString_0
+    572              {
+    573          #if PRINTF_ADVANCED_ENABLE
+    574                  a = *(int64_t *)nump;
+    575          #else
+    576                  a = *(int32_t *)nump;
+    577          #endif /* PRINTF_ADVANCED_ENABLE */
+    578                  if (a == 0)
+   \       0x12   0x2800             CMP      R0,#+0
+   \       0x14   0xD015             BEQ.N    ??DbgConsole_ConvertRadixNumToString_1
+    579                  {
+    580                      *nstrp = '0';
+    581                      ++nlen;
+    582                      return nlen;
+    583                  }
+    584                  while (a != 0)
+   \                     ??DbgConsole_ConvertRadixNumToString_2: (+1)
+   \       0x16   0x2800             CMP      R0,#+0
+   \       0x18   0xD02E             BEQ.N    ??DbgConsole_ConvertRadixNumToString_3
+    585                  {
+    586          #if PRINTF_ADVANCED_ENABLE
+    587                      b = (int64_t)a / (int64_t)radix;
+    588                      c = (int64_t)a - ((int64_t)b * (int64_t)radix);
+    589                      if (c < 0)
+    590                      {
+    591                          uc = (uint64_t)c;
+    592                          c = (int64_t)(~uc) + 1 + '0';
+    593                      }
+    594          #else
+    595                      b = a / radix;
+   \       0x1A   0xFB90 0xF2F3      SDIV     R2,R0,R3
+    596                      c = a - (b * radix);
+   \       0x1E   0xFB03 0x0012      MLS      R0,R3,R2,R0
+    597                      if (c < 0)
+   \       0x22   0x2800             CMP      R0,#+0
+   \       0x24   0xD402             BMI.N    ??DbgConsole_ConvertRadixNumToString_4
+    598                      {
+    599                          uc = (uint32_t)c;
+    600                          c = (uint32_t)(~uc) + 1 + '0';
+    601                      }
+    602          #endif /* PRINTF_ADVANCED_ENABLE */
+    603                      else
+    604                      {
+    605                          c = c + '0';
+   \       0x26   0x3030             ADDS     R0,R0,#+48
+   \       0x28   0x4601             MOV      R1,R0
+   \       0x2A   0xE002             B.N      ??DbgConsole_ConvertRadixNumToString_5
+    606                      }
+   \                     ??DbgConsole_ConvertRadixNumToString_4: (+1)
+   \       0x2C   0x43C0             MVNS     R0,R0
+   \       0x2E   0x3031             ADDS     R0,R0,#+49
+   \       0x30   0x4601             MOV      R1,R0
+    607                      a = b;
+   \                     ??DbgConsole_ConvertRadixNumToString_5: (+1)
+   \       0x32   0x4610             MOV      R0,R2
+    608                      *nstrp++ = (char)c;
+   \       0x34   0xF804 0x1B01      STRB     R1,[R4], #+1
+    609                      ++nlen;
+   \       0x38   0x1C6D             ADDS     R5,R5,#+1
+   \       0x3A   0xE7EC             B.N      ??DbgConsole_ConvertRadixNumToString_2
+    610                  }
+    611              }
+    612              else
+    613              {
+    614          #if PRINTF_ADVANCED_ENABLE
+    615                  ua = *(uint64_t *)nump;
+    616          #else
+    617                  ua = *(uint32_t *)nump;
+   \                     ??DbgConsole_ConvertRadixNumToString_0: (+1)
+   \       0x3C   0x9903             LDR      R1,[SP, #+12]
+    618          #endif /* PRINTF_ADVANCED_ENABLE */
+    619                  if (ua == 0)
+   \       0x3E   0x2800             CMP      R0,#+0
+   \       0x40   0xD10F             BNE.N    ??DbgConsole_ConvertRadixNumToString_6
+    620                  {
+    621                      *nstrp = '0';
+   \                     ??DbgConsole_ConvertRadixNumToString_1: (+1)
+   \       0x42   0x2030             MOVS     R0,#+48
+   \       0x44   0x7020             STRB     R0,[R4, #+0]
+    622                      ++nlen;
+    623                      return nlen;
+   \       0x46   0x2001             MOVS     R0,#+1
+   \       0x48   0xE017             B.N      ??DbgConsole_ConvertRadixNumToString_7
+    624                  }
+    625                  while (ua != 0)
+    626                  {
+    627          #if PRINTF_ADVANCED_ENABLE
+    628                      ub = (uint64_t)ua / (uint64_t)radix;
+    629                      uc = (uint64_t)ua - ((uint64_t)ub * (uint64_t)radix);
+    630          #else
+    631                      ub = ua / (uint32_t)radix;
+    632                      uc = ua - (ub * (uint32_t)radix);
+    633          #endif /* PRINTF_ADVANCED_ENABLE */
+    634          
+    635                      if (uc < 10)
+    636                      {
+    637                          uc = uc + '0';
+    638                      }
+    639                      else
+    640                      {
+    641                          uc = uc - 10 + (use_caps ? 'A' : 'a');
+   \                     ??DbgConsole_ConvertRadixNumToString_8: (+1)
+   \       0x4A   0x2261             MOVS     R2,#+97
+   \       0x4C   0xE002             B.N      ??DbgConsole_ConvertRadixNumToString_9
+   \                     ??DbgConsole_ConvertRadixNumToString_10: (+1)
+   \       0x4E   0x000A             MOVS     R2,R1
+   \       0x50   0xD0FB             BEQ.N    ??DbgConsole_ConvertRadixNumToString_8
+   \       0x52   0x2241             MOVS     R2,#+65
+   \                     ??DbgConsole_ConvertRadixNumToString_9: (+1)
+   \       0x54   0x3A0A             SUBS     R2,R2,#+10
+   \       0x56   0x1810             ADDS     R0,R2,R0
+   \       0x58   0x4602             MOV      R2,R0
+    642                      }
+    643                      ua = ub;
+   \                     ??DbgConsole_ConvertRadixNumToString_11: (+1)
+   \       0x5A   0x4630             MOV      R0,R6
+    644                      *nstrp++ = (char)uc;
+   \       0x5C   0xF804 0x2B01      STRB     R2,[R4], #+1
+    645                      ++nlen;
+   \       0x60   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??DbgConsole_ConvertRadixNumToString_6: (+1)
+   \       0x62   0x2800             CMP      R0,#+0
+   \       0x64   0xD008             BEQ.N    ??DbgConsole_ConvertRadixNumToString_3
+   \       0x66   0xFBB0 0xF6F3      UDIV     R6,R0,R3
+   \       0x6A   0xFB03 0x0016      MLS      R0,R3,R6,R0
+   \       0x6E   0x280A             CMP      R0,#+10
+   \       0x70   0xD2ED             BCS.N    ??DbgConsole_ConvertRadixNumToString_10
+   \       0x72   0x3030             ADDS     R0,R0,#+48
+   \       0x74   0x4602             MOV      R2,R0
+   \       0x76   0xE7F0             B.N      ??DbgConsole_ConvertRadixNumToString_11
+    646                  }
+    647              }
+    648              return nlen;
+   \                     ??DbgConsole_ConvertRadixNumToString_3: (+1)
+   \       0x78   0x4628             MOV      R0,R5
+   \                     ??DbgConsole_ConvertRadixNumToString_7: (+1)
+   \       0x7A   0xBC70             POP      {R4-R6}
+   \       0x7C   0x4770             BX       LR               ;; return
+    649          }
+    650          
+    651          #if PRINTF_FLOAT_ENABLE
+    652          /*!
+    653           * @brief Converts a floating radix number to a string and return its length.
+    654           *
+    655           * @param[in] numstr            Converted string of the number.
+    656           * @param[in] nump              Pointer to the number.
+    657           * @param[in] radix             The radix to be converted to.
+    658           * @param[in] precision_width   Specify the precision width.
+    659          
+    660           * @return Length of the converted string.
+    661           */
+    662          static int32_t DbgConsole_ConvertFloatRadixNumToString(char *numstr,
+    663                                                                 void *nump,
+    664                                                                 int32_t radix,
+    665                                                                 uint32_t precision_width)
+    666          {
+    667              int32_t a;
+    668              int32_t b;
+    669              int32_t c;
+    670              int32_t i;
+    671              uint32_t uc;
+    672              double fa;
+    673              double dc;
+    674              double fb;
+    675              double r;
+    676              double fractpart;
+    677              double intpart;
+    678          
+    679              int32_t nlen;
+    680              char *nstrp;
+    681              nlen = 0;
+    682              nstrp = numstr;
+    683              *nstrp++ = '\0';
+    684              r = *(double *)nump;
+    685              if (!r)
+    686              {
+    687                  *nstrp = '0';
+    688                  ++nlen;
+    689                  return nlen;
+    690              }
+    691              fractpart = modf((double)r, (double *)&intpart);
+    692              /* Process fractional part. */
+    693              for (i = 0; i < precision_width; i++)
+    694              {
+    695                  fractpart *= radix;
+    696              }
+    697              if (r >= 0)
+    698              {
+    699                  fa = fractpart + (double)0.5;
+    700                  if (fa >= pow(10, precision_width))
+    701                  {
+    702                      intpart++;
+    703                  }
+    704              }
+    705              else
+    706              {
+    707                  fa = fractpart - (double)0.5;
+    708                  if (fa <= -pow(10, precision_width))
+    709                  {
+    710                      intpart--;
+    711                  }
+    712              }
+    713              for (i = 0; i < precision_width; i++)
+    714              {
+    715                  fb = fa / (int32_t)radix;
+    716                  dc = (fa - (int64_t)fb * (int32_t)radix);
+    717                  c = (int32_t)dc;
+    718                  if (c < 0)
+    719                  {
+    720                      uc = (uint32_t)c;
+    721                      c = (int32_t)(~uc) + 1 + '0';
+    722                  }
+    723                  else
+    724                  {
+    725                      c = c + '0';
+    726                  }
+    727                  fa = fb;
+    728                  *nstrp++ = (char)c;
+    729                  ++nlen;
+    730              }
+    731              *nstrp++ = (char)'.';
+    732              ++nlen;
+    733              a = (int32_t)intpart;
+    734              if (a == 0)
+    735              {
+    736                  *nstrp++ = '0';
+    737                  ++nlen;
+    738              }
+    739              else
+    740              {
+    741                  while (a != 0)
+    742                  {
+    743                      b = (int32_t)a / (int32_t)radix;
+    744                      c = (int32_t)a - ((int32_t)b * (int32_t)radix);
+    745                      if (c < 0)
+    746                      {
+    747                          uc = (uint32_t)c;
+    748                          c = (int32_t)(~uc) + 1 + '0';
+    749                      }
+    750                      else
+    751                      {
+    752                          c = c + '0';
+    753                      }
+    754                      a = b;
+    755                      *nstrp++ = (char)c;
+    756                      ++nlen;
+    757                  }
+    758              }
+    759              return nlen;
+    760          }
+    761          #endif /* PRINTF_FLOAT_ENABLE */
+    762          
+    763          /*!
+    764           * @brief This function outputs its parameters according to a formatted string.
+    765           *
+    766           * @note I/O is performed by calling given function pointer using following
+    767           * (*func_ptr)(c);
+    768           *
+    769           * @param[in] func_ptr  Function to put character out.
+    770           * @param[in] fmt_ptr   Format string for printf.
+    771           * @param[in] args_ptr  Arguments to printf.
+    772           *
+    773           * @return Number of characters
+    774           */
+
+   \                                 In section .text, align 2, keep-with-next
+    775          static int DbgConsole_PrintfFormattedData(PUTCHAR_FUNC func_ptr, const char *fmt, va_list ap)
+    776          {
+   \                     DbgConsole_PrintfFormattedData: (+1)
+   \        0x0   0xE92D 0x4FF8      PUSH     {R3-R11,LR}
+   \        0x4   0xB08E             SUB      SP,SP,#+56
+   \        0x6   0x4682             MOV      R10,R0
+   \        0x8   0x4614             MOV      R4,R2
+    777              /* va_list ap; */
+    778              char *p;
+    779              int32_t c;
+    780          
+    781              char vstr[33];
+    782              char *vstrp = NULL;
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0x9004             STR      R0,[SP, #+16]
+    783              int32_t vlen = 0;
+   \        0xE   0x4605             MOV      R5,R0
+    784          
+    785              int32_t done;
+    786              int32_t count = 0;
+   \       0x10   0x9001             STR      R0,[SP, #+4]
+    787          
+    788              uint32_t field_width;
+    789              uint32_t precision_width;
+    790              char *sval;
+    791              int32_t cval;
+    792              bool use_caps;
+    793              uint8_t radix = 0;
+   \       0x12   0x4606             MOV      R6,R0
+    794          
+    795          #if PRINTF_ADVANCED_ENABLE
+    796              uint32_t flags_used;
+    797              int32_t schar, dschar;
+    798              int64_t ival;
+    799              uint64_t uval = 0;
+    800              bool valid_precision_width;
+    801          #else
+    802              int32_t ival;
+    803              uint32_t uval = 0;
+   \       0x14   0x9002             STR      R0,[SP, #+8]
+    804          #endif /* PRINTF_ADVANCED_ENABLE */
+    805          
+    806          #if PRINTF_FLOAT_ENABLE
+    807              double fval;
+    808          #endif /* PRINTF_FLOAT_ENABLE */
+    809          
+    810              /* Start parsing apart the format string and display appropriate formats and data. */
+    811              for (p = (char *)fmt; (c = *p) != 0; p++)
+   \       0x16   0x460F             MOV      R7,R1
+   \       0x18   0xE005             B.N      ??DbgConsole_PrintfFormattedData_0
+    812              {
+    813                  /*
+    814                   * All formats begin with a '%' marker.  Special chars like
+    815                   * '\n' or '\t' are normally converted to the appropriate
+    816                   * character by the __compiler__.  Thus, no need for this
+    817                   * routine to account for the '\' character.
+    818                   */
+    819                  if (c != '%')
+    820                  {
+    821                      func_ptr(c);
+    822                      count++;
+    823                      /* By using 'continue', the next iteration of the loop is used, skipping the code that follows. */
+    824                      continue;
+    825                  }
+    826          
+    827                  use_caps = true;
+    828          
+    829          #if PRINTF_ADVANCED_ENABLE
+    830                  /* First check for specification modifier flags. */
+    831                  flags_used = 0;
+    832                  done = false;
+    833                  while (!done)
+    834                  {
+    835                      switch (*++p)
+    836                      {
+    837                          case '-':
+    838                              flags_used |= kPRINTF_Minus;
+    839                              break;
+    840                          case '+':
+    841                              flags_used |= kPRINTF_Plus;
+    842                              break;
+    843                          case ' ':
+    844                              flags_used |= kPRINTF_Space;
+    845                              break;
+    846                          case '0':
+    847                              flags_used |= kPRINTF_Zero;
+    848                              break;
+    849                          case '#':
+    850                              flags_used |= kPRINTF_Pound;
+    851                              break;
+    852                          default:
+    853                              /* We've gone one char too far. */
+    854                              --p;
+    855                              done = true;
+    856                              break;
+    857                      }
+    858                  }
+    859          #endif /* PRINTF_ADVANCED_ENABLE */
+    860          
+    861                  /* Next check for minimum field width. */
+    862                  field_width = 0;
+    863                  done = false;
+    864                  while (!done)
+    865                  {
+    866                      c = *++p;
+    867                      if ((c >= '0') && (c <= '9'))
+    868                      {
+    869                          field_width = (field_width * 10) + (c - '0');
+    870                      }
+    871          #if PRINTF_ADVANCED_ENABLE
+    872                      else if (c == '*')
+    873                      {
+    874                          field_width = (uint32_t)va_arg(ap, uint32_t);
+    875                      }
+    876          #endif /* PRINTF_ADVANCED_ENABLE */
+    877                      else
+    878                      {
+    879                          /* We've gone one char too far. */
+    880                          --p;
+    881                          done = true;
+    882                      }
+    883                  }
+    884                  /* Next check for the width and precision field separator. */
+    885                  precision_width = 6;
+    886          #if PRINTF_ADVANCED_ENABLE
+    887                  valid_precision_width = false;
+    888          #endif /* PRINTF_ADVANCED_ENABLE */
+    889                  if (*++p == '.')
+    890                  {
+    891                      /* Must get precision field width, if present. */
+    892                      precision_width = 0;
+    893                      done = false;
+    894                      while (!done)
+    895                      {
+    896                          c = *++p;
+    897                          if ((c >= '0') && (c <= '9'))
+    898                          {
+    899                              precision_width = (precision_width * 10) + (c - '0');
+    900          #if PRINTF_ADVANCED_ENABLE
+    901                              valid_precision_width = true;
+    902          #endif /* PRINTF_ADVANCED_ENABLE */
+    903                          }
+    904          #if PRINTF_ADVANCED_ENABLE
+    905                          else if (c == '*')
+    906                          {
+    907                              precision_width = (uint32_t)va_arg(ap, uint32_t);
+    908                              valid_precision_width = true;
+    909                          }
+    910          #endif /* PRINTF_ADVANCED_ENABLE */
+    911                          else
+    912                          {
+    913                              /* We've gone one char too far. */
+    914                              --p;
+    915                              done = true;
+    916                          }
+    917                      }
+    918                  }
+    919                  else
+    920                  {
+    921                      /* We've gone one char too far. */
+    922                      --p;
+    923                  }
+    924          #if PRINTF_ADVANCED_ENABLE
+    925                  /*
+    926                   * Check for the length modifier.
+    927                   */
+    928                  switch (/* c = */ *++p)
+    929                  {
+    930                      case 'h':
+    931                          if (*++p != 'h')
+    932                          {
+    933                              flags_used |= kPRINTF_LengthShortInt;
+    934                              --p;
+    935                          }
+    936                          else
+    937                          {
+    938                              flags_used |= kPRINTF_LengthChar;
+    939                          }
+    940                          break;
+    941                      case 'l':
+    942                          if (*++p != 'l')
+    943                          {
+    944                              flags_used |= kPRINTF_LengthLongInt;
+    945                              --p;
+    946                          }
+    947                          else
+    948                          {
+    949                              flags_used |= kPRINTF_LengthLongLongInt;
+    950                          }
+    951                          break;
+    952                      default:
+    953                          /* we've gone one char too far */
+    954                          --p;
+    955                          break;
+    956                  }
+    957          #endif /* PRINTF_ADVANCED_ENABLE */
+    958                  /* Now we're ready to examine the format. */
+    959                  c = *++p;
+    960                  {
+    961                      if ((c == 'd') || (c == 'i') || (c == 'f') || (c == 'F') || (c == 'x') || (c == 'X') || (c == 'o') ||
+    962                          (c == 'b') || (c == 'p') || (c == 'u'))
+    963                      {
+    964                          if ((c == 'd') || (c == 'i'))
+    965                          {
+    966          #if PRINTF_ADVANCED_ENABLE
+    967                              if (flags_used & kPRINTF_LengthLongLongInt)
+    968                              {
+    969                                  ival = (int64_t)va_arg(ap, int64_t);
+    970                              }
+    971                              else
+    972          #endif /* PRINTF_ADVANCED_ENABLE */
+    973                              {
+    974                                  ival = (int32_t)va_arg(ap, int32_t);
+    975                              }
+    976                              vlen = DbgConsole_ConvertRadixNumToString(vstr, &ival, true, 10, use_caps);
+    977                              vstrp = &vstr[vlen];
+    978          #if PRINTF_ADVANCED_ENABLE
+    979                              if (ival < 0)
+    980                              {
+    981                                  schar = '-';
+    982                                  ++vlen;
+    983                              }
+    984                              else
+    985                              {
+    986                                  if (flags_used & kPRINTF_Plus)
+    987                                  {
+    988                                      schar = '+';
+    989                                      ++vlen;
+    990                                  }
+    991                                  else
+    992                                  {
+    993                                      if (flags_used & kPRINTF_Space)
+    994                                      {
+    995                                          schar = ' ';
+    996                                          ++vlen;
+    997                                      }
+    998                                      else
+    999                                      {
+   1000                                          schar = 0;
+   1001                                      }
+   1002                                  }
+   1003                              }
+   1004                              dschar = false;
+   1005                              /* Do the ZERO pad. */
+   1006                              if (flags_used & kPRINTF_Zero)
+   1007                              {
+   1008                                  if (schar)
+   1009                                  {
+   1010                                      func_ptr(schar);
+   1011                                      count++;
+   1012                                  }
+   1013                                  dschar = true;
+   1014          
+   1015                                  DbgConsole_PrintfPaddingCharacter('0', vlen, field_width, &count, func_ptr);
+   1016                                  vlen = field_width;
+   1017                              }
+   1018                              else
+   1019                              {
+   1020                                  if (!(flags_used & kPRINTF_Minus))
+   1021                                  {
+   1022                                      DbgConsole_PrintfPaddingCharacter(' ', vlen, field_width, &count, func_ptr);
+   1023                                      if (schar)
+   1024                                      {
+   1025                                          func_ptr(schar);
+   1026                                          count++;
+   1027                                      }
+   1028                                      dschar = true;
+   1029                                  }
+   1030                              }
+   1031                              /* The string was built in reverse order, now display in correct order. */
+   1032                              if ((!dschar) && schar)
+   1033                              {
+   1034                                  func_ptr(schar);
+   1035                                  count++;
+   1036                              }
+   1037          #endif /* PRINTF_ADVANCED_ENABLE */
+   1038                          }
+   1039          
+   1040          #if PRINTF_FLOAT_ENABLE
+   1041                          if ((c == 'f') || (c == 'F'))
+   1042                          {
+   1043                              fval = (double)va_arg(ap, double);
+   1044                              vlen = DbgConsole_ConvertFloatRadixNumToString(vstr, &fval, 10, precision_width);
+   1045                              vstrp = &vstr[vlen];
+   1046          
+   1047          #if PRINTF_ADVANCED_ENABLE
+   1048                              if (fval < 0)
+   1049                              {
+   1050                                  schar = '-';
+   1051                                  ++vlen;
+   1052                              }
+   1053                              else
+   1054                              {
+   1055                                  if (flags_used & kPRINTF_Plus)
+   1056                                  {
+   1057                                      schar = '+';
+   1058                                      ++vlen;
+   1059                                  }
+   1060                                  else
+   1061                                  {
+   1062                                      if (flags_used & kPRINTF_Space)
+   1063                                      {
+   1064                                          schar = ' ';
+   1065                                          ++vlen;
+   1066                                      }
+   1067                                      else
+   1068                                      {
+   1069                                          schar = 0;
+   1070                                      }
+   1071                                  }
+   1072                              }
+   1073                              dschar = false;
+   1074                              if (flags_used & kPRINTF_Zero)
+   1075                              {
+   1076                                  if (schar)
+   1077                                  {
+   1078                                      func_ptr(schar);
+   1079                                      count++;
+   1080                                  }
+   1081                                  dschar = true;
+   1082                                  DbgConsole_PrintfPaddingCharacter('0', vlen, field_width, &count, func_ptr);
+   1083                                  vlen = field_width;
+   1084                              }
+   1085                              else
+   1086                              {
+   1087                                  if (!(flags_used & kPRINTF_Minus))
+   1088                                  {
+   1089                                      DbgConsole_PrintfPaddingCharacter(' ', vlen, field_width, &count, func_ptr);
+   1090                                      if (schar)
+   1091                                      {
+   1092                                          func_ptr(schar);
+   1093                                          count++;
+   1094                                      }
+   1095                                      dschar = true;
+   1096                                  }
+   1097                              }
+   1098                              if ((!dschar) && schar)
+   1099                              {
+   1100                                  func_ptr(schar);
+   1101                                  count++;
+   1102                              }
+   1103          #endif /* PRINTF_ADVANCED_ENABLE */
+   1104                          }
+   1105          #endif /* PRINTF_FLOAT_ENABLE */
+   1106                          if ((c == 'X') || (c == 'x'))
+   1107                          {
+   1108                              if (c == 'x')
+   1109                              {
+   1110                                  use_caps = false;
+   1111                              }
+   1112          #if PRINTF_ADVANCED_ENABLE
+   1113                              if (flags_used & kPRINTF_LengthLongLongInt)
+   1114                              {
+   1115                                  uval = (uint64_t)va_arg(ap, uint64_t);
+   1116                              }
+   1117                              else
+   1118          #endif /* PRINTF_ADVANCED_ENABLE */
+   1119                              {
+   1120                                  uval = (uint32_t)va_arg(ap, uint32_t);
+   1121                              }
+   1122                              vlen = DbgConsole_ConvertRadixNumToString(vstr, &uval, false, 16, use_caps);
+   1123                              vstrp = &vstr[vlen];
+   1124          
+   1125          #if PRINTF_ADVANCED_ENABLE
+   1126                              dschar = false;
+   1127                              if (flags_used & kPRINTF_Zero)
+   1128                              {
+   1129                                  if (flags_used & kPRINTF_Pound)
+   1130                                  {
+   1131                                      func_ptr('0');
+   1132                                      func_ptr((use_caps ? 'X' : 'x'));
+   1133                                      count += 2;
+   1134                                      /*vlen += 2;*/
+   1135                                      dschar = true;
+   1136                                  }
+   1137                                  DbgConsole_PrintfPaddingCharacter('0', vlen, field_width, &count, func_ptr);
+   1138                                  vlen = field_width;
+   1139                              }
+   1140                              else
+   1141                              {
+   1142                                  if (!(flags_used & kPRINTF_Minus))
+   1143                                  {
+   1144                                      if (flags_used & kPRINTF_Pound)
+   1145                                      {
+   1146                                          vlen += 2;
+   1147                                      }
+   1148                                      DbgConsole_PrintfPaddingCharacter(' ', vlen, field_width, &count, func_ptr);
+   1149                                      if (flags_used & kPRINTF_Pound)
+   1150                                      {
+   1151                                          func_ptr('0');
+   1152                                          func_ptr(use_caps ? 'X' : 'x');
+   1153                                          count += 2;
+   1154          
+   1155                                          dschar = true;
+   1156                                      }
+   1157                                  }
+   1158                              }
+   1159          
+   1160                              if ((flags_used & kPRINTF_Pound) && (!dschar))
+   1161                              {
+   1162                                  func_ptr('0');
+   1163                                  func_ptr(use_caps ? 'X' : 'x');
+   1164                                  count += 2;
+   1165                                  vlen += 2;
+   1166                              }
+   1167          #endif /* PRINTF_ADVANCED_ENABLE */
+   1168                          }
+   1169                          if ((c == 'o') || (c == 'b') || (c == 'p') || (c == 'u'))
+   1170                          {
+   1171          #if PRINTF_ADVANCED_ENABLE
+   1172                              if (flags_used & kPRINTF_LengthLongLongInt)
+   1173                              {
+   1174                                  uval = (uint64_t)va_arg(ap, uint64_t);
+   1175                              }
+   1176                              else
+   1177          #endif /* PRINTF_ADVANCED_ENABLE */
+   1178                              {
+   1179                                  uval = (uint32_t)va_arg(ap, uint32_t);
+   1180                              }
+   1181                              switch (c)
+   1182                              {
+   1183                                  case 'o':
+   1184                                      radix = 8;
+   1185                                      break;
+   1186                                  case 'b':
+   1187                                      radix = 2;
+   1188                                      break;
+   1189                                  case 'p':
+   1190                                      radix = 16;
+   1191                                      break;
+   1192                                  case 'u':
+   1193                                      radix = 10;
+   1194                                      break;
+   1195                                  default:
+   1196                                      break;
+   1197                              }
+   1198                              vlen = DbgConsole_ConvertRadixNumToString(vstr, &uval, false, radix, use_caps);
+   1199                              vstrp = &vstr[vlen];
+   1200          #if PRINTF_ADVANCED_ENABLE
+   1201                              if (flags_used & kPRINTF_Zero)
+   1202                              {
+   1203                                  DbgConsole_PrintfPaddingCharacter('0', vlen, field_width, &count, func_ptr);
+   1204                                  vlen = field_width;
+   1205                              }
+   1206                              else
+   1207                              {
+   1208                                  if (!(flags_used & kPRINTF_Minus))
+   1209                                  {
+   1210                                      DbgConsole_PrintfPaddingCharacter(' ', vlen, field_width, &count, func_ptr);
+   1211                                  }
+   1212                              }
+   1213          #endif /* PRINTF_ADVANCED_ENABLE */
+   1214                          }
+   1215          #if !PRINTF_ADVANCED_ENABLE
+   1216                          DbgConsole_PrintfPaddingCharacter(' ', vlen, field_width, &count, func_ptr);
+   1217          #endif /* !PRINTF_ADVANCED_ENABLE */
+   1218                          if (vstrp != NULL)
+   1219                          {
+   1220                              while (*vstrp)
+   1221                              {
+   1222                                  func_ptr(*vstrp--);
+   1223                                  count++;
+   1224                              }
+   1225                          }
+   1226          #if PRINTF_ADVANCED_ENABLE
+   1227                          if (flags_used & kPRINTF_Minus)
+   1228                          {
+   1229                              DbgConsole_PrintfPaddingCharacter(' ', vlen, field_width, &count, func_ptr);
+   1230                          }
+   1231          #endif /* PRINTF_ADVANCED_ENABLE */
+   1232                      }
+   1233                      else if (c == 'c')
+   1234                      {
+   1235                          cval = (char)va_arg(ap, uint32_t);
+   1236                          func_ptr(cval);
+   1237                          count++;
+   1238                      }
+   1239                      else if (c == 's')
+   1240                      {
+   1241                          sval = (char *)va_arg(ap, char *);
+   1242                          if (sval)
+   1243                          {
+   1244          #if PRINTF_ADVANCED_ENABLE
+   1245                              if (valid_precision_width)
+   1246                              {
+   1247                                  vlen = precision_width;
+   1248                              }
+   1249                              else
+   1250                              {
+   1251                                  vlen = strlen(sval);
+   1252                              }
+   1253          #else
+   1254                              vlen = strlen(sval);
+   1255          #endif /* PRINTF_ADVANCED_ENABLE */
+   1256          #if PRINTF_ADVANCED_ENABLE
+   1257                              if (!(flags_used & kPRINTF_Minus))
+   1258          #endif /* PRINTF_ADVANCED_ENABLE */
+   1259                              {
+   1260                                  DbgConsole_PrintfPaddingCharacter(' ', vlen, field_width, &count, func_ptr);
+   1261                              }
+   1262          
+   1263          #if PRINTF_ADVANCED_ENABLE
+   1264                              if (valid_precision_width)
+   1265                              {
+   1266                                  while ((*sval) && (vlen > 0))
+   1267                                  {
+   1268                                      func_ptr(*sval++);
+   1269                                      count++;
+   1270                                      vlen--;
+   1271                                  }
+   1272                                  /* In case that vlen sval is shorter than vlen */
+   1273                                  vlen = precision_width - vlen;
+   1274                              }
+   1275                              else
+   1276                              {
+   1277          #endif /* PRINTF_ADVANCED_ENABLE */
+   1278                                  while (*sval)
+   1279                                  {
+   1280                                      func_ptr(*sval++);
+   1281                                      count++;
+   1282                                  }
+   1283          #if PRINTF_ADVANCED_ENABLE
+   1284                              }
+   1285          #endif /* PRINTF_ADVANCED_ENABLE */
+   1286          
+   1287          #if PRINTF_ADVANCED_ENABLE
+   1288                              if (flags_used & kPRINTF_Minus)
+   1289                              {
+   1290                                  DbgConsole_PrintfPaddingCharacter(' ', vlen, field_width, &count, func_ptr);
+   1291                              }
+   1292          #endif /* PRINTF_ADVANCED_ENABLE */
+   1293                          }
+   1294                      }
+   1295                      else
+   1296                      {
+   1297                          func_ptr(c);
+   \                     ??DbgConsole_PrintfFormattedData_1: (+1)
+   \       0x1A   0x4648             MOV      R0,R9
+   \       0x1C   0x47D0             BLX      R10
+   1298                          count++;
+   \       0x1E   0x9801             LDR      R0,[SP, #+4]
+   \       0x20   0x1C40             ADDS     R0,R0,#+1
+   \       0x22   0x9001             STR      R0,[SP, #+4]
+   1299                      }
+   \                     ??DbgConsole_PrintfFormattedData_2: (+1)
+   \       0x24   0x1C7F             ADDS     R7,R7,#+1
+   \                     ??DbgConsole_PrintfFormattedData_0: (+1)
+   \       0x26   0xF897 0x9000      LDRB     R9,[R7, #+0]
+   \       0x2A   0xF1B9 0x0F00      CMP      R9,#+0
+   \       0x2E   0xF000 0x80EA      BEQ.W    ??DbgConsole_PrintfFormattedData_3
+   \       0x32   0xF1B9 0x0F25      CMP      R9,#+37
+   \       0x36   0xD1F0             BNE.N    ??DbgConsole_PrintfFormattedData_1
+   \       0x38   0xF04F 0x0B01      MOV      R11,#+1
+   \       0x3C   0xF04F 0x0800      MOV      R8,#+0
+   \       0x40   0x4640             MOV      R0,R8
+   \       0x42   0xE005             B.N      ??DbgConsole_PrintfFormattedData_4
+   \                     ??DbgConsole_PrintfFormattedData_5: (+1)
+   \       0x44   0xEB08 0x0288      ADD      R2,R8,R8, LSL #+2
+   \       0x48   0x3930             SUBS     R1,R1,#+48
+   \       0x4A   0xEB01 0x0142      ADD      R1,R1,R2, LSL #+1
+   \       0x4E   0x4688             MOV      R8,R1
+   \                     ??DbgConsole_PrintfFormattedData_4: (+1)
+   \       0x50   0x2800             CMP      R0,#+0
+   \       0x52   0xF040 0x80DC      BNE.W    ??DbgConsole_PrintfFormattedData_6
+   \       0x56   0xF817 0x1F01      LDRB     R1,[R7, #+1]!
+   \       0x5A   0xF1A1 0x0230      SUB      R2,R1,#+48
+   \       0x5E   0x2A0A             CMP      R2,#+10
+   \       0x60   0xD3F0             BCC.N    ??DbgConsole_PrintfFormattedData_5
+   \       0x62   0x1E7F             SUBS     R7,R7,#+1
+   \       0x64   0x4658             MOV      R0,R11
+   \       0x66   0xE7F3             B.N      ??DbgConsole_PrintfFormattedData_4
+   \                     ??DbgConsole_PrintfFormattedData_7: (+1)
+   \       0x68   0xF817 0x1F01      LDRB     R1,[R7, #+1]!
+   \       0x6C   0x3930             SUBS     R1,R1,#+48
+   \       0x6E   0x290A             CMP      R1,#+10
+   \       0x70   0xF0C0 0x80D3      BCC.W    ??DbgConsole_PrintfFormattedData_8
+   \       0x74   0x1E7F             SUBS     R7,R7,#+1
+   \       0x76   0x4658             MOV      R0,R11
+   \       0x78   0xE0CF             B.N      ??DbgConsole_PrintfFormattedData_8
+   \                     ??DbgConsole_PrintfFormattedData_9: (+1)
+   \       0x7A   0x1E7F             SUBS     R7,R7,#+1
+   \                     ??DbgConsole_PrintfFormattedData_10: (+1)
+   \       0x7C   0xF817 0x9F01      LDRB     R9,[R7, #+1]!
+   \       0x80   0xF1B9 0x0F64      CMP      R9,#+100
+   \       0x84   0xD01A             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0x86   0xF1B9 0x0F69      CMP      R9,#+105
+   \       0x8A   0xD017             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0x8C   0xF1B9 0x0F66      CMP      R9,#+102
+   \       0x90   0xD014             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0x92   0xF1B9 0x0F46      CMP      R9,#+70
+   \       0x96   0xD011             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0x98   0xF1B9 0x0F78      CMP      R9,#+120
+   \       0x9C   0xD00E             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0x9E   0xF1B9 0x0F58      CMP      R9,#+88
+   \       0xA2   0xD00B             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0xA4   0xF1B9 0x0F6F      CMP      R9,#+111
+   \       0xA8   0xD008             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0xAA   0xF1B9 0x0F62      CMP      R9,#+98
+   \       0xAE   0xD005             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0xB0   0xF1B9 0x0F70      CMP      R9,#+112
+   \       0xB4   0xD002             BEQ.N    ??DbgConsole_PrintfFormattedData_11
+   \       0xB6   0xF1B9 0x0F75      CMP      R9,#+117
+   \       0xBA   0xD176             BNE.N    ??DbgConsole_PrintfFormattedData_12
+   \                     ??DbgConsole_PrintfFormattedData_11: (+1)
+   \       0xBC   0xF1B9 0x0F64      CMP      R9,#+100
+   \       0xC0   0xD002             BEQ.N    ??DbgConsole_PrintfFormattedData_13
+   \       0xC2   0xF1B9 0x0F69      CMP      R9,#+105
+   \       0xC6   0xD10E             BNE.N    ??DbgConsole_PrintfFormattedData_14
+   \                     ??DbgConsole_PrintfFormattedData_13: (+1)
+   \       0xC8   0xF854 0x0B04      LDR      R0,[R4], #+4
+   \       0xCC   0x9003             STR      R0,[SP, #+12]
+   \       0xCE   0x4658             MOV      R0,R11
+   \       0xD0   0x9000             STR      R0,[SP, #+0]
+   \       0xD2   0x230A             MOVS     R3,#+10
+   \       0xD4   0x4602             MOV      R2,R0
+   \       0xD6   0xA903             ADD      R1,SP,#+12
+   \       0xD8   0xA805             ADD      R0,SP,#+20
+   \       0xDA   0x.... 0x....      BL       DbgConsole_ConvertRadixNumToString
+   \       0xDE   0x4605             MOV      R5,R0
+   \       0xE0   0xA805             ADD      R0,SP,#+20
+   \       0xE2   0x4428             ADD      R0,R0,R5
+   \       0xE4   0x9004             STR      R0,[SP, #+16]
+   \                     ??DbgConsole_PrintfFormattedData_14: (+1)
+   \       0xE6   0xF1B9 0x0F58      CMP      R9,#+88
+   \       0xEA   0xD002             BEQ.N    ??DbgConsole_PrintfFormattedData_15
+   \       0xEC   0xF1B9 0x0F78      CMP      R9,#+120
+   \       0xF0   0xD113             BNE.N    ??DbgConsole_PrintfFormattedData_16
+   \                     ??DbgConsole_PrintfFormattedData_15: (+1)
+   \       0xF2   0xF1B9 0x0F78      CMP      R9,#+120
+   \       0xF6   0xD101             BNE.N    ??DbgConsole_PrintfFormattedData_17
+   \       0xF8   0xF04F 0x0B00      MOV      R11,#+0
+   \                     ??DbgConsole_PrintfFormattedData_17: (+1)
+   \       0xFC   0xF854 0x0B04      LDR      R0,[R4], #+4
+   \      0x100   0x9002             STR      R0,[SP, #+8]
+   \      0x102   0x4658             MOV      R0,R11
+   \      0x104   0x9000             STR      R0,[SP, #+0]
+   \      0x106   0x2310             MOVS     R3,#+16
+   \      0x108   0x2200             MOVS     R2,#+0
+   \      0x10A   0xA902             ADD      R1,SP,#+8
+   \      0x10C   0xA805             ADD      R0,SP,#+20
+   \      0x10E   0x.... 0x....      BL       DbgConsole_ConvertRadixNumToString
+   \      0x112   0x4605             MOV      R5,R0
+   \      0x114   0xA805             ADD      R0,SP,#+20
+   \      0x116   0x4428             ADD      R0,R0,R5
+   \      0x118   0x9004             STR      R0,[SP, #+16]
+   \                     ??DbgConsole_PrintfFormattedData_16: (+1)
+   \      0x11A   0xF1B9 0x0F6F      CMP      R9,#+111
+   \      0x11E   0xD008             BEQ.N    ??DbgConsole_PrintfFormattedData_18
+   \      0x120   0xF1B9 0x0F62      CMP      R9,#+98
+   \      0x124   0xD005             BEQ.N    ??DbgConsole_PrintfFormattedData_18
+   \      0x126   0xF1B9 0x0F70      CMP      R9,#+112
+   \      0x12A   0xD002             BEQ.N    ??DbgConsole_PrintfFormattedData_18
+   \      0x12C   0xF1B9 0x0F75      CMP      R9,#+117
+   \      0x130   0xD122             BNE.N    ??DbgConsole_PrintfFormattedData_19
+   \                     ??DbgConsole_PrintfFormattedData_18: (+1)
+   \      0x132   0xF854 0x0B04      LDR      R0,[R4], #+4
+   \      0x136   0x9002             STR      R0,[SP, #+8]
+   \      0x138   0xF1B9 0x0F62      CMP      R9,#+98
+   \      0x13C   0xD00B             BEQ.N    ??DbgConsole_PrintfFormattedData_20
+   \      0x13E   0xF1B9 0x0F6F      CMP      R9,#+111
+   \      0x142   0xD006             BEQ.N    ??DbgConsole_PrintfFormattedData_21
+   \      0x144   0xF1B9 0x0F70      CMP      R9,#+112
+   \      0x148   0xD007             BEQ.N    ??DbgConsole_PrintfFormattedData_22
+   \      0x14A   0xF1B9 0x0F75      CMP      R9,#+117
+   \      0x14E   0xD006             BEQ.N    ??DbgConsole_PrintfFormattedData_23
+   \      0x150   0xE006             B.N      ??DbgConsole_PrintfFormattedData_24
+   \                     ??DbgConsole_PrintfFormattedData_21: (+1)
+   \      0x152   0x2608             MOVS     R6,#+8
+   \      0x154   0xE004             B.N      ??DbgConsole_PrintfFormattedData_24
+   \                     ??DbgConsole_PrintfFormattedData_20: (+1)
+   \      0x156   0x2602             MOVS     R6,#+2
+   \      0x158   0xE002             B.N      ??DbgConsole_PrintfFormattedData_24
+   \                     ??DbgConsole_PrintfFormattedData_22: (+1)
+   \      0x15A   0x2610             MOVS     R6,#+16
+   \      0x15C   0xE000             B.N      ??DbgConsole_PrintfFormattedData_24
+   \                     ??DbgConsole_PrintfFormattedData_23: (+1)
+   \      0x15E   0x260A             MOVS     R6,#+10
+   \                     ??DbgConsole_PrintfFormattedData_24: (+1)
+   \      0x160   0xF8CD 0xB000      STR      R11,[SP, #+0]
+   \      0x164   0x4633             MOV      R3,R6
+   \      0x166   0x2200             MOVS     R2,#+0
+   \      0x168   0xA902             ADD      R1,SP,#+8
+   \      0x16A   0xA805             ADD      R0,SP,#+20
+   \      0x16C   0x.... 0x....      BL       DbgConsole_ConvertRadixNumToString
+   \      0x170   0x4605             MOV      R5,R0
+   \      0x172   0xA805             ADD      R0,SP,#+20
+   \      0x174   0x4428             ADD      R0,R0,R5
+   \      0x176   0x9004             STR      R0,[SP, #+16]
+   \                     ??DbgConsole_PrintfFormattedData_19: (+1)
+   \      0x178   0xF8CD 0xA000      STR      R10,[SP, #+0]
+   \      0x17C   0xAB01             ADD      R3,SP,#+4
+   \      0x17E   0x4642             MOV      R2,R8
+   \      0x180   0x4629             MOV      R1,R5
+   \      0x182   0x2020             MOVS     R0,#+32
+   \      0x184   0x.... 0x....      BL       DbgConsole_PrintfPaddingCharacter
+   \      0x188   0x9804             LDR      R0,[SP, #+16]
+   \      0x18A   0x2800             CMP      R0,#+0
+   \      0x18C   0xF43F 0xAF4A      BEQ.W    ??DbgConsole_PrintfFormattedData_2
+   \      0x190   0x46D0             MOV      R8,R10
+   \      0x192   0x4681             MOV      R9,R0
+   \                     ??DbgConsole_PrintfFormattedData_25: (+1)
+   \      0x194   0xF899 0x0000      LDRB     R0,[R9, #+0]
+   \      0x198   0x2800             CMP      R0,#+0
+   \      0x19A   0xD042             BEQ.N    ??DbgConsole_PrintfFormattedData_26
+   \      0x19C   0xF819 0x0901      LDRB     R0,[R9], #-1
+   \      0x1A0   0x47C0             BLX      R8
+   \      0x1A2   0x9801             LDR      R0,[SP, #+4]
+   \      0x1A4   0x1C40             ADDS     R0,R0,#+1
+   \      0x1A6   0x9001             STR      R0,[SP, #+4]
+   \      0x1A8   0xE7F4             B.N      ??DbgConsole_PrintfFormattedData_25
+   \                     ??DbgConsole_PrintfFormattedData_12: (+1)
+   \      0x1AA   0xF1B9 0x0F63      CMP      R9,#+99
+   \      0x1AE   0xD107             BNE.N    ??DbgConsole_PrintfFormattedData_27
+   \      0x1B0   0xF854 0x0B04      LDR      R0,[R4], #+4
+   \      0x1B4   0xB2C0             UXTB     R0,R0
+   \      0x1B6   0x47D0             BLX      R10
+   \      0x1B8   0x9801             LDR      R0,[SP, #+4]
+   \      0x1BA   0x1C40             ADDS     R0,R0,#+1
+   \      0x1BC   0x9001             STR      R0,[SP, #+4]
+   \      0x1BE   0xE731             B.N      ??DbgConsole_PrintfFormattedData_2
+   \                     ??DbgConsole_PrintfFormattedData_27: (+1)
+   \      0x1C0   0xF1B9 0x0F73      CMP      R9,#+115
+   \      0x1C4   0xF47F 0xAF29      BNE.W    ??DbgConsole_PrintfFormattedData_1
+   \      0x1C8   0xF854 0x9B04      LDR      R9,[R4], #+4
+   \      0x1CC   0xF1B9 0x0F00      CMP      R9,#+0
+   \      0x1D0   0xF43F 0xAF28      BEQ.W    ??DbgConsole_PrintfFormattedData_2
+   \      0x1D4   0x4648             MOV      R0,R9
+   \      0x1D6   0x.... 0x....      BL       strlen
+   \      0x1DA   0x4605             MOV      R5,R0
+   \      0x1DC   0xF8CD 0xA000      STR      R10,[SP, #+0]
+   \      0x1E0   0xAB01             ADD      R3,SP,#+4
+   \      0x1E2   0x4642             MOV      R2,R8
+   \      0x1E4   0x4629             MOV      R1,R5
+   \      0x1E6   0x2020             MOVS     R0,#+32
+   \      0x1E8   0x.... 0x....      BL       DbgConsole_PrintfPaddingCharacter
+   \      0x1EC   0x46D0             MOV      R8,R10
+   \                     ??DbgConsole_PrintfFormattedData_28: (+1)
+   \      0x1EE   0xF899 0x0000      LDRB     R0,[R9, #+0]
+   \      0x1F2   0x2800             CMP      R0,#+0
+   \      0x1F4   0xF43F 0xAF16      BEQ.W    ??DbgConsole_PrintfFormattedData_2
+   \      0x1F8   0xF819 0x0B01      LDRB     R0,[R9], #+1
+   \      0x1FC   0x47C0             BLX      R8
+   \      0x1FE   0x9801             LDR      R0,[SP, #+4]
+   \      0x200   0x1C40             ADDS     R0,R0,#+1
+   \      0x202   0x9001             STR      R0,[SP, #+4]
+   \      0x204   0xE7F3             B.N      ??DbgConsole_PrintfFormattedData_28
+   1300                  }
+   1301              }
+   1302              return count;
+   \                     ??DbgConsole_PrintfFormattedData_3: (+1)
+   \      0x206   0x9801             LDR      R0,[SP, #+4]
+   \      0x208   0xB00F             ADD      SP,SP,#+60
+   \      0x20A   0xE8BD 0x8FF0      POP      {R4-R11,PC}      ;; return
+   \                     ??DbgConsole_PrintfFormattedData_6: (+1)
+   \      0x20E   0xF817 0x0F01      LDRB     R0,[R7, #+1]!
+   \      0x212   0x282E             CMP      R0,#+46
+   \      0x214   0xF47F 0xAF31      BNE.W    ??DbgConsole_PrintfFormattedData_9
+   \      0x218   0x2000             MOVS     R0,#+0
+   \                     ??DbgConsole_PrintfFormattedData_8: (+1)
+   \      0x21A   0x2800             CMP      R0,#+0
+   \      0x21C   0xF47F 0xAF2E      BNE.W    ??DbgConsole_PrintfFormattedData_10
+   \      0x220   0xE722             B.N      ??DbgConsole_PrintfFormattedData_7
+   \                     ??DbgConsole_PrintfFormattedData_26: (+1)
+   \      0x222   0xF8CD 0x9010      STR      R9,[SP, #+16]
+   \      0x226   0xE6FD             B.N      ??DbgConsole_PrintfFormattedData_2
+   1303          }
+   1304          
+   1305          /*!
+   1306           * @brief Converts an input line of ASCII characters based upon a provided
+   1307           * string format.
+   1308           *
+   1309           * @param[in] line_ptr The input line of ASCII data.
+   1310           * @param[in] format   Format first points to the format string.
+   1311           * @param[in] args_ptr The list of parameters.
+   1312           *
+   1313           * @return Number of input items converted and assigned.
+   1314           * @retval IO_EOF When line_ptr is empty string "".
+   1315           */
+
+   \                                 In section .text, align 2, keep-with-next
+   1316          static int DbgConsole_ScanfFormattedData(const char *line_ptr, char *format, va_list args_ptr)
+   1317          {
+   \                     DbgConsole_ScanfFormattedData: (+1)
+   \        0x0   0xE92D 0x41FC      PUSH     {R2-R8,LR}
+   \        0x4   0x4615             MOV      R5,R2
+   1318              uint8_t base;
+   1319              int8_t neg;
+   1320              /* Identifier for the format string. */
+   1321              char *c = format;
+   \        0x6   0x9101             STR      R1,[SP, #+4]
+   1322              char temp;
+   1323              char *buf;
+   1324              /* Flag telling the conversion specification. */
+   1325              uint32_t flag = 0;
+   1326              /* Filed width for the matching input streams. */
+   1327              uint32_t field_width;
+   1328              /* How many arguments are assigned except the suppress. */
+   1329              uint32_t nassigned = 0;
+   \        0x8   0x2600             MOVS     R6,#+0
+   1330              /* How many characters are read from the input streams. */
+   1331              uint32_t n_decode = 0;
+   1332          
+   1333              int32_t val;
+   1334          
+   1335              const char *s;
+   1336              /* Identifier for the input string. */
+   1337              const char *p = line_ptr;
+   \        0xA   0x9000             STR      R0,[SP, #+0]
+   1338          
+   1339              /* Return EOF error before any conversion. */
+   1340              if (*p == '\0')
+   \        0xC   0x7800             LDRB     R0,[R0, #+0]
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD105             BNE.N    ??DbgConsole_ScanfFormattedData_0
+   1341              {
+   1342                  return -1;
+   \       0x12   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x16   0xE164             B.N      ??DbgConsole_ScanfFormattedData_1
+   1343              }
+   1344          
+   1345              /* Decode directives. */
+   1346              while ((*c) && (*p))
+   1347              {
+   1348                  /* Ignore all white-spaces in the format strings. */
+   1349                  if (DbgConsole_ScanIgnoreWhiteSpace((const char **)&c))
+   1350                  {
+   1351                      n_decode += DbgConsole_ScanIgnoreWhiteSpace(&p);
+   \                     ??DbgConsole_ScanfFormattedData_2: (+1)
+   \       0x18   0x4668             MOV      R0,SP
+   \       0x1A   0x.... 0x....      BL       DbgConsole_ScanIgnoreWhiteSpace
+   1352                  }
+   \                     ??DbgConsole_ScanfFormattedData_0: (+1)
+   \       0x1E   0x9801             LDR      R0,[SP, #+4]
+   \       0x20   0x7800             LDRB     R0,[R0, #+0]
+   \       0x22   0x2800             CMP      R0,#+0
+   \       0x24   0xF000 0x815C      BEQ.W    ??DbgConsole_ScanfFormattedData_3
+   \       0x28   0x9800             LDR      R0,[SP, #+0]
+   \       0x2A   0x7800             LDRB     R0,[R0, #+0]
+   \       0x2C   0x2800             CMP      R0,#+0
+   \       0x2E   0xF000 0x8157      BEQ.W    ??DbgConsole_ScanfFormattedData_3
+   \       0x32   0xA801             ADD      R0,SP,#+4
+   \       0x34   0x.... 0x....      BL       DbgConsole_ScanIgnoreWhiteSpace
+   \       0x38   0x2800             CMP      R0,#+0
+   \       0x3A   0xD1ED             BNE.N    ??DbgConsole_ScanfFormattedData_2
+   1353                  else if ((*c != '%') || ((*c == '%') && (*(c + 1) == '%')))
+   \       0x3C   0x9801             LDR      R0,[SP, #+4]
+   \       0x3E   0x7800             LDRB     R0,[R0, #+0]
+   \       0x40   0x2825             CMP      R0,#+37
+   \       0x42   0xD104             BNE.N    ??DbgConsole_ScanfFormattedData_4
+   \       0x44   0xD114             BNE.N    ??DbgConsole_ScanfFormattedData_5
+   \       0x46   0x9801             LDR      R0,[SP, #+4]
+   \       0x48   0x7840             LDRB     R0,[R0, #+1]
+   \       0x4A   0x2825             CMP      R0,#+37
+   \       0x4C   0xD110             BNE.N    ??DbgConsole_ScanfFormattedData_5
+   1354                  {
+   1355                      /* Ordinary characters. */
+   1356                      c++;
+   \                     ??DbgConsole_ScanfFormattedData_4: (+1)
+   \       0x4E   0x9801             LDR      R0,[SP, #+4]
+   \       0x50   0x1C40             ADDS     R0,R0,#+1
+   \       0x52   0x9001             STR      R0,[SP, #+4]
+   1357                      if (*p == *c)
+   \       0x54   0x9800             LDR      R0,[SP, #+0]
+   \       0x56   0x7800             LDRB     R0,[R0, #+0]
+   \       0x58   0x9901             LDR      R1,[SP, #+4]
+   \       0x5A   0x7809             LDRB     R1,[R1, #+0]
+   \       0x5C   0x4288             CMP      R0,R1
+   \       0x5E   0xF040 0x813F      BNE.W    ??DbgConsole_ScanfFormattedData_3
+   1358                      {
+   1359                          n_decode++;
+   1360                          p++;
+   \       0x62   0x9800             LDR      R0,[SP, #+0]
+   \       0x64   0x1C40             ADDS     R0,R0,#+1
+   \       0x66   0x9000             STR      R0,[SP, #+0]
+   1361                          c++;
+   \       0x68   0x9801             LDR      R0,[SP, #+4]
+   \       0x6A   0x1C40             ADDS     R0,R0,#+1
+   \       0x6C   0x9001             STR      R0,[SP, #+4]
+   \       0x6E   0xE7D6             B.N      ??DbgConsole_ScanfFormattedData_0
+   1362                      }
+   1363                      else
+   1364                      {
+   1365                          /* Match failure. Misalignment with C99, the unmatched characters need to be pushed back to stream.
+   1366                           * However, it is deserted now. */
+   1367                          break;
+   1368                      }
+   1369                  }
+   1370                  else
+   1371                  {
+   1372                      /* convernsion specification */
+   1373                      c++;
+   \                     ??DbgConsole_ScanfFormattedData_5: (+1)
+   \       0x70   0x9801             LDR      R0,[SP, #+4]
+   \       0x72   0x1C40             ADDS     R0,R0,#+1
+   \       0x74   0x9001             STR      R0,[SP, #+4]
+   1374                      /* Reset. */
+   1375                      flag = 0;
+   \       0x76   0x2700             MOVS     R7,#+0
+   1376                      field_width = 0;
+   \       0x78   0x463C             MOV      R4,R7
+   1377                      base = 0;
+   \       0x7A   0x46A0             MOV      R8,R4
+   \       0x7C   0xE008             B.N      ??DbgConsole_ScanfFormattedData_6
+   1378          
+   1379                      /* Loop to get full conversion specification. */
+   1380                      while ((*c) && (!(flag & kSCANF_DestMask)))
+   1381                      {
+   1382                          switch (*c)
+   1383                          {
+   1384          #if SCANF_ADVANCED_ENABLE
+   1385                              case '*':
+   1386                                  if (flag & kSCANF_Suppress)
+   1387                                  {
+   1388                                      /* Match failure. */
+   1389                                      return nassigned;
+   1390                                  }
+   1391                                  flag |= kSCANF_Suppress;
+   1392                                  c++;
+   1393                                  break;
+   1394                              case 'h':
+   1395                                  if (flag & kSCANF_LengthMask)
+   1396                                  {
+   1397                                      /* Match failure. */
+   1398                                      return nassigned;
+   1399                                  }
+   1400          
+   1401                                  if (c[1] == 'h')
+   1402                                  {
+   1403                                      flag |= kSCANF_LengthChar;
+   1404                                      c++;
+   1405                                  }
+   1406                                  else
+   1407                                  {
+   1408                                      flag |= kSCANF_LengthShortInt;
+   1409                                  }
+   1410                                  c++;
+   1411                                  break;
+   1412                              case 'l':
+   1413                                  if (flag & kSCANF_LengthMask)
+   1414                                  {
+   1415                                      /* Match failure. */
+   1416                                      return nassigned;
+   1417                                  }
+   1418          
+   1419                                  if (c[1] == 'l')
+   1420                                  {
+   1421                                      flag |= kSCANF_LengthLongLongInt;
+   1422                                      c++;
+   1423                                  }
+   1424                                  else
+   1425                                  {
+   1426                                      flag |= kSCANF_LengthLongInt;
+   1427                                  }
+   1428                                  c++;
+   1429                                  break;
+   1430          #endif /* SCANF_ADVANCED_ENABLE */
+   1431          #if SCANF_FLOAT_ENABLE
+   1432                              case 'L':
+   1433                                  if (flag & kSCANF_LengthMask)
+   1434                                  {
+   1435                                      /* Match failure. */
+   1436                                      return nassigned;
+   1437                                  }
+   1438                                  flag |= kSCANF_LengthLongLongDouble;
+   1439                                  c++;
+   1440                                  break;
+   1441          #endif /* SCANF_FLOAT_ENABLE */
+   1442                              case '0':
+   1443                              case '1':
+   1444                              case '2':
+   1445                              case '3':
+   1446                              case '4':
+   1447                              case '5':
+   1448                              case '6':
+   1449                              case '7':
+   1450                              case '8':
+   1451                              case '9':
+   1452                                  if (field_width)
+   1453                                  {
+   1454                                      /* Match failure. */
+   1455                                      return nassigned;
+   1456                                  }
+   1457                                  do
+   1458                                  {
+   1459                                      field_width = field_width * 10 + *c - '0';
+   1460                                      c++;
+   1461                                  } while ((*c >= '0') && (*c <= '9'));
+   1462                                  break;
+   1463                              case 'd':
+   1464                                  base = 10;
+   \                     ??DbgConsole_ScanfFormattedData_7: (+1)
+   \       0x7E   0xF04F 0x080A      MOV      R8,#+10
+   1465                                  flag |= kSCANF_TypeSinged;
+   1466                                  flag |= kSCANF_DestInt;
+   \       0x82   0xF447 0x5700      ORR      R7,R7,#0x2000
+   \       0x86   0xF047 0x0720      ORR      R7,R7,#0x20
+   1467                                  c++;
+   \       0x8A   0x9801             LDR      R0,[SP, #+4]
+   \       0x8C   0x1C40             ADDS     R0,R0,#+1
+   \       0x8E   0x9001             STR      R0,[SP, #+4]
+   1468                                  break;
+   \                     ??DbgConsole_ScanfFormattedData_6: (+1)
+   \       0x90   0x9801             LDR      R0,[SP, #+4]
+   \       0x92   0x7800             LDRB     R0,[R0, #+0]
+   \       0x94   0x2800             CMP      R0,#+0
+   \       0x96   0xD059             BEQ.N    ??DbgConsole_ScanfFormattedData_8
+   \       0x98   0xF017 0x0F7C      TST      R7,#0x7C
+   \       0x9C   0xD156             BNE.N    ??DbgConsole_ScanfFormattedData_8
+   \       0x9E   0x9801             LDR      R0,[SP, #+4]
+   \       0xA0   0x7800             LDRB     R0,[R0, #+0]
+   \       0xA2   0x3830             SUBS     R0,R0,#+48
+   \       0xA4   0x2809             CMP      R0,#+9
+   \       0xA6   0xD910             BLS.N    ??DbgConsole_ScanfFormattedData_9
+   \       0xA8   0x3828             SUBS     R0,R0,#+40
+   \       0xAA   0xD030             BEQ.N    ??DbgConsole_ScanfFormattedData_10
+   \       0xAC   0x380B             SUBS     R0,R0,#+11
+   \       0xAE   0xD03E             BEQ.N    ??DbgConsole_ScanfFormattedData_11
+   \       0xB0   0x1E40             SUBS     R0,R0,#+1
+   \       0xB2   0xD0E4             BEQ.N    ??DbgConsole_ScanfFormattedData_7
+   \       0xB4   0x1F40             SUBS     R0,R0,#+5
+   \       0xB6   0xD032             BEQ.N    ??DbgConsole_ScanfFormattedData_12
+   \       0xB8   0x1F80             SUBS     R0,R0,#+6
+   \       0xBA   0xD020             BEQ.N    ??DbgConsole_ScanfFormattedData_13
+   \       0xBC   0x1F00             SUBS     R0,R0,#+4
+   \       0xBE   0xD03F             BEQ.N    ??DbgConsole_ScanfFormattedData_14
+   \       0xC0   0x1E80             SUBS     R0,R0,#+2
+   \       0xC2   0xD014             BEQ.N    ??DbgConsole_ScanfFormattedData_15
+   \       0xC4   0x1EC0             SUBS     R0,R0,#+3
+   \       0xC6   0xD022             BEQ.N    ??DbgConsole_ScanfFormattedData_10
+   \       0xC8   0xE10A             B.N      ??DbgConsole_ScanfFormattedData_3
+   \                     ??DbgConsole_ScanfFormattedData_9: (+1)
+   \       0xCA   0x2C00             CMP      R4,#+0
+   \       0xCC   0xF040 0x8108      BNE.W    ??DbgConsole_ScanfFormattedData_3
+   \                     ??DbgConsole_ScanfFormattedData_16: (+1)
+   \       0xD0   0xEB04 0x0084      ADD      R0,R4,R4, LSL #+2
+   \       0xD4   0x9901             LDR      R1,[SP, #+4]
+   \       0xD6   0x780C             LDRB     R4,[R1, #+0]
+   \       0xD8   0xEB04 0x0440      ADD      R4,R4,R0, LSL #+1
+   \       0xDC   0x3C30             SUBS     R4,R4,#+48
+   \       0xDE   0x4608             MOV      R0,R1
+   \       0xE0   0x1C40             ADDS     R0,R0,#+1
+   \       0xE2   0x9001             STR      R0,[SP, #+4]
+   \       0xE4   0x7800             LDRB     R0,[R0, #+0]
+   \       0xE6   0x3830             SUBS     R0,R0,#+48
+   \       0xE8   0x280A             CMP      R0,#+10
+   \       0xEA   0xD3F1             BCC.N    ??DbgConsole_ScanfFormattedData_16
+   \       0xEC   0xE7D0             B.N      ??DbgConsole_ScanfFormattedData_6
+   1469                              case 'u':
+   1470                                  base = 10;
+   \                     ??DbgConsole_ScanfFormattedData_15: (+1)
+   \       0xEE   0xF04F 0x080A      MOV      R8,#+10
+   1471                                  flag |= kSCANF_DestInt;
+   \       0xF2   0xF047 0x0720      ORR      R7,R7,#0x20
+   1472                                  c++;
+   \       0xF6   0x9801             LDR      R0,[SP, #+4]
+   \       0xF8   0x1C40             ADDS     R0,R0,#+1
+   \       0xFA   0x9001             STR      R0,[SP, #+4]
+   1473                                  break;
+   \       0xFC   0xE7C8             B.N      ??DbgConsole_ScanfFormattedData_6
+   1474                              case 'o':
+   1475                                  base = 8;
+   \                     ??DbgConsole_ScanfFormattedData_13: (+1)
+   \       0xFE   0xF04F 0x0808      MOV      R8,#+8
+   1476                                  flag |= kSCANF_DestInt;
+   \      0x102   0xF047 0x0720      ORR      R7,R7,#0x20
+   1477                                  c++;
+   \      0x106   0x9801             LDR      R0,[SP, #+4]
+   \      0x108   0x1C40             ADDS     R0,R0,#+1
+   \      0x10A   0x9001             STR      R0,[SP, #+4]
+   1478                                  break;
+   \      0x10C   0xE7C0             B.N      ??DbgConsole_ScanfFormattedData_6
+   1479                              case 'x':
+   1480                              case 'X':
+   1481                                  base = 16;
+   \                     ??DbgConsole_ScanfFormattedData_10: (+1)
+   \      0x10E   0xF04F 0x0810      MOV      R8,#+16
+   1482                                  flag |= kSCANF_DestInt;
+   \      0x112   0xF047 0x0720      ORR      R7,R7,#0x20
+   1483                                  c++;
+   \      0x116   0x9801             LDR      R0,[SP, #+4]
+   \      0x118   0x1C40             ADDS     R0,R0,#+1
+   \      0x11A   0x9001             STR      R0,[SP, #+4]
+   1484                                  break;
+   \      0x11C   0xE7B8             B.N      ??DbgConsole_ScanfFormattedData_6
+   1485                              case 'i':
+   1486                                  base = 0;
+   \                     ??DbgConsole_ScanfFormattedData_12: (+1)
+   \      0x11E   0xF04F 0x0800      MOV      R8,#+0
+   1487                                  flag |= kSCANF_DestInt;
+   \      0x122   0xF047 0x0720      ORR      R7,R7,#0x20
+   1488                                  c++;
+   \      0x126   0x9801             LDR      R0,[SP, #+4]
+   \      0x128   0x1C40             ADDS     R0,R0,#+1
+   \      0x12A   0x9001             STR      R0,[SP, #+4]
+   1489                                  break;
+   \      0x12C   0xE7B0             B.N      ??DbgConsole_ScanfFormattedData_6
+   1490          #if SCANF_FLOAT_ENABLE
+   1491                              case 'a':
+   1492                              case 'A':
+   1493                              case 'e':
+   1494                              case 'E':
+   1495                              case 'f':
+   1496                              case 'F':
+   1497                              case 'g':
+   1498                              case 'G':
+   1499                                  flag |= kSCANF_DestFloat;
+   1500                                  c++;
+   1501                                  break;
+   1502          #endif /* SCANF_FLOAT_ENABLE */
+   1503                              case 'c':
+   1504                                  flag |= kSCANF_DestChar;
+   \                     ??DbgConsole_ScanfFormattedData_11: (+1)
+   \      0x12E   0xF047 0x0704      ORR      R7,R7,#0x4
+   1505                                  if (!field_width)
+   \      0x132   0x2C00             CMP      R4,#+0
+   \      0x134   0xD100             BNE.N    ??DbgConsole_ScanfFormattedData_17
+   1506                                  {
+   1507                                      field_width = 1;
+   \      0x136   0x2401             MOVS     R4,#+1
+   1508                                  }
+   1509                                  c++;
+   \                     ??DbgConsole_ScanfFormattedData_17: (+1)
+   \      0x138   0x9801             LDR      R0,[SP, #+4]
+   \      0x13A   0x1C40             ADDS     R0,R0,#+1
+   \      0x13C   0x9001             STR      R0,[SP, #+4]
+   1510                                  break;
+   \      0x13E   0xE7A7             B.N      ??DbgConsole_ScanfFormattedData_6
+   1511                              case 's':
+   1512                                  flag |= kSCANF_DestString;
+   \                     ??DbgConsole_ScanfFormattedData_14: (+1)
+   \      0x140   0xF047 0x0708      ORR      R7,R7,#0x8
+   1513                                  c++;
+   \      0x144   0x9801             LDR      R0,[SP, #+4]
+   \      0x146   0x1C40             ADDS     R0,R0,#+1
+   \      0x148   0x9001             STR      R0,[SP, #+4]
+   1514                                  break;
+   \      0x14A   0xE7A1             B.N      ??DbgConsole_ScanfFormattedData_6
+   1515                              default:
+   1516                                  return nassigned;
+   1517                          }
+   1518                      }
+   1519          
+   1520                      if (!(flag & kSCANF_DestMask))
+   \                     ??DbgConsole_ScanfFormattedData_8: (+1)
+   \      0x14C   0xF017 0x0F7C      TST      R7,#0x7C
+   \      0x150   0xF000 0x80C6      BEQ.W    ??DbgConsole_ScanfFormattedData_3
+   1521                      {
+   1522                          /* Format strings are exhausted. */
+   1523                          return nassigned;
+   1524                      }
+   1525          
+   1526                      if (!field_width)
+   \      0x154   0x2C00             CMP      R4,#+0
+   \      0x156   0xD100             BNE.N    ??DbgConsole_ScanfFormattedData_18
+   1527                      {
+   1528                          /* Large than length of a line. */
+   1529                          field_width = 99;
+   \      0x158   0x2463             MOVS     R4,#+99
+   1530                      }
+   1531          
+   1532                      /* Matching strings in input streams and assign to argument. */
+   1533                      switch (flag & kSCANF_DestMask)
+   \                     ??DbgConsole_ScanfFormattedData_18: (+1)
+   \      0x15A   0xF007 0x007C      AND      R0,R7,#0x7C
+   \      0x15E   0x2804             CMP      R0,#+4
+   \      0x160   0xD004             BEQ.N    ??DbgConsole_ScanfFormattedData_19
+   \      0x162   0x2808             CMP      R0,#+8
+   \      0x164   0xD01C             BEQ.N    ??DbgConsole_ScanfFormattedData_20
+   \      0x166   0x2820             CMP      R0,#+32
+   \      0x168   0xD054             BEQ.N    ??DbgConsole_ScanfFormattedData_21
+   \      0x16A   0xE0B9             B.N      ??DbgConsole_ScanfFormattedData_3
+   1534                      {
+   1535                          case kSCANF_DestChar:
+   1536                              s = (const char *)p;
+   \                     ??DbgConsole_ScanfFormattedData_19: (+1)
+   \      0x16C   0x9900             LDR      R1,[SP, #+0]
+   1537                              buf = va_arg(args_ptr, char *);
+   \      0x16E   0xF855 0x2B04      LDR      R2,[R5], #+4
+   \      0x172   0xE005             B.N      ??DbgConsole_ScanfFormattedData_22
+   1538                              while ((field_width--) && (*p))
+   1539                              {
+   1540                                  if (!(flag & kSCANF_Suppress))
+   1541                                  {
+   1542                                      *buf++ = *p++;
+   \                     ??DbgConsole_ScanfFormattedData_23: (+1)
+   \      0x174   0x7800             LDRB     R0,[R0, #+0]
+   \      0x176   0xF802 0x0B01      STRB     R0,[R2], #+1
+   \      0x17A   0x9800             LDR      R0,[SP, #+0]
+   \      0x17C   0x1C40             ADDS     R0,R0,#+1
+   \      0x17E   0x9000             STR      R0,[SP, #+0]
+   1543                                  }
+   \                     ??DbgConsole_ScanfFormattedData_22: (+1)
+   \      0x180   0x4620             MOV      R0,R4
+   \      0x182   0x1E44             SUBS     R4,R0,#+1
+   \      0x184   0x2800             CMP      R0,#+0
+   \      0x186   0xF000 0x80AE      BEQ.W    ??DbgConsole_ScanfFormattedData_24
+   \      0x18A   0x9800             LDR      R0,[SP, #+0]
+   \      0x18C   0x7800             LDRB     R0,[R0, #+0]
+   \      0x18E   0x2800             CMP      R0,#+0
+   \      0x190   0xF000 0x80A9      BEQ.W    ??DbgConsole_ScanfFormattedData_24
+   \      0x194   0x07B8             LSLS     R0,R7,#+30
+   \      0x196   0x9800             LDR      R0,[SP, #+0]
+   \      0x198   0xD5EC             BPL.N    ??DbgConsole_ScanfFormattedData_23
+   1544                                  else
+   1545                                  {
+   1546                                      p++;
+   \      0x19A   0x1C40             ADDS     R0,R0,#+1
+   \      0x19C   0x9000             STR      R0,[SP, #+0]
+   \      0x19E   0xE7EF             B.N      ??DbgConsole_ScanfFormattedData_22
+   1547                                  }
+   1548                                  n_decode++;
+   1549                              }
+   1550          
+   1551                              if ((!(flag & kSCANF_Suppress)) && (s != p))
+   1552                              {
+   1553                                  nassigned++;
+   1554                              }
+   1555                              break;
+   1556                          case kSCANF_DestString:
+   1557                              n_decode += DbgConsole_ScanIgnoreWhiteSpace(&p);
+   \                     ??DbgConsole_ScanfFormattedData_20: (+1)
+   \      0x1A0   0x4668             MOV      R0,SP
+   \      0x1A2   0x.... 0x....      BL       DbgConsole_ScanIgnoreWhiteSpace
+   1558                              s = p;
+   \      0x1A6   0x9900             LDR      R1,[SP, #+0]
+   1559                              buf = va_arg(args_ptr, char *);
+   \      0x1A8   0xF855 0x2B04      LDR      R2,[R5], #+4
+   \      0x1AC   0xE001             B.N      ??DbgConsole_ScanfFormattedData_25
+   1560                              while ((field_width--) && (*p != '\0') && (*p != ' ') && (*p != '\t') && (*p != '\n') &&
+   1561                                     (*p != '\r') && (*p != '\v') && (*p != '\f'))
+   1562                              {
+   1563                                  if (flag & kSCANF_Suppress)
+   1564                                  {
+   1565                                      p++;
+   \                     ??DbgConsole_ScanfFormattedData_26: (+1)
+   \      0x1AE   0x1C40             ADDS     R0,R0,#+1
+   \      0x1B0   0x9000             STR      R0,[SP, #+0]
+   1566                                  }
+   \                     ??DbgConsole_ScanfFormattedData_25: (+1)
+   \      0x1B2   0x4620             MOV      R0,R4
+   \      0x1B4   0x1E44             SUBS     R4,R0,#+1
+   \      0x1B6   0x2800             CMP      R0,#+0
+   \      0x1B8   0xF000 0x809E      BEQ.W    ??DbgConsole_ScanfFormattedData_27
+   \      0x1BC   0x9800             LDR      R0,[SP, #+0]
+   \      0x1BE   0x7800             LDRB     R0,[R0, #+0]
+   \      0x1C0   0x2800             CMP      R0,#+0
+   \      0x1C2   0xF000 0x8099      BEQ.W    ??DbgConsole_ScanfFormattedData_27
+   \      0x1C6   0x9800             LDR      R0,[SP, #+0]
+   \      0x1C8   0x7800             LDRB     R0,[R0, #+0]
+   \      0x1CA   0x2820             CMP      R0,#+32
+   \      0x1CC   0xF000 0x8094      BEQ.W    ??DbgConsole_ScanfFormattedData_27
+   \      0x1D0   0x9800             LDR      R0,[SP, #+0]
+   \      0x1D2   0x7800             LDRB     R0,[R0, #+0]
+   \      0x1D4   0x2809             CMP      R0,#+9
+   \      0x1D6   0xF000 0x808F      BEQ.W    ??DbgConsole_ScanfFormattedData_27
+   \      0x1DA   0x9800             LDR      R0,[SP, #+0]
+   \      0x1DC   0x7800             LDRB     R0,[R0, #+0]
+   \      0x1DE   0x280A             CMP      R0,#+10
+   \      0x1E0   0xF000 0x808A      BEQ.W    ??DbgConsole_ScanfFormattedData_27
+   \      0x1E4   0x9800             LDR      R0,[SP, #+0]
+   \      0x1E6   0x7800             LDRB     R0,[R0, #+0]
+   \      0x1E8   0x280D             CMP      R0,#+13
+   \      0x1EA   0xF000 0x8085      BEQ.W    ??DbgConsole_ScanfFormattedData_27
+   \      0x1EE   0x9800             LDR      R0,[SP, #+0]
+   \      0x1F0   0x7800             LDRB     R0,[R0, #+0]
+   \      0x1F2   0x280B             CMP      R0,#+11
+   \      0x1F4   0xF000 0x8080      BEQ.W    ??DbgConsole_ScanfFormattedData_27
+   \      0x1F8   0x9800             LDR      R0,[SP, #+0]
+   \      0x1FA   0x7800             LDRB     R0,[R0, #+0]
+   \      0x1FC   0x280C             CMP      R0,#+12
+   \      0x1FE   0xD07B             BEQ.N    ??DbgConsole_ScanfFormattedData_27
+   \      0x200   0x07B8             LSLS     R0,R7,#+30
+   \      0x202   0x9800             LDR      R0,[SP, #+0]
+   \      0x204   0xD4D3             BMI.N    ??DbgConsole_ScanfFormattedData_26
+   1567                                  else
+   1568                                  {
+   1569                                      *buf++ = *p++;
+   \      0x206   0x7800             LDRB     R0,[R0, #+0]
+   \      0x208   0xF802 0x0B01      STRB     R0,[R2], #+1
+   \      0x20C   0x9800             LDR      R0,[SP, #+0]
+   \      0x20E   0x1C40             ADDS     R0,R0,#+1
+   \      0x210   0x9000             STR      R0,[SP, #+0]
+   \      0x212   0xE7CE             B.N      ??DbgConsole_ScanfFormattedData_25
+   1570                                  }
+   1571                                  n_decode++;
+   1572                              }
+   1573          
+   1574                              if ((!(flag & kSCANF_Suppress)) && (s != p))
+   1575                              {
+   1576                                  /* Add NULL to end of string. */
+   1577                                  *buf = '\0';
+   1578                                  nassigned++;
+   1579                              }
+   1580                              break;
+   1581                          case kSCANF_DestInt:
+   1582                              n_decode += DbgConsole_ScanIgnoreWhiteSpace(&p);
+   \                     ??DbgConsole_ScanfFormattedData_21: (+1)
+   \      0x214   0x4668             MOV      R0,SP
+   \      0x216   0x.... 0x....      BL       DbgConsole_ScanIgnoreWhiteSpace
+   1583                              s = p;
+   \      0x21A   0x9800             LDR      R0,[SP, #+0]
+   1584                              val = 0;
+   \      0x21C   0x2100             MOVS     R1,#+0
+   1585                              if ((base == 0) || (base == 16))
+   \      0x21E   0x4642             MOV      R2,R8
+   \      0x220   0x2A00             CMP      R2,#+0
+   \      0x222   0xD001             BEQ.N    ??DbgConsole_ScanfFormattedData_28
+   \      0x224   0x2A10             CMP      R2,#+16
+   \      0x226   0xD10F             BNE.N    ??DbgConsole_ScanfFormattedData_29
+   1586                              {
+   1587                                  if ((s[0] == '0') && ((s[1] == 'x') || (s[1] == 'X')))
+   \                     ??DbgConsole_ScanfFormattedData_28: (+1)
+   \      0x228   0x7802             LDRB     R2,[R0, #+0]
+   \      0x22A   0x2A30             CMP      R2,#+48
+   \      0x22C   0xD10C             BNE.N    ??DbgConsole_ScanfFormattedData_29
+   \      0x22E   0x7842             LDRB     R2,[R0, #+1]
+   \      0x230   0x2A78             CMP      R2,#+120
+   \      0x232   0xD001             BEQ.N    ??DbgConsole_ScanfFormattedData_30
+   \      0x234   0x2A58             CMP      R2,#+88
+   \      0x236   0xD107             BNE.N    ??DbgConsole_ScanfFormattedData_29
+   1588                                  {
+   1589                                      base = 16;
+   \                     ??DbgConsole_ScanfFormattedData_30: (+1)
+   \      0x238   0xF04F 0x0810      MOV      R8,#+16
+   1590                                      if (field_width >= 1)
+   \      0x23C   0x2C00             CMP      R4,#+0
+   \      0x23E   0xD003             BEQ.N    ??DbgConsole_ScanfFormattedData_29
+   1591                                      {
+   1592                                          p += 2;
+   \      0x240   0x4602             MOV      R2,R0
+   \      0x242   0x1C92             ADDS     R2,R2,#+2
+   \      0x244   0x9200             STR      R2,[SP, #+0]
+   1593                                          n_decode += 2;
+   1594                                          field_width -= 2;
+   \      0x246   0x1EA4             SUBS     R4,R4,#+2
+   1595                                      }
+   1596                                  }
+   1597                              }
+   1598          
+   1599                              if (base == 0)
+   \                     ??DbgConsole_ScanfFormattedData_29: (+1)
+   \      0x248   0x4642             MOV      R2,R8
+   \      0x24A   0x2A00             CMP      R2,#+0
+   \      0x24C   0xD107             BNE.N    ??DbgConsole_ScanfFormattedData_31
+   1600                              {
+   1601                                  if (s[0] == '0')
+   \      0x24E   0x7800             LDRB     R0,[R0, #+0]
+   \      0x250   0x2830             CMP      R0,#+48
+   \      0x252   0xD102             BNE.N    ??DbgConsole_ScanfFormattedData_32
+   1602                                  {
+   1603                                      base = 8;
+   \      0x254   0xF04F 0x0808      MOV      R8,#+8
+   \      0x258   0xE001             B.N      ??DbgConsole_ScanfFormattedData_31
+   1604                                  }
+   1605                                  else
+   1606                                  {
+   1607                                      base = 10;
+   \                     ??DbgConsole_ScanfFormattedData_32: (+1)
+   \      0x25A   0xF04F 0x080A      MOV      R8,#+10
+   1608                                  }
+   1609                              }
+   1610          
+   1611                              neg = 1;
+   \                     ??DbgConsole_ScanfFormattedData_31: (+1)
+   \      0x25E   0x2201             MOVS     R2,#+1
+   1612                              switch (*p)
+   \      0x260   0x9800             LDR      R0,[SP, #+0]
+   \      0x262   0x7800             LDRB     R0,[R0, #+0]
+   \      0x264   0x282B             CMP      R0,#+43
+   \      0x266   0xD008             BEQ.N    ??DbgConsole_ScanfFormattedData_33
+   \      0x268   0x282D             CMP      R0,#+45
+   \      0x26A   0xD118             BNE.N    ??DbgConsole_ScanfFormattedData_34
+   1613                              {
+   1614                                  case '-':
+   1615                                      neg = -1;
+   \      0x26C   0xF04F 0x32FF      MOV      R2,#-1
+   1616                                      n_decode++;
+   1617                                      p++;
+   \      0x270   0x9800             LDR      R0,[SP, #+0]
+   \      0x272   0x1C40             ADDS     R0,R0,#+1
+   \      0x274   0x9000             STR      R0,[SP, #+0]
+   1618                                      field_width--;
+   \      0x276   0x1E64             SUBS     R4,R4,#+1
+   1619                                      break;
+   \      0x278   0xE011             B.N      ??DbgConsole_ScanfFormattedData_34
+   1620                                  case '+':
+   1621                                      neg = 1;
+   1622                                      n_decode++;
+   1623                                      p++;
+   \                     ??DbgConsole_ScanfFormattedData_33: (+1)
+   \      0x27A   0x9800             LDR      R0,[SP, #+0]
+   \      0x27C   0x1C40             ADDS     R0,R0,#+1
+   \      0x27E   0x9000             STR      R0,[SP, #+0]
+   1624                                      field_width--;
+   \      0x280   0x1E64             SUBS     R4,R4,#+1
+   1625                                      break;
+   \      0x282   0xE00C             B.N      ??DbgConsole_ScanfFormattedData_34
+   1626                                  default:
+   1627                                      break;
+   1628                              }
+   1629          
+   1630                              while ((*p) && (field_width--))
+   1631                              {
+   1632                                  if ((*p <= '9') && (*p >= '0'))
+   1633                                  {
+   1634                                      temp = *p - '0';
+   1635                                  }
+   1636                                  else if ((*p <= 'f') && (*p >= 'a'))
+   1637                                  {
+   1638                                      temp = *p - 'a' + 10;
+   1639                                  }
+   1640                                  else if ((*p <= 'F') && (*p >= 'A'))
+   1641                                  {
+   1642                                      temp = *p - 'A' + 10;
+   1643                                  }
+   1644                                  else
+   1645                                  {
+   1646                                      temp = base;
+   \                     ??DbgConsole_ScanfFormattedData_35: (+1)
+   \      0x284   0x4640             MOV      R0,R8
+   1647                                  }
+   1648          
+   1649                                  if (temp >= base)
+   \                     ??DbgConsole_ScanfFormattedData_36: (+1)
+   \      0x286   0x4603             MOV      R3,R0
+   \      0x288   0x46C4             MOV      R12,R8
+   \      0x28A   0xB2DB             UXTB     R3,R3
+   \      0x28C   0x4563             CMP      R3,R12
+   \      0x28E   0xD23E             BCS.N    ??DbgConsole_ScanfFormattedData_37
+   1650                                  {
+   1651                                      break;
+   1652                                  }
+   1653                                  else
+   1654                                  {
+   1655                                      val = base * val + temp;
+   \      0x290   0x4643             MOV      R3,R8
+   \      0x292   0xB2C0             UXTB     R0,R0
+   \      0x294   0xFB03 0x0101      MLA      R1,R3,R1,R0
+   1656                                  }
+   1657                                  p++;
+   \      0x298   0x9800             LDR      R0,[SP, #+0]
+   \      0x29A   0x1C40             ADDS     R0,R0,#+1
+   \      0x29C   0x9000             STR      R0,[SP, #+0]
+   1658                                  n_decode++;
+   \                     ??DbgConsole_ScanfFormattedData_34: (+1)
+   \      0x29E   0x9800             LDR      R0,[SP, #+0]
+   \      0x2A0   0x7800             LDRB     R0,[R0, #+0]
+   \      0x2A2   0x2800             CMP      R0,#+0
+   \      0x2A4   0xD033             BEQ.N    ??DbgConsole_ScanfFormattedData_37
+   \      0x2A6   0x4620             MOV      R0,R4
+   \      0x2A8   0x1E44             SUBS     R4,R0,#+1
+   \      0x2AA   0x2800             CMP      R0,#+0
+   \      0x2AC   0xD02F             BEQ.N    ??DbgConsole_ScanfFormattedData_37
+   \      0x2AE   0x9800             LDR      R0,[SP, #+0]
+   \      0x2B0   0x7800             LDRB     R0,[R0, #+0]
+   \      0x2B2   0x3830             SUBS     R0,R0,#+48
+   \      0x2B4   0x280A             CMP      R0,#+10
+   \      0x2B6   0x9800             LDR      R0,[SP, #+0]
+   \      0x2B8   0x7800             LDRB     R0,[R0, #+0]
+   \      0x2BA   0xD201             BCS.N    ??DbgConsole_ScanfFormattedData_38
+   \      0x2BC   0x3830             SUBS     R0,R0,#+48
+   \      0x2BE   0xE7E2             B.N      ??DbgConsole_ScanfFormattedData_36
+   \                     ??DbgConsole_ScanfFormattedData_38: (+1)
+   \      0x2C0   0x3861             SUBS     R0,R0,#+97
+   \      0x2C2   0x2806             CMP      R0,#+6
+   \      0x2C4   0x9800             LDR      R0,[SP, #+0]
+   \      0x2C6   0x7800             LDRB     R0,[R0, #+0]
+   \      0x2C8   0xD201             BCS.N    ??DbgConsole_ScanfFormattedData_39
+   \      0x2CA   0x3857             SUBS     R0,R0,#+87
+   \      0x2CC   0xE7DB             B.N      ??DbgConsole_ScanfFormattedData_36
+   \                     ??DbgConsole_ScanfFormattedData_39: (+1)
+   \      0x2CE   0x3841             SUBS     R0,R0,#+65
+   \      0x2D0   0x2806             CMP      R0,#+6
+   \      0x2D2   0xD2D7             BCS.N    ??DbgConsole_ScanfFormattedData_35
+   \      0x2D4   0x9800             LDR      R0,[SP, #+0]
+   \      0x2D6   0x7800             LDRB     R0,[R0, #+0]
+   \      0x2D8   0x3837             SUBS     R0,R0,#+55
+   \      0x2DA   0xE7D4             B.N      ??DbgConsole_ScanfFormattedData_36
+   1659                              }
+   1660                              val *= neg;
+   1661                              if (!(flag & kSCANF_Suppress))
+   1662                              {
+   1663          #if SCANF_ADVANCED_ENABLE
+   1664                                  switch (flag & kSCANF_LengthMask)
+   1665                                  {
+   1666                                      case kSCANF_LengthChar:
+   1667                                          if (flag & kSCANF_TypeSinged)
+   1668                                          {
+   1669                                              *va_arg(args_ptr, signed char *) = (signed char)val;
+   1670                                          }
+   1671                                          else
+   1672                                          {
+   1673                                              *va_arg(args_ptr, unsigned char *) = (unsigned char)val;
+   1674                                          }
+   1675                                          break;
+   1676                                      case kSCANF_LengthShortInt:
+   1677                                          if (flag & kSCANF_TypeSinged)
+   1678                                          {
+   1679                                              *va_arg(args_ptr, signed short *) = (signed short)val;
+   1680                                          }
+   1681                                          else
+   1682                                          {
+   1683                                              *va_arg(args_ptr, unsigned short *) = (unsigned short)val;
+   1684                                          }
+   1685                                          break;
+   1686                                      case kSCANF_LengthLongInt:
+   1687                                          if (flag & kSCANF_TypeSinged)
+   1688                                          {
+   1689                                              *va_arg(args_ptr, signed long int *) = (signed long int)val;
+   1690                                          }
+   1691                                          else
+   1692                                          {
+   1693                                              *va_arg(args_ptr, unsigned long int *) = (unsigned long int)val;
+   1694                                          }
+   1695                                          break;
+   1696                                      case kSCANF_LengthLongLongInt:
+   1697                                          if (flag & kSCANF_TypeSinged)
+   1698                                          {
+   1699                                              *va_arg(args_ptr, signed long long int *) = (signed long long int)val;
+   1700                                          }
+   1701                                          else
+   1702                                          {
+   1703                                              *va_arg(args_ptr, unsigned long long int *) = (unsigned long long int)val;
+   1704                                          }
+   1705                                          break;
+   1706                                      default:
+   1707                                          /* The default type is the type int. */
+   1708                                          if (flag & kSCANF_TypeSinged)
+   1709                                          {
+   1710                                              *va_arg(args_ptr, signed int *) = (signed int)val;
+   1711                                          }
+   1712                                          else
+   1713                                          {
+   1714                                              *va_arg(args_ptr, unsigned int *) = (unsigned int)val;
+   1715                                          }
+   1716                                          break;
+   1717                                  }
+   1718          #else
+   1719                                  /* The default type is the type int. */
+   1720                                  if (flag & kSCANF_TypeSinged)
+   1721                                  {
+   1722                                      *va_arg(args_ptr, signed int *) = (signed int)val;
+   1723                                  }
+   1724                                  else
+   1725                                  {
+   1726                                      *va_arg(args_ptr, unsigned int *) = (unsigned int)val;
+   1727                                  }
+   1728          #endif /* SCANF_ADVANCED_ENABLE */
+   1729                                  nassigned++;
+   \                     ??DbgConsole_ScanfFormattedData_40: (+1)
+   \      0x2DC   0x1C76             ADDS     R6,R6,#+1
+   \      0x2DE   0xE69E             B.N      ??DbgConsole_ScanfFormattedData_0
+   1730                              }
+   1731                              break;
+   1732          #if SCANF_FLOAT_ENABLE
+   1733                          case kSCANF_DestFloat:
+   1734                              n_decode += DbgConsole_ScanIgnoreWhiteSpace(&p);
+   1735                              fnum = strtod(p, (char **)&s);
+   1736          
+   1737                              if ((fnum >= HUGE_VAL) || (fnum <= -HUGE_VAL))
+   1738                              {
+   1739                                  break;
+   1740                              }
+   1741          
+   1742                              n_decode += (int)(s) - (int)(p);
+   1743                              p = s;
+   1744                              if (!(flag & kSCANF_Suppress))
+   1745                              {
+   1746                                  if (flag & kSCANF_LengthLongLongDouble)
+   1747                                  {
+   1748                                      *va_arg(args_ptr, double *) = fnum;
+   1749                                  }
+   1750                                  else
+   1751                                  {
+   1752                                      *va_arg(args_ptr, float *) = (float)fnum;
+   1753                                  }
+   1754                                  nassigned++;
+   1755                              }
+   1756                              break;
+   1757          #endif /* SCANF_FLOAT_ENABLE */
+   1758                          default:
+   1759                              return nassigned;
+   1760                      }
+   1761                  }
+   1762              }
+   1763              return nassigned;
+   \                     ??DbgConsole_ScanfFormattedData_3: (+1)
+   \      0x2E0   0x4630             MOV      R0,R6
+   \                     ??DbgConsole_ScanfFormattedData_1: (+1)
+   \      0x2E2   0xE8BD 0x81F6      POP      {R1,R2,R4-R8,PC}  ;; return
+   \                     ??DbgConsole_ScanfFormattedData_24: (+1)
+   \      0x2E6   0x07B8             LSLS     R0,R7,#+30
+   \      0x2E8   0xF53F 0xAE99      BMI.W    ??DbgConsole_ScanfFormattedData_0
+   \      0x2EC   0x9800             LDR      R0,[SP, #+0]
+   \      0x2EE   0x4281             CMP      R1,R0
+   \      0x2F0   0xF43F 0xAE95      BEQ.W    ??DbgConsole_ScanfFormattedData_0
+   \      0x2F4   0x1C76             ADDS     R6,R6,#+1
+   \      0x2F6   0xE692             B.N      ??DbgConsole_ScanfFormattedData_0
+   \                     ??DbgConsole_ScanfFormattedData_27: (+1)
+   \      0x2F8   0x07B8             LSLS     R0,R7,#+30
+   \      0x2FA   0xF53F 0xAE90      BMI.W    ??DbgConsole_ScanfFormattedData_0
+   \      0x2FE   0x9800             LDR      R0,[SP, #+0]
+   \      0x300   0x4281             CMP      R1,R0
+   \      0x302   0xF43F 0xAE8C      BEQ.W    ??DbgConsole_ScanfFormattedData_0
+   \      0x306   0x2000             MOVS     R0,#+0
+   \      0x308   0x7010             STRB     R0,[R2, #+0]
+   \      0x30A   0x1C76             ADDS     R6,R6,#+1
+   \      0x30C   0xE687             B.N      ??DbgConsole_ScanfFormattedData_0
+   \                     ??DbgConsole_ScanfFormattedData_37: (+1)
+   \      0x30E   0x4351             MULS     R1,R2,R1
+   \      0x310   0x07B8             LSLS     R0,R7,#+30
+   \      0x312   0xF53F 0xAE84      BMI.W    ??DbgConsole_ScanfFormattedData_0
+   \      0x316   0xF855 0x0B04      LDR      R0,[R5], #+4
+   \      0x31A   0x6001             STR      R1,[R0, #+0]
+   \      0x31C   0xE7DE             B.N      ??DbgConsole_ScanfFormattedData_40
+   1764          }
+   1765          #endif /* SDK_DEBUGCONSOLE */
+   1766          /*************Code to support toolchain's printf, scanf *******************************/
+   1767          /* These function __write and __read is used to support IAR toolchain to printf and scanf*/
+   1768          #if (defined(__ICCARM__))
+   1769          #pragma weak __write
+
+   \                                 In section .text, align 4
+   1770          size_t __write(int handle, const unsigned char *buffer, size_t size)
+   1771          {
+   \                     __write: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x4614             MOV      R4,R2
+   1772              if (buffer == 0)
+   \        0x4   0x2900             CMP      R1,#+0
+   \        0x6   0xD101             BNE.N    ??__write_1
+   1773              {
+   1774                  /*
+   1775                   * This means that we should flush internal buffers.  Since we don't we just return.
+   1776                   * (Remember, "handle" == -1 means that all handles should be flushed.)
+   1777                   */
+   1778                  return 0;
+   \        0x8   0x2000             MOVS     R0,#+0
+   \        0xA   0xBD10             POP      {R4,PC}
+   1779              }
+   1780          
+   1781              /* This function only writes to "standard out" and "standard err" for all other file handles it returns failure. */
+   1782              if ((handle != 1) && (handle != 2))
+   \                     ??__write_1: (+1)
+   \        0xC   0x2801             CMP      R0,#+1
+   \        0xE   0xD004             BEQ.N    ??__write_2
+   \       0x10   0x2802             CMP      R0,#+2
+   \       0x12   0xD002             BEQ.N    ??__write_2
+   1783              {
+   1784                  return ((size_t)-1);
+   \       0x14   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x18   0xBD10             POP      {R4,PC}
+   1785              }
+   1786          
+   1787              /* Do nothing if the debug UART is not initialized. */
+   1788              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \                     ??__write_2: (+1)
+   \       0x1A   0x4B06             LDR.N    R3,??__write_0
+   \       0x1C   0x7818             LDRB     R0,[R3, #+0]
+   \       0x1E   0x2800             CMP      R0,#+0
+   \       0x20   0xD102             BNE.N    ??__write_3
+   1789              {
+   1790                  return ((size_t)-1);
+   \       0x22   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x26   0xBD10             POP      {R4,PC}
+   1791              }
+   1792          
+   1793              /* Send data. */
+   1794              s_debugConsole.ops.tx_union.PutChar(s_debugConsole.base, buffer, 1);
+   \                     ??__write_3: (+1)
+   \       0x28   0x2201             MOVS     R2,#+1
+   \       0x2A   0x6858             LDR      R0,[R3, #+4]
+   \       0x2C   0x689B             LDR      R3,[R3, #+8]
+   \       0x2E   0x4798             BLX      R3
+   1795              return size;
+   \       0x30   0x4620             MOV      R0,R4
+   \       0x32   0xBD10             POP      {R4,PC}          ;; return
+   \                     ??__write_0:
+   \       0x34   0x....'....        DC32     s_debugConsole
+   1796          }
+   1797          
+   1798          #pragma weak __read
+
+   \                                 In section .text, align 4
+   1799          size_t __read(int handle, unsigned char *buffer, size_t size)
+   1800          {
+   \                     __read: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x4614             MOV      R4,R2
+   1801              /* This function only reads from "standard in", for all other file  handles it returns failure. */
+   1802              if (handle != 0)
+   \        0x4   0x2800             CMP      R0,#+0
+   \        0x6   0xD002             BEQ.N    ??__read_1
+   1803              {
+   1804                  return ((size_t)-1);
+   \        0x8   0xF04F 0x30FF      MOV      R0,#-1
+   \        0xC   0xBD10             POP      {R4,PC}
+   1805              }
+   1806          
+   1807              /* Do nothing if the debug UART is not initialized. */
+   1808              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   \                     ??__read_1: (+1)
+   \        0xE   0x4B06             LDR.N    R3,??__read_0
+   \       0x10   0x7818             LDRB     R0,[R3, #+0]
+   \       0x12   0x2800             CMP      R0,#+0
+   \       0x14   0xD102             BNE.N    ??__read_2
+   1809              {
+   1810                  return ((size_t)-1);
+   \       0x16   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x1A   0xBD10             POP      {R4,PC}
+   1811              }
+   1812          
+   1813              /* Receive data. */
+   1814              s_debugConsole.ops.rx_union.GetChar(s_debugConsole.base, buffer, size);
+   \                     ??__read_2: (+1)
+   \       0x1C   0x6858             LDR      R0,[R3, #+4]
+   \       0x1E   0x68DB             LDR      R3,[R3, #+12]
+   \       0x20   0x4798             BLX      R3
+   1815          
+   1816              return size;
+   \       0x22   0x4620             MOV      R0,R4
+   \       0x24   0xBD10             POP      {R4,PC}          ;; return
+   \       0x26   0xBF00             Nop      
+   \                     ??__read_0:
+   \       0x28   0x....'....        DC32     s_debugConsole
+   1817          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \        0x0   0x....'....        DC32     s_debugConsole
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_1:
+   \        0x0   0x....'....        DC32     UART_WriteBlocking
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_2:
+   \        0x0   0x....'....        DC32     UART_ReadBlocking
+   1818          
+   1819          /* support LPC Xpresso with RedLib */
+   1820          #elif(defined(__REDLIB__))
+   1821          
+   1822          #if (!SDK_DEBUGCONSOLE) && (defined(SDK_DEBUGCONSOLE_UART))
+   1823          int __attribute__((weak)) __sys_write(int handle, char *buffer, int size)
+   1824          {
+   1825              if (buffer == 0)
+   1826              {
+   1827                  /* return -1 if error. */
+   1828                  return -1;
+   1829              }
+   1830          
+   1831              /* This function only writes to "standard out" and "standard err" for all other file handles it returns failure. */
+   1832              if ((handle != 1) && (handle != 2))
+   1833              {
+   1834                  return -1;
+   1835              }
+   1836          
+   1837              /* Do nothing if the debug UART is not initialized. */
+   1838              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   1839              {
+   1840                  return -1;
+   1841              }
+   1842          
+   1843              /* Send data. */
+   1844              s_debugConsole.ops.tx_union.PutChar(s_debugConsole.base, (uint8_t *)buffer, size);
+   1845              return 0;
+   1846          }
+   1847          
+   1848          int __attribute__((weak)) __sys_readc(void)
+   1849          {
+   1850              char tmp;
+   1851              /* Do nothing if the debug UART is not initialized. */
+   1852              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   1853              {
+   1854                  return -1;
+   1855              }
+   1856          
+   1857              /* Receive data. */
+   1858              s_debugConsole.ops.rx_union.GetChar(s_debugConsole.base, (uint8_t *)&tmp, sizeof(tmp));
+   1859              return tmp;
+   1860          }
+   1861          #endif
+   1862          
+   1863          /* These function __write and __read is used to support ARM_GCC, KDS, Atollic toolchains to printf and scanf*/
+   1864          #elif(defined(__GNUC__))
+   1865          
+   1866          #if ((defined(__GNUC__) && (!defined(__MCUXPRESSO))) || \
+   1867               (defined(__MCUXPRESSO) && (!SDK_DEBUGCONSOLE) && (defined(SDK_DEBUGCONSOLE_UART))))
+   1868          
+   1869          int __attribute__((weak)) _write(int handle, char *buffer, int size)
+   1870          {
+   1871              if (buffer == 0)
+   1872              {
+   1873                  /* return -1 if error. */
+   1874                  return -1;
+   1875              }
+   1876          
+   1877              /* This function only writes to "standard out" and "standard err" for all other file handles it returns failure. */
+   1878              if ((handle != 1) && (handle != 2))
+   1879              {
+   1880                  return -1;
+   1881              }
+   1882          
+   1883              /* Do nothing if the debug UART is not initialized. */
+   1884              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   1885              {
+   1886                  return -1;
+   1887              }
+   1888          
+   1889              /* Send data. */
+   1890              s_debugConsole.ops.tx_union.PutChar(s_debugConsole.base, (uint8_t *)buffer, size);
+   1891              return size;
+   1892          }
+   1893          
+   1894          int __attribute__((weak)) _read(int handle, char *buffer, int size)
+   1895          {
+   1896              /* This function only reads from "standard in", for all other file handles it returns failure. */
+   1897              if (handle != 0)
+   1898              {
+   1899                  return -1;
+   1900              }
+   1901          
+   1902              /* Do nothing if the debug UART is not initialized. */
+   1903              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   1904              {
+   1905                  return -1;
+   1906              }
+   1907          
+   1908              /* Receive data. */
+   1909              s_debugConsole.ops.rx_union.GetChar(s_debugConsole.base, (uint8_t *)buffer, size);
+   1910              return size;
+   1911          }
+   1912          #endif
+   1913          
+   1914          /* These function fputc and fgetc is used to support KEIL toolchain to printf and scanf*/
+   1915          #elif defined(__CC_ARM)
+   1916          struct __FILE
+   1917          {
+   1918              int handle;
+   1919              /*
+   1920               * Whatever you require here. If the only file you are using is standard output using printf() for debugging,
+   1921               * no file handling is required.
+   1922               */
+   1923          };
+   1924          
+   1925          /* FILE is typedef in stdio.h. */
+   1926          #pragma weak __stdout
+   1927          #pragma weak __stdin
+   1928          FILE __stdout;
+   1929          FILE __stdin;
+   1930          
+   1931          #pragma weak fputc
+   1932          int fputc(int ch, FILE *f)
+   1933          {
+   1934              /* Do nothing if the debug UART is not initialized. */
+   1935              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   1936              {
+   1937                  return -1;
+   1938              }
+   1939          
+   1940              /* Send data. */
+   1941              s_debugConsole.ops.tx_union.PutChar(s_debugConsole.base, (uint8_t *)(&ch), 1);
+   1942              return 1;
+   1943          }
+   1944          
+   1945          #pragma weak fgetc
+   1946          int fgetc(FILE *f)
+   1947          {
+   1948              char ch;
+   1949              /* Do nothing if the debug UART is not initialized. */
+   1950              if (s_debugConsole.type == DEBUG_CONSOLE_DEVICE_TYPE_NONE)
+   1951              {
+   1952                  return -1;
+   1953              }
+   1954          
+   1955              /* Receive data. */
+   1956              s_debugConsole.ops.rx_union.GetChar(s_debugConsole.base, (uint8_t *)(&ch), 1);
+   1957              return ch;
+   1958          }
+   1959          #endif /* __ICCARM__ */
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      12   DbgConsole_ConvertRadixNumToString
+       8   DbgConsole_Deinit
+         8   -> UART_Deinit
+       8   DbgConsole_Getchar
+         8   -- Indirect call
+      32   DbgConsole_Init
+        32   -> UART_EnableRx
+        32   -> UART_EnableTx
+        32   -> UART_GetDefaultConfig
+        32   -> UART_Init
+      16   DbgConsole_Printf
+        16   -> DbgConsole_PrintfFormattedData
+      96   DbgConsole_PrintfFormattedData
+        96   -- Indirect call
+        96   -> DbgConsole_ConvertRadixNumToString
+        96   -> DbgConsole_PrintfPaddingCharacter
+        96   -> strlen
+      24   DbgConsole_PrintfPaddingCharacter
+        24   -- Indirect call
+       8   DbgConsole_Putchar
+         8   -- Indirect call
+       0   DbgConsole_ScanIgnoreWhiteSpace
+      56   DbgConsole_Scanf
+        56   -> DbgConsole_Getchar
+        56   -> DbgConsole_ScanfFormattedData
+      32   DbgConsole_ScanfFormattedData
+        32   -> DbgConsole_ScanIgnoreWhiteSpace
+       0   UART_EnableRx
+       0   UART_EnableTx
+       8   __read
+         8   -- Indirect call
+       8   __write
+         8   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_2
+     126  DbgConsole_ConvertRadixNumToString
+      50  DbgConsole_Deinit
+      42  DbgConsole_Getchar
+      82  DbgConsole_Init
+      34  DbgConsole_Printf
+     552  DbgConsole_PrintfFormattedData
+      38  DbgConsole_PrintfPaddingCharacter
+      30  DbgConsole_Putchar
+      48  DbgConsole_ScanIgnoreWhiteSpace
+     112  DbgConsole_Scanf
+     798  DbgConsole_ScanfFormattedData
+      22  UART_EnableRx
+      22  UART_EnableTx
+      44  __read
+      56  __write
+      16  s_debugConsole
+
+ 
+    16 bytes in section .bss
+ 2 068 bytes in section .text
+ 
+ 1 968 bytes of CODE memory (+ 100 bytes shared)
+    16 bytes of DATA memory
+
+Errors: none
+Warnings: none

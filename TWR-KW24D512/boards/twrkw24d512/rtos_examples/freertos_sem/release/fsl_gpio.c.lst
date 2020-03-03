@@ -1,0 +1,382 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM         03/Mar/2020  16:31:24
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_gpio.c
+#    Command line =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_gpio.c
+#        "-IC:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc"
+#        -I..\..\..\..\..\CMSIS\Include -I..\..\..\..\..\devices -I..\..\..
+#        -I..\..\..\..\..\devices\MKW24D5\drivers
+#        -I..\..\..\..\..\devices\MKW24D5\utilities
+#        -I..\..\..\..\..\devices\MKW24D5 -I..\..\iar -I..\.. -I..\
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\include -DNDEBUG
+#        -DCPU_MKW24D512VHA5 -DIAR -DFSL_RTOS_FREE_RTOS -DPRINTF_FLOAT_ENABLE=0
+#        -DSCANF_FLOAT_ENABLE=0 -DPRINTF_ADVANCED_ENABLE=0
+#        -DSCANF_ADVANCED_ENABLE=0 -DTWR_KW24D512 -DTOWER --diag_suppress
+#        Pa082,Pa050,Pe167,Pa182 --endian=little --cpu=Cortex-M4 --fpu=None
+#        --no_path_in_file_macros --silent -lC . -e --dlib_config "C:/Program
+#        Files (x86)/IAR Systems/Embedded Workbench
+#        8.1/arm/inc/c/DLib_Config_Normal.h" -Oh --dependencies=ns
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_gpio.c.obj.d
+#        -o
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_gpio.c.obj
+#    Locale       =  C
+#    List file    =  .\fsl_gpio.c.lst
+#    Object file  =  
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_gpio.c.obj
+#
+###############################################################################
+
+C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_gpio.c
+      1          /*
+      2           * Copyright (c) 2015, Freescale Semiconductor, Inc.
+      3           * Copyright 2016-2017 NXP
+      4           *
+      5           * Redistribution and use in source and binary forms, with or without modification,
+      6           * are permitted provided that the following conditions are met:
+      7           *
+      8           * o Redistributions of source code must retain the above copyright notice, this list
+      9           *   of conditions and the following disclaimer.
+     10           *
+     11           * o Redistributions in binary form must reproduce the above copyright notice, this
+     12           *   list of conditions and the following disclaimer in the documentation and/or
+     13           *   other materials provided with the distribution.
+     14           *
+     15           * o Neither the name of the copyright holder nor the names of its
+     16           *   contributors may be used to endorse or promote products derived from this
+     17           *   software without specific prior written permission.
+     18           *
+     19           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+     20           * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     21           * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     22           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+     23           * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+     24           * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+     25           * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+     26           * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+     27           * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     28           * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     29           */
+     30          
+     31          #include "fsl_gpio.h"
+     32          
+     33          /*******************************************************************************
+     34           * Variables
+     35           ******************************************************************************/
+
+   \                                 In section .text, align 4, keep-with-next
+     36          static PORT_Type *const s_portBases[] = PORT_BASE_PTRS;
+   \                     s_portBases:
+   \        0x0   0x4004'9000        DC32 40049000H, 4004A000H, 4004B000H, 4004C000H, 4004D000H
+   \              0x4004'A000  
+   \              0x4004'B000  
+   \              0x4004'C000  
+   \              0x4004'D000  
+
+   \                                 In section .rodata, align 4, keep-with-next
+     37          static GPIO_Type *const s_gpioBases[] = GPIO_BASE_PTRS;
+   \                     s_gpioBases:
+   \        0x0   0x400F'F000        DC32 400FF000H, 400FF040H, 400FF080H, 400FF0C0H, 400FF100H
+   \              0x400F'F040  
+   \              0x400F'F080  
+   \              0x400F'F0C0  
+   \              0x400F'F100  
+     38          
+     39          /*******************************************************************************
+     40          * Prototypes
+     41          ******************************************************************************/
+     42          
+     43          /*!
+     44          * @brief Gets the GPIO instance according to the GPIO base
+     45          *
+     46          * @param base    GPIO peripheral base pointer(PTA, PTB, PTC, etc.)
+     47          * @retval GPIO instance
+     48          */
+     49          static uint32_t GPIO_GetInstance(GPIO_Type *base);
+     50          
+     51          /*******************************************************************************
+     52           * Code
+     53           ******************************************************************************/
+     54          
+     55          static uint32_t GPIO_GetInstance(GPIO_Type *base)
+     56          {
+     57              uint32_t instance;
+     58          
+     59              /* Find the instance index from base address mappings. */
+     60              for (instance = 0; instance < ARRAY_SIZE(s_gpioBases); instance++)
+     61              {
+     62                  if (s_gpioBases[instance] == base)
+     63                  {
+     64                      break;
+     65                  }
+     66              }
+     67          
+     68              assert(instance < ARRAY_SIZE(s_gpioBases));
+     69          
+     70              return instance;
+     71          }
+     72          
+
+   \                                 In section .text, align 2, keep-with-next
+     73          void GPIO_PinInit(GPIO_Type *base, uint32_t pin, const gpio_pin_config_t *config)
+     74          {
+     75              assert(config);
+     76          
+     77              if (config->pinDirection == kGPIO_DigitalInput)
+   \                     GPIO_PinInit: (+1)
+   \        0x0   0xF04F 0x0C01      MOV      R12,#+1
+   \        0x4   0x7813             LDRB     R3,[R2, #+0]
+   \        0x6   0xFA0C 0xF101      LSL      R1,R12,R1
+   \        0xA   0xB91B             CBNZ.N   R3,??GPIO_PinInit_0
+     78              {
+     79                  base->PDDR &= ~(1U << pin);
+   \        0xC   0x6942             LDR      R2,[R0, #+20]
+   \        0xE   0xEA22 0x0101      BIC      R1,R2,R1
+   \       0x12   0xE006             B.N      ??GPIO_PinInit_1
+     80              }
+     81              else
+     82              {
+     83                  GPIO_WritePinOutput(base, pin, config->outputLogic);
+   \                     ??GPIO_PinInit_0: (+1)
+   \       0x14   0x7852             LDRB     R2,[R2, #+1]
+   \       0x16   0x2A00             CMP      R2,#+0
+   \       0x18   0xBF0C             ITE      EQ 
+   \       0x1A   0x6081             STREQ    R1,[R0, #+8]
+   \       0x1C   0x6041             STRNE    R1,[R0, #+4]
+     84                  base->PDDR |= (1U << pin);
+   \       0x1E   0x6942             LDR      R2,[R0, #+20]
+   \       0x20   0x4311             ORRS     R1,R1,R2
+   \                     ??GPIO_PinInit_1: (+1)
+   \       0x22   0x6141             STR      R1,[R0, #+20]
+     85              }
+     86          }
+   \       0x24   0x4770             BX       LR               ;; return
+     87          
+
+   \                                 In section .text, align 4, keep-with-next
+     88          uint32_t GPIO_GetPinsInterruptFlags(GPIO_Type *base)
+     89          {
+     90              uint8_t instance;
+     91              PORT_Type *portBase;
+     92              instance = GPIO_GetInstance(base);
+   \                     GPIO_GetPinsInterruptFlags: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+   \        0x2   0x....             LDR.N    R2,??DataTable4  ;; 0x400ff000
+   \        0x4   0x4290             CMP      R0,R2
+   \        0x6   0xBF1E             ITTT     NE 
+   \        0x8   0x2101             MOVNE    R1,#+1
+   \        0xA   0x....             LDRNE.N  R3,??DataTable4_1  ;; 0x400ff040
+   \        0xC   0x4298             CMPNE    R0,R3
+   \        0xE   0xD00C             BEQ.N    ??GPIO_GetPinsInterruptFlags_0
+   \       0x10   0x2102             MOVS     R1,#+2
+   \       0x12   0x....             LDR.N    R2,??DataTable4_2  ;; 0x400ff080
+   \       0x14   0x4290             CMP      R0,R2
+   \       0x16   0xBF1E             ITTT     NE 
+   \       0x18   0x2103             MOVNE    R1,#+3
+   \       0x1A   0x....             LDRNE.N  R3,??DataTable4_3  ;; 0x400ff0c0
+   \       0x1C   0x4298             CMPNE    R0,R3
+   \       0x1E   0xD004             BEQ.N    ??GPIO_GetPinsInterruptFlags_0
+   \       0x20   0x2104             MOVS     R1,#+4
+   \       0x22   0x....             LDR.N    R2,??DataTable4_4  ;; 0x400ff100
+   \       0x24   0x4290             CMP      R0,R2
+   \       0x26   0xBF18             IT       NE 
+   \       0x28   0x2105             MOVNE    R1,#+5
+     93              portBase = s_portBases[instance];
+     94              return portBase->ISFR;
+   \                     ??GPIO_GetPinsInterruptFlags_0: (+1)
+   \       0x2A   0xBF00             Nop      
+   \       0x2C   0x....             ADR.N    R0,s_portBases
+   \       0x2E   0xF850 0x1021      LDR      R1,[R0, R1, LSL #+2]
+   \       0x32   0xF8D1 0x00A0      LDR      R0,[R1, #+160]
+   \       0x36   0x4770             BX       LR               ;; return
+     95          }
+     96          
+
+   \                                 In section .text, align 4, keep-with-next
+     97          void GPIO_ClearPinsInterruptFlags(GPIO_Type *base, uint32_t mask)
+     98          {
+     99              uint8_t instance;
+    100              PORT_Type *portBase;
+    101              instance = GPIO_GetInstance(base);
+   \                     GPIO_ClearPinsInterruptFlags: (+1)
+   \        0x0   0x2200             MOVS     R2,#+0
+   \        0x2   0x....             LDR.N    R3,??DataTable4  ;; 0x400ff000
+   \        0x4   0x4298             CMP      R0,R3
+   \        0x6   0xBF1E             ITTT     NE 
+   \        0x8   0x2201             MOVNE    R2,#+1
+   \        0xA   0x.... 0x....      LDRNE.W  R12,??DataTable4_1  ;; 0x400ff040
+   \        0xE   0x4560             CMPNE    R0,R12
+   \       0x10   0xD00D             BEQ.N    ??GPIO_ClearPinsInterruptFlags_0
+   \       0x12   0x2202             MOVS     R2,#+2
+   \       0x14   0x....             LDR.N    R3,??DataTable4_2  ;; 0x400ff080
+   \       0x16   0x4298             CMP      R0,R3
+   \       0x18   0xBF1E             ITTT     NE 
+   \       0x1A   0x2203             MOVNE    R2,#+3
+   \       0x1C   0x.... 0x....      LDRNE.W  R12,??DataTable4_3  ;; 0x400ff0c0
+   \       0x20   0x4560             CMPNE    R0,R12
+   \       0x22   0xD004             BEQ.N    ??GPIO_ClearPinsInterruptFlags_0
+   \       0x24   0x2204             MOVS     R2,#+4
+   \       0x26   0x....             LDR.N    R3,??DataTable4_4  ;; 0x400ff100
+   \       0x28   0x4298             CMP      R0,R3
+   \       0x2A   0xBF18             IT       NE 
+   \       0x2C   0x2205             MOVNE    R2,#+5
+    102              portBase = s_portBases[instance];
+    103              portBase->ISFR = mask;
+   \                     ??GPIO_ClearPinsInterruptFlags_0: (+1)
+   \       0x2E   0xBF00             Nop      
+   \       0x30   0x....             ADR.N    R0,s_portBases
+   \       0x32   0xF850 0x2022      LDR      R2,[R0, R2, LSL #+2]
+   \       0x36   0xF8C2 0x10A0      STR      R1,[R2, #+160]
+    104          }
+   \       0x3A   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0x400F'F000        DC32     0x400ff000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \        0x0   0x400F'F040        DC32     0x400ff040
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \        0x0   0x400F'F080        DC32     0x400ff080
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_3:
+   \        0x0   0x400F'F0C0        DC32     0x400ff0c0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_4:
+   \        0x0   0x400F'F100        DC32     0x400ff100
+    105          
+    106          #if defined(FSL_FEATURE_GPIO_HAS_ATTRIBUTE_CHECKER) && FSL_FEATURE_GPIO_HAS_ATTRIBUTE_CHECKER
+    107          void GPIO_CheckAttributeBytes(GPIO_Type *base, gpio_checker_attribute_t attribute)
+    108          {
+    109              base->GACR = ((uint32_t)attribute << GPIO_GACR_ACB0_SHIFT) | ((uint32_t)attribute << GPIO_GACR_ACB1_SHIFT) |
+    110                           ((uint32_t)attribute << GPIO_GACR_ACB2_SHIFT) | ((uint32_t)attribute << GPIO_GACR_ACB3_SHIFT);
+    111          }
+    112          #endif
+    113          
+    114          #if defined(FSL_FEATURE_SOC_FGPIO_COUNT) && FSL_FEATURE_SOC_FGPIO_COUNT
+    115          
+    116          /*******************************************************************************
+    117           * Variables
+    118           ******************************************************************************/
+    119          static FGPIO_Type *const s_fgpioBases[] = FGPIO_BASE_PTRS;
+    120          
+    121          /*******************************************************************************
+    122          * Prototypes
+    123          ******************************************************************************/
+    124          /*!
+    125          * @brief Gets the FGPIO instance according to the GPIO base
+    126          *
+    127          * @param base    FGPIO peripheral base pointer(PTA, PTB, PTC, etc.)
+    128          * @retval FGPIO instance
+    129          */
+    130          static uint32_t FGPIO_GetInstance(FGPIO_Type *base);
+    131          
+    132          /*******************************************************************************
+    133           * Code
+    134           ******************************************************************************/
+    135          
+    136          static uint32_t FGPIO_GetInstance(FGPIO_Type *base)
+    137          {
+    138              uint32_t instance;
+    139          
+    140              /* Find the instance index from base address mappings. */
+    141              for (instance = 0; instance < ARRAY_SIZE(s_fgpioBases); instance++)
+    142              {
+    143                  if (s_fgpioBases[instance] == base)
+    144                  {
+    145                      break;
+    146                  }
+    147              }
+    148          
+    149              assert(instance < ARRAY_SIZE(s_fgpioBases));
+    150          
+    151              return instance;
+    152          }
+    153          
+    154          void FGPIO_PinInit(FGPIO_Type *base, uint32_t pin, const gpio_pin_config_t *config)
+    155          {
+    156              assert(config);
+    157          
+    158              if (config->pinDirection == kGPIO_DigitalInput)
+    159              {
+    160                  base->PDDR &= ~(1U << pin);
+    161              }
+    162              else
+    163              {
+    164                  FGPIO_WritePinOutput(base, pin, config->outputLogic);
+    165                  base->PDDR |= (1U << pin);
+    166              }
+    167          }
+    168          
+    169          uint32_t FGPIO_GetPinsInterruptFlags(FGPIO_Type *base)
+    170          {
+    171              uint8_t instance;
+    172              instance = FGPIO_GetInstance(base);
+    173              PORT_Type *portBase;
+    174              portBase = s_portBases[instance];
+    175              return portBase->ISFR;
+    176          }
+    177          
+    178          void FGPIO_ClearPinsInterruptFlags(FGPIO_Type *base, uint32_t mask)
+    179          {
+    180              uint8_t instance;
+    181              instance = FGPIO_GetInstance(base);
+    182              PORT_Type *portBase;
+    183              portBase = s_portBases[instance];
+    184              portBase->ISFR = mask;
+    185          }
+    186          
+    187          #if defined(FSL_FEATURE_FGPIO_HAS_ATTRIBUTE_CHECKER) && FSL_FEATURE_FGPIO_HAS_ATTRIBUTE_CHECKER
+    188          void FGPIO_CheckAttributeBytes(FGPIO_Type *base, gpio_checker_attribute_t attribute)
+    189          {
+    190              base->GACR = (attribute << FGPIO_GACR_ACB0_SHIFT) | (attribute << FGPIO_GACR_ACB1_SHIFT) |
+    191                           (attribute << FGPIO_GACR_ACB2_SHIFT) | (attribute << FGPIO_GACR_ACB3_SHIFT);
+    192          }
+    193          #endif
+    194          
+    195          #endif /* FSL_FEATURE_SOC_FGPIO_COUNT */
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   GPIO_ClearPinsInterruptFlags
+       0   GPIO_GetPinsInterruptFlags
+       0   GPIO_PinInit
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+       4  ??DataTable4_3
+       4  ??DataTable4_4
+      60  GPIO_ClearPinsInterruptFlags
+      56  GPIO_GetPinsInterruptFlags
+      38  GPIO_PinInit
+      20  s_gpioBases
+      20  s_portBases
+
+ 
+  20 bytes in section .rodata
+ 194 bytes in section .text
+ 
+ 194 bytes of CODE  memory
+  20 bytes of CONST memory
+
+Errors: none
+Warnings: none

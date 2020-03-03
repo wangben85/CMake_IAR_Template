@@ -1,0 +1,257 @@
+The target system is: Generic -  - 
+The host system is: Windows - 10.0.17763 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.1/arm/bin/iccarm.exe 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+   IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM
+   Copyright 1999-2018 IAR Systems AB.
+   Network license: ms-ni76 (STD)
+ 
+ 56 bytes of CODE  memory
+ 76 bytes of CONST memory
+ 16 bytes of DATA  memory
+
+Errors: none
+Warnings: none
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is IAR, found in "C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/debug/CMakeFiles/3.7.2/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.1/arm/bin/iccarm.exe --c++
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+   IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM
+   Copyright 1999-2018 IAR Systems AB.
+   Network license: ms-ni76 (STD)
+ 
+ 44 bytes of CODE  memory
+ 76 bytes of CONST memory
+ 16 bytes of DATA  memory
+
+Errors: none
+Warnings: none
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+
+The CXX compiler identification is IAR, found in "C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/debug/CMakeFiles/3.7.2/CompilerIdCXX/CMakeCXXCompilerId.o"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/User_Software/Software_Setups/ninja_build_win/ninja-win/ninja.exe" "cmTC_58feb"
+[1/2] Building C object CMakeFiles\cmTC_58feb.dir\testCCompiler.c.obj
+
+   IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM
+   Copyright 1999-2018 IAR Systems AB.
+   Network license: ms-ni76 (STD)
+ 
+ 4 bytes of CODE memory
+
+Errors: none
+Warnings: none
+[2/2] Linking C executable cmTC_58feb.elf
+
+   IAR ELF Linker V8.30.1.114/W32 for ARM
+   Copyright 2007-2018 IAR Systems AB.
+
+     144 bytes of readonly  code memory
+  16 384 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
+
+Link time:   0.03 (CPU)   0.04 (elapsed)
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/User_Software/Software_Setups/ninja_build_win/ninja-win/ninja.exe" "cmTC_229b2"
+[1/2] Building C object CMakeFiles\cmTC_229b2.dir\CMakeCCompilerABI.c.obj
+
+   IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM
+   Copyright 1999-2018 IAR Systems AB.
+   Network license: ms-ni76 (STD)
+ 
+ 16 bytes of CODE  memory
+ 24 bytes of CONST memory
+
+Errors: none
+Warnings: none
+[2/2] Linking C executable cmTC_229b2.elf
+
+   IAR ELF Linker V8.30.1.114/W32 for ARM
+   Copyright 2007-2018 IAR Systems AB.
+
+     156 bytes of readonly  code memory
+      24 bytes of readonly  data memory
+  16 384 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
+
+Link time:   0.03 (CPU)   0.04 (elapsed)
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/User_Software/Software_Setups/ninja_build_win/ninja-win/ninja.exe" "cmTC_218ec"
+[1/2] Building CXX object CMakeFiles\cmTC_218ec.dir\testCXXCompiler.cxx.obj
+
+   IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM
+   Copyright 1999-2018 IAR Systems AB.
+   Network license: ms-ni76 (STD)
+ 
+ 4 bytes of CODE memory
+
+Errors: none
+Warnings: none
+[2/2] Linking CXX executable cmTC_218ec.elf
+
+   IAR ELF Linker V8.30.1.114/W32 for ARM
+   Copyright 2007-2018 IAR Systems AB.
+
+     144 bytes of readonly  code memory
+  16 384 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
+
+Link time:   0.03 (CPU)   0.04 (elapsed)
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: C:/Other_Code_Repo/CMake_IAR_Template/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/User_Software/Software_Setups/ninja_build_win/ninja-win/ninja.exe" "cmTC_68493"
+[1/2] Building CXX object CMakeFiles\cmTC_68493.dir\CMakeCXXCompilerABI.cpp.obj
+
+   IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM
+   Copyright 1999-2018 IAR Systems AB.
+   Network license: ms-ni76 (STD)
+ 
+ 16 bytes of CODE  memory
+ 24 bytes of CONST memory
+
+Errors: none
+Warnings: none
+[2/2] Linking CXX executable cmTC_68493.elf
+
+   IAR ELF Linker V8.30.1.114/W32 for ARM
+   Copyright 2007-2018 IAR Systems AB.
+
+     156 bytes of readonly  code memory
+      24 bytes of readonly  data memory
+  16 384 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
+
+Link time:   0.03 (CPU)   0.04 (elapsed)
+
+
+Checking whether the ASM compiler is IAR using "" matched "IAR Assembler":
+
+    IAR Assembler V8.30.1.114/W32 for ARM
+    Copyright 1999-2018 IAR Systems AB.
+
+Usage:        iasmarm {<options>} <sourcefile> {<options>}
+Sourcefile:   source file with default extension: .msa, , .asm, or .s
+
+Environment:  IASMARM
+Options (specified order is of no importance):
+-B            Print debug info for assembler macros
+-c{DEAOM}     Listing options
+                 D: Disable listing,             E: Disable macro expansion
+                 A: List only assembled part     O: List several lines of code
+                 M: List Macro definition
+-DSYMB        Equivalent to: #define SYMB 1
+-DSYMB=xx     Equivalent to: #define SYMB xx
+-e            Use big-endian byte order
+-Enumber      Allow <number> errors
+-f file       Extend command line with <file> <.xcl>
+-g            No system include
+-G            Open standard input as source
+-i            List #included files
+-Ipath        Add #include search path
+-j            Enable alternative register names, operators and mnemonics
+-l file       Generate a list on: <file> <.lst>
+-Lpath        Generate a list on: <path> \ <source> <.lst>
+-Mab          Change asm.macro argument quote chars,
+                  where a is start-of-quote and b is end-of-quote char.
+                  default is a == < and b == >.
+-N            No header in listing
+-o file       Put object  on: <file> <.o>
+-Opath        Put object on: <path> \ <source> <.o>
+-pnn          Page listing with 'nn' lines/page (10-150)
+-r            Enable debugger output in object
+-S            Silent operation of assembler
+-s{+|-}       Set case sensitivity for user symbols
+                 -s and -s+ enables sensitivity, -s- disables it.
+-tn           Set tab spacing between 2 and 9 (default 8)
+-USYMB        Equivalent to: #undef SYMB
+-ws           To make warnings generate exit code 1
+-wstring      Disable warnings
+                 string: <+|-,><+|-range><,+|-range>...
+                 range: low_warning_nr<-high_warning_nr>
+                 example: -w turns all warnings off
+                          -w-,+10-12,+20 turns all but 10,11,12 and 20 off
+
+-x{DI2}       Generate cross-reference list
+                 D: Show all #defines, I: Show Internal table
+                 2: Dual line space listing
+--arm         Generate code in arm mode, same as --cpu_mode arm
+
+--cmse
+              Target secure mode in CMSE (ARMv8-M security extensions)
+--cpu core    Specify target core
+                 Valid options are core names such as Cortex-M3
+                 and architecture names such as 7M
+                 Default is Cortex-M3
+--cpu_mode {arm|a|thumb|t}
+              Select default mode for CODE directive, ARM is default
+
+--endian {little|l|big|b}
+              Specify target byte order
+--fpu {VFPv1|VFPv2|VFPv3{_D16}{_FP16}|VFP9-S|none}
+              Specify target FPU coprocessor support
+                 Default is none, which selects the software
+                 floating-point library.
+--legacy {legacyOption}
+              Generate object files compatible with
+              older toolchains. Valid options are:
+              RVCT3.0
+--no_dwarf3_cfi
+              Suppress Dwarf 3 Call Frame Information instructions
+--no_it_verification
+              Do not verify that the instructions following
+              an IT instruction has the correct condition set
+
+--no_literal_pool
+              Use MOV32 for LDR Rd,=expr (requires ARMv7-M)
+--no_path_in_file_macros 
+              Strip path from __FILE__ macros
+--source_encoding {locale|utf8}
+Encoding to use for source files with no BOM
+--suppress_vfe_header
+              Do not generate VFE header info
+
+--system_include_directory <path>
+              Set system header directory
+--thumb       Generate code in thumb mode, same as --cpu_mode thumb
+
+--version     Output version info and exit

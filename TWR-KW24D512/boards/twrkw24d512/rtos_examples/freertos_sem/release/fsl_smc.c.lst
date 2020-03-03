@@ -1,0 +1,670 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.30.1.114/W32 for ARM         03/Mar/2020  16:31:23
+# Copyright 1999-2018 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_smc.c
+#    Command line =  
+#        C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_smc.c
+#        "-IC:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\inc"
+#        -I..\..\..\..\..\CMSIS\Include -I..\..\..\..\..\devices -I..\..\..
+#        -I..\..\..\..\..\devices\MKW24D5\drivers
+#        -I..\..\..\..\..\devices\MKW24D5\utilities
+#        -I..\..\..\..\..\devices\MKW24D5 -I..\..\iar -I..\.. -I..\
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3
+#        -I..\..\..\..\..\rtos\freertos_9.0.0\Source\include -DNDEBUG
+#        -DCPU_MKW24D512VHA5 -DIAR -DFSL_RTOS_FREE_RTOS -DPRINTF_FLOAT_ENABLE=0
+#        -DSCANF_FLOAT_ENABLE=0 -DPRINTF_ADVANCED_ENABLE=0
+#        -DSCANF_ADVANCED_ENABLE=0 -DTWR_KW24D512 -DTOWER --diag_suppress
+#        Pa082,Pa050,Pe167,Pa182 --endian=little --cpu=Cortex-M4 --fpu=None
+#        --no_path_in_file_macros --silent -lC . -e --dlib_config "C:/Program
+#        Files (x86)/IAR Systems/Embedded Workbench
+#        8.1/arm/inc/c/DLib_Config_Normal.h" -Oh --dependencies=ns
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_smc.c.obj.d
+#        -o
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_smc.c.obj
+#    Locale       =  C
+#    List file    =  .\fsl_smc.c.lst
+#    Object file  =  
+#        CMakeFiles\freertos_sem.dir\C_\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_smc.c.obj
+#
+###############################################################################
+
+C:\Other_Code_Repo\CMake_IAR_Template\TWR-KW24D512\devices\MKW24D5\drivers\fsl_smc.c
+      1          /*
+      2           * Copyright (c) 2015, Freescale Semiconductor, Inc.
+      3           * Copyright 2016-2017 NXP
+      4           *
+      5           * Redistribution and use in source and binary forms, with or without modification,
+      6           * are permitted provided that the following conditions are met:
+      7           *
+      8           * o Redistributions of source code must retain the above copyright notice, this list
+      9           *   of conditions and the following disclaimer.
+     10           *
+     11           * o Redistributions in binary form must reproduce the above copyright notice, this
+     12           *   list of conditions and the following disclaimer in the documentation and/or
+     13           *   other materials provided with the distribution.
+     14           *
+     15           * o Neither the name of the copyright holder nor the names of its
+     16           *   contributors may be used to endorse or promote products derived from this
+     17           *   software without specific prior written permission.
+     18           *
+     19           * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+     20           * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+     21           * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     22           * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+     23           * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+     24           * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+     25           * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+     26           * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+     27           * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     28           * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     29           */
+     30          
+     31          #include "fsl_smc.h"
+     32          #include "fsl_flash.h"
+     33          
+     34          #if (defined(FSL_FEATURE_SMC_HAS_PARAM) && FSL_FEATURE_SMC_HAS_PARAM)
+     35          void SMC_GetParam(SMC_Type *base, smc_param_t *param)
+     36          {
+     37              uint32_t reg = base->PARAM;
+     38              param->hsrunEnable = (bool)(reg & SMC_PARAM_EHSRUN_MASK);
+     39              param->llsEnable = (bool)(reg & SMC_PARAM_ELLS_MASK);
+     40              param->lls2Enable = (bool)(reg & SMC_PARAM_ELLS2_MASK);
+     41              param->vlls0Enable = (bool)(reg & SMC_PARAM_EVLLS0_MASK);
+     42          }
+     43          #endif /* FSL_FEATURE_SMC_HAS_PARAM */
+     44          
+
+   \                                 In section .text, align 4, keep-with-next
+     45          void SMC_PreEnterStopModes(void)
+     46          {
+   \                     SMC_PreEnterStopModes: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     47              flash_prefetch_speculation_status_t speculationStatus =
+     48              {
+     49                  kFLASH_prefetchSpeculationOptionDisable, /* Disable instruction speculation.*/
+     50                  kFLASH_prefetchSpeculationOptionDisable, /* Disable data speculation.*/
+     51              };
+   \        0x2   0xBF00             Nop      
+   \        0x4   0x....             ADR.N    R0,?_0
+   \        0x6   0x8801             LDRH     R1,[R0, #+0]
+   \        0x8   0xF8AD 0x1000      STRH     R1,[SP, #+0]
+     52          
+     53              __disable_irq();
+   \        0xC   0xB672             CPSID    I
+     54              __ISB();
+   \        0xE   0xF3BF 0x8F6F      ISB      SY
+     55          
+     56              /*
+     57               * Before enter stop modes, the flash cache prefetch should be disabled.
+     58               * Otherwise the prefetch might be interrupted by stop, then the data and
+     59               * and instruction from flash are wrong.
+     60               */
+     61              FLASH_PflashSetPrefetchSpeculation(&speculationStatus);
+   \       0x12   0x4668             MOV      R0,SP
+   \       0x14   0x.... 0x....      BL       FLASH_PflashSetPrefetchSpeculation
+     62          }
+   \       0x18   0xBD01             POP      {R0,PC}          ;; return
+     63          
+
+   \                                 In section .text, align 4, keep-with-next
+     64          void SMC_PostExitStopModes(void)
+     65          {
+   \                     SMC_PostExitStopModes: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     66              flash_prefetch_speculation_status_t speculationStatus =
+     67              {
+     68                  kFLASH_prefetchSpeculationOptionEnable, /* Enable instruction speculation.*/
+     69                  kFLASH_prefetchSpeculationOptionEnable, /* Enable data speculation.*/
+     70              };
+   \        0x2   0xBF00             Nop      
+   \        0x4   0x....             ADR.N    R0,?_1
+   \        0x6   0x8801             LDRH     R1,[R0, #+0]
+   \        0x8   0xF8AD 0x1000      STRH     R1,[SP, #+0]
+     71          
+     72              FLASH_PflashSetPrefetchSpeculation(&speculationStatus);
+   \        0xC   0x4668             MOV      R0,SP
+   \        0xE   0x.... 0x....      BL       FLASH_PflashSetPrefetchSpeculation
+     73          
+     74              __enable_irq();
+   \       0x12   0xB662             CPSIE    I
+     75              __ISB();
+   \       0x14   0xF3BF 0x8F6F      ISB      SY
+     76          }
+   \       0x18   0xBD01             POP      {R0,PC}          ;; return
+     77          
+
+   \                                 In section .text, align 2, keep-with-next
+     78          status_t SMC_SetPowerModeRun(SMC_Type *base)
+     79          {
+     80              uint8_t reg;
+     81          
+     82              reg = base->PMCTRL;
+     83              /* configure Normal RUN mode */
+     84              reg &= ~SMC_PMCTRL_RUNM_MASK;
+     85              reg |= (kSMC_RunNormal << SMC_PMCTRL_RUNM_SHIFT);
+     86              base->PMCTRL = reg;
+   \                     SMC_SetPowerModeRun: (+1)
+   \        0x0   0x7841             LDRB     R1,[R0, #+1]
+   \        0x2   0xF001 0x019F      AND      R1,R1,#0x9F
+   \        0x6   0x7041             STRB     R1,[R0, #+1]
+     87          
+     88              return kStatus_Success;
+   \        0x8   0x2000             MOVS     R0,#+0
+   \        0xA   0x4770             BX       LR               ;; return
+     89          }
+     90          
+     91          #if (defined(FSL_FEATURE_SMC_HAS_HIGH_SPEED_RUN_MODE) && FSL_FEATURE_SMC_HAS_HIGH_SPEED_RUN_MODE)
+     92          status_t SMC_SetPowerModeHsrun(SMC_Type *base)
+     93          {
+     94              uint8_t reg;
+     95          
+     96              reg = base->PMCTRL;
+     97              /* configure High Speed RUN mode */
+     98              reg &= ~SMC_PMCTRL_RUNM_MASK;
+     99              reg |= (kSMC_Hsrun << SMC_PMCTRL_RUNM_SHIFT);
+    100              base->PMCTRL = reg;
+    101          
+    102              return kStatus_Success;
+    103          }
+    104          #endif /* FSL_FEATURE_SMC_HAS_HIGH_SPEED_RUN_MODE */
+    105          
+
+   \                                 In section .text, align 2, keep-with-next
+    106          status_t SMC_SetPowerModeWait(SMC_Type *base)
+    107          {
+    108              /* configure Normal Wait mode */
+    109              SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
+   \                     SMC_SetPowerModeWait: (+1)
+   \        0x0   0x....             B.N      ?Subroutine0
+    110              __DSB();
+    111              __WFI();
+    112              __ISB();
+    113          
+    114              return kStatus_Success;
+    115          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \        0x0   0x....             LDR.N    R0,??DataTable7  ;; 0xe000ed10
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0xF021 0x0104      BIC      R1,R1,#0x4
+   \        0x8   0x6001             STR      R1,[R0, #+0]
+   \        0xA   0xF3BF 0x8F4F      DSB      SY
+   \        0xE   0xBF30             WFI      
+   \       0x10   0xF3BF 0x8F6F      ISB      SY
+   \       0x14   0x2000             MOVS     R0,#+0
+   \       0x16   0x4770             BX       LR               ;; return
+    116          
+
+   \                                 In section .text, align 2, keep-with-next
+    117          status_t SMC_SetPowerModeStop(SMC_Type *base, smc_partial_stop_option_t option)
+    118          {
+    119              uint8_t reg;
+    120          
+    121          #if (defined(FSL_FEATURE_SMC_HAS_PSTOPO) && FSL_FEATURE_SMC_HAS_PSTOPO)
+    122              /* configure the Partial Stop mode in Noraml Stop mode */
+    123              reg = base->STOPCTRL;
+    124              reg &= ~SMC_STOPCTRL_PSTOPO_MASK;
+    125              reg |= ((uint32_t)option << SMC_STOPCTRL_PSTOPO_SHIFT);
+    126              base->STOPCTRL = reg;
+    127          #endif
+    128          
+    129              /* configure Normal Stop mode */
+    130              reg = base->PMCTRL;
+    131              reg &= ~SMC_PMCTRL_STOPM_MASK;
+    132              reg |= (kSMC_StopNormal << SMC_PMCTRL_STOPM_SHIFT);
+    133              base->PMCTRL = reg;
+   \                     SMC_SetPowerModeStop: (+1)
+   \        0x0   0x7841             LDRB     R1,[R0, #+1]
+   \        0x2   0xF001 0x01F8      AND      R1,R1,#0xF8
+   \        0x6   0x7041             STRB     R1,[R0, #+1]
+    134          
+    135              /* Set the SLEEPDEEP bit to enable deep sleep mode (stop mode) */
+    136              SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+   \        0x8   0x....             LDR.N    R1,??DataTable7  ;; 0xe000ed10
+   \        0xA   0x680A             LDR      R2,[R1, #+0]
+   \        0xC   0xF042 0x0204      ORR      R2,R2,#0x4
+   \       0x10   0x600A             STR      R2,[R1, #+0]
+    137          
+    138              /* read back to make sure the configuration valid before enter stop mode */
+    139              (void)base->PMCTRL;
+   \       0x12   0x7841             LDRB     R1,[R0, #+1]
+    140              __DSB();
+   \       0x14   0xF3BF 0x8F4F      DSB      SY
+    141              __WFI();
+   \       0x18   0xBF30             WFI      
+    142              __ISB();
+   \       0x1A   0xF3BF 0x8F6F      ISB      SY
+    143          
+    144              /* check whether the power mode enter Stop mode succeed */
+    145              if (base->PMCTRL & SMC_PMCTRL_STOPA_MASK)
+   \       0x1E   0x7840             LDRB     R0,[R0, #+1]
+   \       0x20   0x0701             LSLS     R1,R0,#+28
+   \       0x22   0xD500             BPL.N    ??SMC_SetPowerModeStop_0
+    146              {
+    147                  return kStatus_SMC_StopAbort;
+   \       0x24   0x....             B.N      ?Subroutine1
+    148              }
+    149              else
+    150              {
+    151                  return kStatus_Success;
+   \                     ??SMC_SetPowerModeStop_0: (+1)
+   \       0x26   0x2000             MOVS     R0,#+0
+   \       0x28   0x4770             BX       LR               ;; return
+    152              }
+    153          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine1: (+1)
+   \        0x0   0xF640 0x703C      MOVW     R0,#+3900
+   \        0x4   0x4770             BX       LR
+    154          
+
+   \                                 In section .text, align 2, keep-with-next
+    155          status_t SMC_SetPowerModeVlpr(SMC_Type *base
+    156          #if (defined(FSL_FEATURE_SMC_HAS_LPWUI) && FSL_FEATURE_SMC_HAS_LPWUI)
+    157                                        ,
+    158                                        bool wakeupMode
+    159          #endif
+    160                                        )
+    161          {
+    162              uint8_t reg;
+    163          
+    164              reg = base->PMCTRL;
+   \                     SMC_SetPowerModeVlpr: (+1)
+   \        0x0   0x7842             LDRB     R2,[R0, #+1]
+    165          #if (defined(FSL_FEATURE_SMC_HAS_LPWUI) && FSL_FEATURE_SMC_HAS_LPWUI)
+    166              /* configure whether the system remains in VLP mode on an interrupt */
+    167              if (wakeupMode)
+   \        0x2   0x2900             CMP      R1,#+0
+   \        0x4   0xBF14             ITE      NE 
+   \        0x6   0xF042 0x0280      ORRNE    R2,R2,#0x80
+   \        0xA   0xF002 0x027F      ANDEQ    R2,R2,#0x7F
+    168              {
+    169                  /* exits to RUN mode on an interrupt */
+    170                  reg |= SMC_PMCTRL_LPWUI_MASK;
+    171              }
+    172              else
+    173              {
+    174                  /* remains in VLP mode on an interrupt */
+    175                  reg &= ~SMC_PMCTRL_LPWUI_MASK;
+    176              }
+    177          #endif /* FSL_FEATURE_SMC_HAS_LPWUI */
+    178          
+    179              /* configure VLPR mode */
+    180              reg &= ~SMC_PMCTRL_RUNM_MASK;
+    181              reg |= (kSMC_RunVlpr << SMC_PMCTRL_RUNM_SHIFT);
+    182              base->PMCTRL = reg;
+   \        0xE   0xF002 0x029F      AND      R2,R2,#0x9F
+   \       0x12   0xF042 0x0240      ORR      R2,R2,#0x40
+   \       0x16   0x7042             STRB     R2,[R0, #+1]
+    183          
+    184              return kStatus_Success;
+   \       0x18   0x2000             MOVS     R0,#+0
+   \       0x1A   0x4770             BX       LR               ;; return
+    185          }
+    186          
+
+   \                                 In section .text, align 4, keep-with-next
+    187          status_t SMC_SetPowerModeVlpw(SMC_Type *base)
+    188          {
+    189              /* configure VLPW mode */
+    190              /* Set the SLEEPDEEP bit to enable deep sleep mode */
+    191              SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
+   \                     SMC_SetPowerModeVlpw: (+1)
+   \        0x0   0xBF00             Nop      
+   \        0x2                      REQUIRE ?Subroutine0
+   \        0x2                      ;; // Fall through to label ?Subroutine0
+    192              __DSB();
+    193              __WFI();
+    194              __ISB();
+    195          
+    196              return kStatus_Success;
+    197          }
+    198          
+
+   \                                 In section .text, align 2, keep-with-next
+    199          status_t SMC_SetPowerModeVlps(SMC_Type *base)
+    200          {
+    201              uint8_t reg;
+    202          
+    203              /* configure VLPS mode */
+    204              reg = base->PMCTRL;
+    205              reg &= ~SMC_PMCTRL_STOPM_MASK;
+    206              reg |= (kSMC_StopVlps << SMC_PMCTRL_STOPM_SHIFT);
+    207              base->PMCTRL = reg;
+   \                     SMC_SetPowerModeVlps: (+1)
+   \        0x0   0x7841             LDRB     R1,[R0, #+1]
+   \        0x2   0xF001 0x01F8      AND      R1,R1,#0xF8
+   \        0x6   0xF041 0x0102      ORR      R1,R1,#0x2
+   \        0xA   0x7041             STRB     R1,[R0, #+1]
+    208          
+    209              /* Set the SLEEPDEEP bit to enable deep sleep mode */
+    210              SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+   \        0xC   0x....             LDR.N    R1,??DataTable7  ;; 0xe000ed10
+   \        0xE   0x680A             LDR      R2,[R1, #+0]
+   \       0x10   0xF042 0x0204      ORR      R2,R2,#0x4
+   \       0x14   0x600A             STR      R2,[R1, #+0]
+    211          
+    212              /* read back to make sure the configuration valid before enter stop mode */
+    213              (void)base->PMCTRL;
+   \       0x16   0x7841             LDRB     R1,[R0, #+1]
+    214              __DSB();
+   \       0x18   0xF3BF 0x8F4F      DSB      SY
+    215              __WFI();
+   \       0x1C   0xBF30             WFI      
+    216              __ISB();
+   \       0x1E   0xF3BF 0x8F6F      ISB      SY
+    217          
+    218              /* check whether the power mode enter VLPS mode succeed */
+    219              if (base->PMCTRL & SMC_PMCTRL_STOPA_MASK)
+   \       0x22   0x7840             LDRB     R0,[R0, #+1]
+   \       0x24   0x0701             LSLS     R1,R0,#+28
+   \       0x26   0xD500             BPL.N    ??SMC_SetPowerModeVlps_0
+    220              {
+    221                  return kStatus_SMC_StopAbort;
+   \       0x28   0x....             B.N      ?Subroutine1
+    222              }
+    223              else
+    224              {
+    225                  return kStatus_Success;
+   \                     ??SMC_SetPowerModeVlps_0: (+1)
+   \       0x2A   0x2000             MOVS     R0,#+0
+   \       0x2C   0x4770             BX       LR               ;; return
+    226              }
+    227          }
+    228          
+    229          #if (defined(FSL_FEATURE_SMC_HAS_LOW_LEAKAGE_STOP_MODE) && FSL_FEATURE_SMC_HAS_LOW_LEAKAGE_STOP_MODE)
+
+   \                                 In section .text, align 2, keep-with-next
+    230          status_t SMC_SetPowerModeLls(SMC_Type *base
+    231          #if ((defined(FSL_FEATURE_SMC_HAS_LLS_SUBMODE) && FSL_FEATURE_SMC_HAS_LLS_SUBMODE) || \
+    232               (defined(FSL_FEATURE_SMC_HAS_LPOPO) && FSL_FEATURE_SMC_HAS_LPOPO))
+    233                                       ,
+    234                                       const smc_power_mode_lls_config_t *config
+    235          #endif
+    236                                       )
+    237          {
+    238              uint8_t reg;
+    239          
+    240              /* configure to LLS mode */
+    241              reg = base->PMCTRL;
+    242              reg &= ~SMC_PMCTRL_STOPM_MASK;
+    243              reg |= (kSMC_StopLls << SMC_PMCTRL_STOPM_SHIFT);
+    244              base->PMCTRL = reg;
+   \                     SMC_SetPowerModeLls: (+1)
+   \        0x0   0x7841             LDRB     R1,[R0, #+1]
+   \        0x2   0xF001 0x01F8      AND      R1,R1,#0xF8
+   \        0x6   0xF041 0x0103      ORR      R1,R1,#0x3
+   \        0xA   0x7041             STRB     R1,[R0, #+1]
+    245          
+    246          /* configure LLS sub-mode*/
+    247          #if (defined(FSL_FEATURE_SMC_HAS_LLS_SUBMODE) && FSL_FEATURE_SMC_HAS_LLS_SUBMODE)
+    248              reg = base->STOPCTRL;
+    249              reg &= ~SMC_STOPCTRL_LLSM_MASK;
+    250              reg |= ((uint32_t)config->subMode << SMC_STOPCTRL_LLSM_SHIFT);
+    251              base->STOPCTRL = reg;
+    252          #endif /* FSL_FEATURE_SMC_HAS_LLS_SUBMODE */
+    253          
+    254          #if (defined(FSL_FEATURE_SMC_HAS_LPOPO) && FSL_FEATURE_SMC_HAS_LPOPO)
+    255              if (config->enableLpoClock)
+    256              {
+    257                  base->STOPCTRL &= ~SMC_STOPCTRL_LPOPO_MASK;
+    258              }
+    259              else
+    260              {
+    261                  base->STOPCTRL |= SMC_STOPCTRL_LPOPO_MASK;
+    262              }
+    263          #endif /* FSL_FEATURE_SMC_HAS_LPOPO */
+    264          
+    265              /* Set the SLEEPDEEP bit to enable deep sleep mode */
+    266              SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+   \        0xC   0x....             LDR.N    R1,??DataTable7  ;; 0xe000ed10
+   \        0xE   0x680A             LDR      R2,[R1, #+0]
+   \       0x10   0xF042 0x0204      ORR      R2,R2,#0x4
+   \       0x14   0x600A             STR      R2,[R1, #+0]
+    267          
+    268              /* read back to make sure the configuration valid before enter stop mode */
+    269              (void)base->PMCTRL;
+   \       0x16   0x7841             LDRB     R1,[R0, #+1]
+    270              __DSB();
+   \       0x18   0xF3BF 0x8F4F      DSB      SY
+    271              __WFI();
+   \       0x1C   0xBF30             WFI      
+    272              __ISB();
+   \       0x1E   0xF3BF 0x8F6F      ISB      SY
+    273          
+    274              /* check whether the power mode enter LLS mode succeed */
+    275              if (base->PMCTRL & SMC_PMCTRL_STOPA_MASK)
+   \       0x22   0x7840             LDRB     R0,[R0, #+1]
+   \       0x24   0x0701             LSLS     R1,R0,#+28
+   \       0x26   0xD500             BPL.N    ??SMC_SetPowerModeLls_0
+    276              {
+    277                  return kStatus_SMC_StopAbort;
+   \       0x28   0x....             B.N      ?Subroutine1
+    278              }
+    279              else
+    280              {
+    281                  return kStatus_Success;
+   \                     ??SMC_SetPowerModeLls_0: (+1)
+   \       0x2A   0x2000             MOVS     R0,#+0
+   \       0x2C   0x4770             BX       LR               ;; return
+    282              }
+    283          }
+    284          #endif /* FSL_FEATURE_SMC_HAS_LOW_LEAKAGE_STOP_MODE */
+    285          
+    286          #if (defined(FSL_FEATURE_SMC_HAS_VERY_LOW_LEAKAGE_STOP_MODE) && FSL_FEATURE_SMC_HAS_VERY_LOW_LEAKAGE_STOP_MODE)
+
+   \                                 In section .text, align 2, keep-with-next
+    287          status_t SMC_SetPowerModeVlls(SMC_Type *base, const smc_power_mode_vlls_config_t *config)
+    288          {
+    289              uint8_t reg;
+    290          
+    291          #if (defined(FSL_FEATURE_SMC_HAS_PORPO) && FSL_FEATURE_SMC_HAS_PORPO)
+    292          #if (defined(FSL_FEATURE_SMC_USE_VLLSCTRL_REG) && FSL_FEATURE_SMC_USE_VLLSCTRL_REG) ||     \
+    293              (defined(FSL_FEATURE_SMC_USE_STOPCTRL_VLLSM) && FSL_FEATURE_SMC_USE_STOPCTRL_VLLSM) || \
+    294              (defined(FSL_FEATURE_SMC_HAS_LLS_SUBMODE) && FSL_FEATURE_SMC_HAS_LLS_SUBMODE)
+    295              if (config->subMode == kSMC_StopSub0)
+   \                     SMC_SetPowerModeVlls: (+1)
+   \        0x0   0x780A             LDRB     R2,[R1, #+0]
+   \        0x2   0xB942             CBNZ.N   R2,??SMC_SetPowerModeVlls_0
+    296          #endif
+    297              {
+    298                  /* configure whether the Por Detect work in Vlls0 mode */
+    299                  if (config->enablePorDetectInVlls0)
+   \        0x4   0x784A             LDRB     R2,[R1, #+1]
+   \        0x6   0x2A00             CMP      R2,#+0
+   \        0x8   0x7882             LDRB     R2,[R0, #+2]
+   \        0xA   0xBF14             ITE      NE 
+   \        0xC   0xF002 0x02DF      ANDNE    R2,R2,#0xDF
+   \       0x10   0xF042 0x0220      ORREQ    R2,R2,#0x20
+    300                  {
+    301          #if (defined(FSL_FEATURE_SMC_USE_VLLSCTRL_REG) && FSL_FEATURE_SMC_USE_VLLSCTRL_REG)
+    302                      base->VLLSCTRL &= ~SMC_VLLSCTRL_PORPO_MASK;
+    303          #else
+    304                      base->STOPCTRL &= ~SMC_STOPCTRL_PORPO_MASK;
+    305          #endif
+    306                  }
+    307                  else
+    308                  {
+    309          #if (defined(FSL_FEATURE_SMC_USE_VLLSCTRL_REG) && FSL_FEATURE_SMC_USE_VLLSCTRL_REG)
+    310                      base->VLLSCTRL |= SMC_VLLSCTRL_PORPO_MASK;
+   \       0x14   0x7082             STRB     R2,[R0, #+2]
+    311          #else
+    312                      base->STOPCTRL |= SMC_STOPCTRL_PORPO_MASK;
+    313          #endif
+    314                  }
+    315              }
+    316          #endif /* FSL_FEATURE_SMC_HAS_PORPO */
+    317          
+    318          #if (defined(FSL_FEATURE_SMC_HAS_RAM2_POWER_OPTION) && FSL_FEATURE_SMC_HAS_RAM2_POWER_OPTION)
+    319              else if (config->subMode == kSMC_StopSub2)
+    320              {
+    321                  /* configure whether the Por Detect work in Vlls0 mode */
+    322                  if (config->enableRam2InVlls2)
+    323                  {
+    324          #if (defined(FSL_FEATURE_SMC_USE_VLLSCTRL_REG) && FSL_FEATURE_SMC_USE_VLLSCTRL_REG)
+    325                      base->VLLSCTRL |= SMC_VLLSCTRL_RAM2PO_MASK;
+    326          #else
+    327                      base->STOPCTRL |= SMC_STOPCTRL_RAM2PO_MASK;
+    328          #endif
+    329                  }
+    330                  else
+    331                  {
+    332          #if (defined(FSL_FEATURE_SMC_USE_VLLSCTRL_REG) && FSL_FEATURE_SMC_USE_VLLSCTRL_REG)
+    333                      base->VLLSCTRL &= ~SMC_VLLSCTRL_RAM2PO_MASK;
+    334          #else
+    335                      base->STOPCTRL &= ~SMC_STOPCTRL_RAM2PO_MASK;
+    336          #endif
+    337                  }
+    338              }
+    339              else
+    340              {
+    341              }
+    342          #endif /* FSL_FEATURE_SMC_HAS_RAM2_POWER_OPTION */
+    343          
+    344              /* configure to VLLS mode */
+    345              reg = base->PMCTRL;
+    346              reg &= ~SMC_PMCTRL_STOPM_MASK;
+    347              reg |= (kSMC_StopVlls << SMC_PMCTRL_STOPM_SHIFT);
+    348              base->PMCTRL = reg;
+   \                     ??SMC_SetPowerModeVlls_0: (+1)
+   \       0x16   0x7842             LDRB     R2,[R0, #+1]
+   \       0x18   0xF002 0x02F8      AND      R2,R2,#0xF8
+   \       0x1C   0xF042 0x0204      ORR      R2,R2,#0x4
+   \       0x20   0x7042             STRB     R2,[R0, #+1]
+    349          
+    350          /* configure the VLLS sub-mode */
+    351          #if (defined(FSL_FEATURE_SMC_USE_VLLSCTRL_REG) && FSL_FEATURE_SMC_USE_VLLSCTRL_REG)
+    352              reg = base->VLLSCTRL;
+    353              reg &= ~SMC_VLLSCTRL_VLLSM_MASK;
+    354              reg |= ((uint32_t)config->subMode << SMC_VLLSCTRL_VLLSM_SHIFT);
+    355              base->VLLSCTRL = reg;
+   \       0x22   0x7882             LDRB     R2,[R0, #+2]
+   \       0x24   0x7809             LDRB     R1,[R1, #+0]
+   \       0x26   0xF002 0x02F8      AND      R2,R2,#0xF8
+   \       0x2A   0x430A             ORRS     R2,R1,R2
+   \       0x2C   0x7082             STRB     R2,[R0, #+2]
+    356          #else
+    357          #if (defined(FSL_FEATURE_SMC_HAS_LLS_SUBMODE) && FSL_FEATURE_SMC_HAS_LLS_SUBMODE)
+    358              reg = base->STOPCTRL;
+    359              reg &= ~SMC_STOPCTRL_LLSM_MASK;
+    360              reg |= ((uint32_t)config->subMode << SMC_STOPCTRL_LLSM_SHIFT);
+    361              base->STOPCTRL = reg;
+    362          #else
+    363              reg = base->STOPCTRL;
+    364              reg &= ~SMC_STOPCTRL_VLLSM_MASK;
+    365              reg |= ((uint32_t)config->subMode << SMC_STOPCTRL_VLLSM_SHIFT);
+    366              base->STOPCTRL = reg;
+    367          #endif /* FSL_FEATURE_SMC_HAS_LLS_SUBMODE */
+    368          #endif
+    369          
+    370          #if (defined(FSL_FEATURE_SMC_HAS_LPOPO) && FSL_FEATURE_SMC_HAS_LPOPO)
+    371              if (config->enableLpoClock)
+    372              {
+    373                  base->STOPCTRL &= ~SMC_STOPCTRL_LPOPO_MASK;
+    374              }
+    375              else
+    376              {
+    377                  base->STOPCTRL |= SMC_STOPCTRL_LPOPO_MASK;
+    378              }
+    379          #endif /* FSL_FEATURE_SMC_HAS_LPOPO */
+    380          
+    381              /* Set the SLEEPDEEP bit to enable deep sleep mode */
+    382              SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+   \       0x2E   0x....             LDR.N    R1,??DataTable7  ;; 0xe000ed10
+   \       0x30   0x680A             LDR      R2,[R1, #+0]
+   \       0x32   0xF042 0x0204      ORR      R2,R2,#0x4
+   \       0x36   0x600A             STR      R2,[R1, #+0]
+    383          
+    384              /* read back to make sure the configuration valid before enter stop mode */
+    385              (void)base->PMCTRL;
+   \       0x38   0x7841             LDRB     R1,[R0, #+1]
+    386              __DSB();
+   \       0x3A   0xF3BF 0x8F4F      DSB      SY
+    387              __WFI();
+   \       0x3E   0xBF30             WFI      
+    388              __ISB();
+   \       0x40   0xF3BF 0x8F6F      ISB      SY
+    389          
+    390              /* check whether the power mode enter LLS mode succeed */
+    391              if (base->PMCTRL & SMC_PMCTRL_STOPA_MASK)
+   \       0x44   0x7840             LDRB     R0,[R0, #+1]
+   \       0x46   0x0701             LSLS     R1,R0,#+28
+   \       0x48   0xD500             BPL.N    ??SMC_SetPowerModeVlls_1
+    392              {
+    393                  return kStatus_SMC_StopAbort;
+   \       0x4A   0x....             B.N      ?Subroutine1
+    394              }
+    395              else
+    396              {
+    397                  return kStatus_Success;
+   \                     ??SMC_SetPowerModeVlls_1: (+1)
+   \       0x4C   0x2000             MOVS     R0,#+0
+   \       0x4E   0x4770             BX       LR               ;; return
+    398              }
+    399          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7:
+   \        0x0   0xE000'ED10        DC32     0xe000ed10
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_0:
+   \        0x0   0x01 0x01          DC8 1, 1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_1:
+   \        0x0   0x00 0x00          DC8 0, 0
+    400          #endif /* FSL_FEATURE_SMC_HAS_VERY_LOW_LEAKAGE_STOP_MODE */
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   SMC_PostExitStopModes
+         8   -> FLASH_PflashSetPrefetchSpeculation
+       8   SMC_PreEnterStopModes
+         8   -> FLASH_PflashSetPrefetchSpeculation
+       0   SMC_SetPowerModeLls
+       0   SMC_SetPowerModeRun
+       0   SMC_SetPowerModeStop
+       0   SMC_SetPowerModeVlls
+       0   SMC_SetPowerModeVlpr
+       0   SMC_SetPowerModeVlps
+       0   SMC_SetPowerModeVlpw
+       0   SMC_SetPowerModeWait
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable7
+      24  ?Subroutine0
+       6  ?Subroutine1
+       2  ?_0
+       2  ?_1
+      26  SMC_PostExitStopModes
+      26  SMC_PreEnterStopModes
+      46  SMC_SetPowerModeLls
+      12  SMC_SetPowerModeRun
+      42  SMC_SetPowerModeStop
+      80  SMC_SetPowerModeVlls
+      28  SMC_SetPowerModeVlpr
+      46  SMC_SetPowerModeVlps
+       2  SMC_SetPowerModeVlpw
+       2  SMC_SetPowerModeWait
+
+ 
+ 348 bytes in section .text
+ 
+ 348 bytes of CODE memory
+
+Errors: none
+Warnings: none
