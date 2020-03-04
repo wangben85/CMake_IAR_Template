@@ -20,3 +20,8 @@
 /TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_swtimer/iar/settings
 /TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_swtimer/iar/Debug
 /TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_swtimer/iar/release
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_generic/release
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_generic/debug
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_generic/iar/settings
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_generic/iar/debug
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_generic/iar/release
