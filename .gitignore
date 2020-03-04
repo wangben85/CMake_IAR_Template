@@ -10,3 +10,8 @@
 /TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/iar/settings
 /TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/iar/Debug
 /TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_sem/iar/release
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_mutex/release
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_mutex/debug
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_mutex/iar/debug
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_mutex/iar/release
+/TWR-KW24D512/boards/twrkw24d512/rtos_examples/freertos_mutex/iar/settings
