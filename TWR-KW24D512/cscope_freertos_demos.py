@@ -15,6 +15,7 @@ cscope_del_array = [
   "freertos_sem",
   "freertos_mutex",
   "freertos_swtimer",
+  "freertos_generic",
 ]
 
 # the unexpected files to be removed from the ctags list
@@ -24,6 +25,7 @@ ctags_del_folder= [
   "freertos_sem",
   "freertos_mutex",
   "freertos_swtimer",
+  "freertos_generic",
 ]
 
 # check items in array if exist in line
@@ -73,5 +75,5 @@ if __name__ == '__main__':
             if not isInArray(cscope_del_array, line):
                g.write(line)
     os.system("cscope -Rb")
-    os.system("ctags -R --exclude=%s --exclude=%s --exclude=%s --exclude=%s --exclude=%s" % \
-            (ctags_del_folder[0],ctags_del_folder[1],ctags_del_folder[2],ctags_del_folder[3],ctags_del_folder[4]))
+    os.system("ctags -R --exclude=%s --exclude=%s --exclude=%s --exclude=%s --exclude=%s --exclude=%s" % \
+            (ctags_del_folder[0],ctags_del_folder[1],ctags_del_folder[2],ctags_del_folder[3],ctags_del_folder[4],ctags_del_folder[5]))
