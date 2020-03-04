@@ -65,7 +65,9 @@ const char *to_send = "FreeRTOS UART driver example!\r\n";
 const char *send_ring_overrun = "\r\nRing buffer overrun!\r\n";
 const char *send_hardware_overrun = "\r\nHardware buffer overrun!\r\n";
 uint8_t background_buffer[32];
-uint8_t recv_buffer[4];
+
+/*uint8_t recv_buffer[4];*/   // recevie butter set to 4, after receive totally 4 bytes, uart  would echo 
+uint8_t recv_buffer[1];       // recevie butter set to 1, every receive 1 byte, uart would echo
 
 uart_rtos_handle_t handle;
 struct _uart_handle t_handle;
@@ -106,8 +108,8 @@ static void uart_task(void *pvParameters)
     int error;
     size_t n;
 
-    uart_config.srcclk = DEMO_UART_CLK_FREQ;
-    uart_config.base = DEMO_UART;
+    uart_config.srcclk = DEMO_UART_CLK_FREQ;  //UART clock is the system core clock
+    uart_config.base = DEMO_UART; //UART1 as the demo UART
 
     if (0 > UART_RTOS_Init(&handle, &t_handle, &uart_config))
     {
@@ -146,7 +148,7 @@ static void uart_task(void *pvParameters)
             /* send back the received data */
             UART_RTOS_Send(&handle, (uint8_t *)recv_buffer, n);
         }
-        vTaskDelay(1000);
+        /*vTaskDelay(1000);*/
     } while (kStatus_Success == error);
 
     UART_RTOS_Deinit(&handle);
