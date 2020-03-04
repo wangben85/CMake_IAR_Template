@@ -52,6 +52,8 @@ SemaphoreHandle_t xMutex;
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+static int Task1runTimes = 2;
+static int Task2runTimes = 2;
 static void write_task_1(void *pvParameters);
 static void write_task_2(void *pvParameters);
 
@@ -81,11 +83,17 @@ int main(void)
  */
 static void write_task_1(void *pvParameters)
 {
-    while (1)
+    while (Task1runTimes--)
     {
-        xSemaphoreTake(xMutex, portMAX_DELAY);
+        xSemaphoreTake(xMutex, portMAX_DELAY); //max delay time ,wait forever
+        /*
+         * taskYIELD() is used to request a context switch to another task. However, 
+         * if there are no other tasks at a higher or equal priority to the task that
+         * calls taskYIELD() then the RTOS scheduler will simply select the task that
+         * called taskYIELD() to run again.
+         */
         PRINTF("ABCD |");
-        taskYIELD();
+        taskYIELD(); // note, though task1 request a context switch to another task(task2) , but since the mutex is not released, so task 2 could not get the CPU time to run
         PRINTF(" EFGH\r\n");
         xSemaphoreGive(xMutex);
         taskYIELD();
@@ -97,11 +105,14 @@ static void write_task_1(void *pvParameters)
  */
 static void write_task_2(void *pvParameters)
 {
-    while (1)
+    while (Task2runTimes--)
     {
-        xSemaphoreTake(xMutex, portMAX_DELAY);
+        xSemaphoreTake(xMutex, portMAX_DELAY); // get the mutex to run
         PRINTF("1234 |");
-        taskYIELD();
+        if (Task2runTimes == 1)
+        {
+           taskYIELD();  // last time the task2 will not give up CPU, because task1 will not block so that, it can not switch back to task2
+        }
         PRINTF(" 5678\r\n");
         xSemaphoreGive(xMutex);
         taskYIELD();
