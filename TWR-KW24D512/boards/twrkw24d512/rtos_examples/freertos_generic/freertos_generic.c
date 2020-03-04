@@ -97,7 +97,7 @@ soon as the semaphore is given. */
 
 /* The rate at which data is sent to the queue, specified in milliseconds, and
 converted to ticks using the portTICK_PERIOD_MS constant. */
-#define mainQUEUE_SEND_PERIOD_MS (200 / portTICK_PERIOD_MS)
+#define mainQUEUE_SEND_PERIOD_MS (100 / portTICK_PERIOD_MS)
 
 /* The period of the example software timer, specified in milliseconds, and
 converted to ticks using the portTICK_PERIOD_MS constant. */
@@ -187,18 +187,18 @@ int main(void)
                 /* The priority to assign to the task.  tskIDLE_PRIORITY
                 (which is 0) is the lowest priority.  configMAX_PRIORITIES - 1
                 is the highest priority. */
-                mainQUEUE_RECEIVE_TASK_PRIORITY,
+                mainQUEUE_RECEIVE_TASK_PRIORITY,  // receive priority = 2
                 /* Used to obtain a handle to the created task.  Not used in
                 this simple demo, so set to NULL. */
                 NULL);
 
     /* Create the queue send task in exactly the same way.  Again, this is
     described in the comments at the top of the file. */
-    xTaskCreate(prvQueueSendTask, "TX", configMINIMAL_STACK_SIZE + 166, NULL, mainQUEUE_SEND_TASK_PRIORITY, NULL);
+    xTaskCreate(prvQueueSendTask, "TX", configMINIMAL_STACK_SIZE + 166, NULL, mainQUEUE_SEND_TASK_PRIORITY, NULL); //send priority = 1
 
     /* Create the task that is synchronised with an interrupt using the
     xEventSemaphore semaphore. */
-    xTaskCreate(prvEventSemaphoreTask, "Sem", configMINIMAL_STACK_SIZE + 166, NULL, mainEVENT_SEMAPHORE_TASK_PRIORITY,
+    xTaskCreate(prvEventSemaphoreTask, "Sem", configMINIMAL_STACK_SIZE + 166, NULL, mainEVENT_SEMAPHORE_TASK_PRIORITY, //sema priority = 4 ,it is the highest
                 NULL);
 
     /* Create the software timer as described in the comments at the top of
@@ -217,7 +217,7 @@ int main(void)
                                          (void *)0,
                                          /* The callback function that switches
                                          the LED off. */
-                                         vExampleTimerCallback);
+                                         vExampleTimerCallback);  /*configTIMER_TASK_PRIORITY  = 2 or MAX_PRIORITY -1  are ok */
 
     /* Start the created timer.  A block time of zero is used as the timer
     command queue cannot possibly be full here (this is the first timer to
@@ -245,6 +245,14 @@ static void vExampleTimerCallback(TimerHandle_t xTimer)
     timer that calls this function is an auto re-load timer, so it will
     execute periodically. */
     ulCountOfTimerCallbackExecutions++;
+
+    if (ulCountOfTimerCallbackExecutions == 4)
+    {
+        PRINTF("\r\n");
+        PRINTF("SW timer has already passed 5 seconds!\r\n");  //print every 5 seconds after 5 times SW timer overflow
+        PRINTF("\r\n");
+        ulCountOfTimerCallbackExecutions = 0;
+    }
 }
 
 /*!
@@ -253,7 +261,7 @@ static void vExampleTimerCallback(TimerHandle_t xTimer)
 static void prvQueueSendTask(void *pvParameters)
 {
     TickType_t xNextWakeTime;
-    const uint32_t ulValueToSend = 100UL;
+    const uint32_t ulValueToSend = 100UL; //send task send value = 100 to the queue
 
     /* Initialise xNextWakeTime - this only needs to be done once. */
     xNextWakeTime = xTaskGetTickCount();
@@ -264,7 +272,7 @@ static void prvQueueSendTask(void *pvParameters)
         The block time is specified in ticks, the constant used converts ticks
         to ms.  While in the Blocked state this task will not consume any CPU
         time. */
-        vTaskDelayUntil(&xNextWakeTime, mainQUEUE_SEND_PERIOD_MS);
+        vTaskDelayUntil(&xNextWakeTime, mainQUEUE_SEND_PERIOD_MS); // send data every 100ms
 
         /* Send to the queue - causing the queue receive task to unblock and
         increment its counter.  0 is used as the block time so the sending
@@ -294,7 +302,7 @@ static void prvQueueReceiveTask(void *pvParameters)
         {
             /* Count the number of items that have been received correctly. */
             ulCountOfItemsReceivedOnQueue++;
-            PRINTF("Receive message counter: %d.\r\n", ulCountOfItemsReceivedOnQueue);
+            PRINTF("Receive message counter: %d.\r\n", ulCountOfItemsReceivedOnQueue); // print every 100ms when receive task get message
         }
     }
 }
@@ -312,7 +320,7 @@ static void prvEventSemaphoreTask(void *pvParameters)
         /* Count the number of times the semaphore is received. */
         ulCountOfReceivedSemaphores++;
 
-        PRINTF("Event task is running.\r\n");
+        PRINTF("Event task is running.\r\n"); // print every 500ms when sema task receive the semaphore from TickHook
     }
 }
 

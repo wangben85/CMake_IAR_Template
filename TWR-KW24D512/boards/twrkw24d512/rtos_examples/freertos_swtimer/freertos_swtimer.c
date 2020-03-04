@@ -51,8 +51,8 @@
  ******************************************************************************/
 
 /* The software timer period. */
-//#define SW_TIMER_PERIOD_MS (1000 / portTICK_PERIOD_MS)   // (1000 / 1)ms = 1000ms = 1s
-#define SW_TIMER_PERIOD_MS (100 / portTICK_PERIOD_MS)   // (100 / 1)ms = 100ms 
+#define SW_TIMER_PERIOD_MS (1000 / portTICK_PERIOD_MS)   // (1000 / 1)ms = 1000ms = 1s
+//#define SW_TIMER_PERIOD_MS (100 / portTICK_PERIOD_MS)   // (100 / 1)ms = 100ms 
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
