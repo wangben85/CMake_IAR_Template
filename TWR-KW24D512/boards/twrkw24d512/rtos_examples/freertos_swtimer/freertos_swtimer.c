@@ -51,7 +51,8 @@
  ******************************************************************************/
 
 /* The software timer period. */
-#define SW_TIMER_PERIOD_MS (1000 / portTICK_PERIOD_MS)
+//#define SW_TIMER_PERIOD_MS (1000 / portTICK_PERIOD_MS)   // (1000 / 1)ms = 1000ms = 1s
+#define SW_TIMER_PERIOD_MS (100 / portTICK_PERIOD_MS)   // (100 / 1)ms = 100ms 
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
@@ -76,7 +77,7 @@ int main(void)
     /* Create the software timer. */
     SwTimerHandle = xTimerCreate("SwTimer",          /* Text name. */
                                  SW_TIMER_PERIOD_MS, /* Timer period. */
-                                 pdTRUE,             /* Enable auto reload. */
+                                 pdTRUE,             /* Enable auto reload. Periodic timer */
                                  0,                  /* ID is not used. */
                                  SwTimerCallback);   /* The callback function. */
     /* Start timer. */
@@ -92,5 +93,6 @@ int main(void)
  */
 static void SwTimerCallback(TimerHandle_t xTimer)
 {
-    PRINTF("Tick.\r\n");
+    /*PRINTF("Tick.\r\n");*/
+    PRINTF("SW TIMER Task Tick every %d MS.\r\n", SW_TIMER_PERIOD_MS );
 }
