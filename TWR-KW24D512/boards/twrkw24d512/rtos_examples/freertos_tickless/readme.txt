@@ -77,5 +77,8 @@ While the CPU is sleeping, if press SW3 button once or several time on board the
 by external interrupt and continuous enter sleep mode after complete interrupt service.
 The period of time delay is not change after occur external interrupt.
 Customization options
+
+Users could measure the Idd current on TWR-KW24 board, which is the J2 pin3-4,
+normal mode the system power consumption would be 24mA, when the system tickless low power mode, the Idd would be about 16mA
 =====================
 

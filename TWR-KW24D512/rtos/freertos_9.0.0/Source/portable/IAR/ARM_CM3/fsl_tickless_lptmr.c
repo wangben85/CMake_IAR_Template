@@ -199,7 +199,7 @@ extern uint32_t SystemCoreClock; /* in Kinetis SDK, this contains the system cor
 			if( xModifiableIdleTime > 0 )
 			{
 				__DSB();
-				__WFI();
+				__WFI(); //put CPU into sleep mode
 				__ISB();
 			}
 			configPOST_SLEEP_PROCESSING( xExpectedIdleTime );

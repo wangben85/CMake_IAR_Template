@@ -136,8 +136,8 @@ int main(void)
     GPIO_PinInit(BOARD_SW_GPIO, BOARD_SW_GPIO_PIN, &sw_config);
 #endif
     /*Create tickless task*/
-    xTaskCreate(Tickless_task, "Tickless_task", configMINIMAL_STACK_SIZE + 38, NULL, tickless_task_PRIORITY, NULL);
-    xTaskCreate(SW_task, "Tickless_task", configMINIMAL_STACK_SIZE + 38, NULL, tickless_task_PRIORITY, NULL);
+    xTaskCreate(Tickless_task, "Tickless_task", configMINIMAL_STACK_SIZE + 38, NULL, tickless_task_PRIORITY, NULL);//tickless task, priority = 3
+    xTaskCreate(SW_task, "SW_task", configMINIMAL_STACK_SIZE + 38, NULL, tickless_task_PRIORITY, NULL); //sw task, priority = 4, higher
     /*Task Scheduler*/
     vTaskStartScheduler();
     for (;;)
@@ -151,7 +151,7 @@ static void Tickless_task(void *pvParameters)
     for (;;)
     {
         PRINTF("%d\r\n", xTaskGetTickCount());
-        vTaskDelay(TIME_DELAY_SLEEP);
+        vTaskDelay(TIME_DELAY_SLEEP); // time delay time = 5s here, tickless task will release CPU time to other tasks for 5 seconds
     }
 }
 
@@ -161,7 +161,7 @@ static void SW_task(void *pvParameters)
     xSWSemaphore = xSemaphoreCreateBinary();
     for (;;)
     {
-        if (xSemaphoreTake(xSWSemaphore, portMAX_DELAY) == pdTRUE)
+        if (xSemaphoreTake(xSWSemaphore, portMAX_DELAY) == pdTRUE) // blocking wait for the semaphore
         {
             PRINTF("CPU waked up by EXT interrupt\r\n");
         }
@@ -180,7 +180,7 @@ void BOARD_SW_IRQ_HANDLER(void)
     /* Clear external interrupt flag. */
     GPIO_ClearPinsInterruptFlags(BOARD_SW_GPIO, 1U << BOARD_SW_GPIO_PIN);
 
-    xSemaphoreGiveFromISR(xSWSemaphore, &xHigherPriorityTaskWoken);
+    xSemaphoreGiveFromISR(xSWSemaphore, &xHigherPriorityTaskWoken); //SW IRQ give the semaphore to SW task
 }
 #endif
 /*!
