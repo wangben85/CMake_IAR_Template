@@ -42,6 +42,8 @@
 #include "pin_mux.h"
 #include "fsl_common.h"
 #include "clock_config.h"
+#include "fsl_flash.h"
+#include "fsl_smc.h"
 #if configUSE_TICKLESS_IDLE
 #include "fsl_lptmr.h"
 #endif
@@ -152,6 +154,7 @@ static void Tickless_task(void *pvParameters)
     {
         PRINTF("%d\r\n", xTaskGetTickCount());
         vTaskDelay(TIME_DELAY_SLEEP); // time delay time = 5s here, tickless task will release CPU time to other tasks for 5 seconds
+                                      // since there is no other tasks(SW_task is blocking by semaphore), CPU will go to IDLE task and do sleep mode(system tick is stopped)
     }
 }
 
@@ -215,4 +218,49 @@ IRQn_Type vPortGetLptmrIrqn(void)
 {
     return TICKLESS_LPTMR_IRQn;
 }
+
+void deepSleepPreProcess(uint32_t time)
+{
+    uint8_t reg;
+    
+    PRINTF("Begin to enter sleep!\r\n");
+
+    flash_prefetch_speculation_status_t speculationStatus =
+    {
+        kFLASH_prefetchSpeculationOptionDisable, /* Disable instruction speculation.*/
+        kFLASH_prefetchSpeculationOptionDisable, /* Disable data speculation.*/
+    };
+    FLASH_PflashSetPrefetchSpeculation(&speculationStatus);
+    
+#if (defined(FSL_FEATURE_SMC_HAS_PSTOPO) && FSL_FEATURE_SMC_HAS_PSTOPO)
+    /* configure the Partial Stop mode in Noraml Stop mode */
+    reg = SMC->STOPCTRL;
+    reg &= ~SMC_STOPCTRL_PSTOPO_MASK;
+    reg |= ((uint32_t)option << SMC_STOPCTRL_PSTOPO_SHIFT);
+    base->STOPCTRL = reg;
+#endif
+
+    /* configure Normal Stop mode */
+    reg = SMC->PMCTRL;
+    reg &= ~SMC_PMCTRL_STOPM_MASK;
+    reg |= (kSMC_StopNormal << SMC_PMCTRL_STOPM_SHIFT);
+    SMC->PMCTRL = reg;
+
+    /* Set the SLEEPDEEP bit to enable deep sleep mode (stop mode) */
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+}
+
+void deepSleepPostProcess(uint32_t time)
+{
+    PRINTF("Exit to enter sleep!\r\n");
+    
+    flash_prefetch_speculation_status_t speculationStatus =
+    {
+        kFLASH_prefetchSpeculationOptionEnable, /* Enable instruction speculation.*/
+        kFLASH_prefetchSpeculationOptionEnable, /* Enable data speculation.*/
+    };
+
+    FLASH_PflashSetPrefetchSpeculation(&speculationStatus);
+}
+
 #endif /* configUSE_TICKLESS_IDLE */

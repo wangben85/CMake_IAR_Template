@@ -196,4 +196,7 @@ standard names. */
 #define xPortPendSVHandler PendSV_Handler
 #define xPortSysTickHandler SysTick_Handler
 
+//#define configPRE_SLEEP_PROCESSING  deepSleepPreProcess
+//#define configPOST_SLEEP_PROCESSING deepSleepPostProcess
+
 #endif /* FREERTOS_CONFIG_H */
