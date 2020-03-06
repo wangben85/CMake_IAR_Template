@@ -73,13 +73,14 @@
 /* Interrupt priorities. */
 #define SW_NVIC_PRIO 2
 
-/* clang-format on */
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
 extern void vPortLptmrIsr(void);
 IRQn_Type vPortGetLptmrIrqn(void);
 LPTMR_Type *vPortGetLptrmBase(void);
+void deepSleepPreProcess(uint32_t time);
+void deepSleepPostProcess(uint32_t time);
 
 /*******************************************************************************
  * Variables
@@ -117,6 +118,8 @@ int main(void)
      * lptmrConfig.value = kLPTMR_Prescale_Glitch_0;
      */
     LPTMR_GetDefaultConfig(&lptmrConfig);
+	/* By default, LPTMR clock source is LPO 1Khz :kLPTMR_PrescalerClock_1 */
+	//lptmrConfig.prescalerClockSource = kLPTMR_PrescalerClock_0; //Set to Fast MCRIRCLK;
     LPTMR_Init(TICKLESS_LPTMR_BASE_PTR, &lptmrConfig);
     /* Enable timer interrupt */
     LPTMR_EnableInterrupts(TICKLESS_LPTMR_BASE_PTR, kLPTMR_TimerInterruptEnable);
@@ -124,7 +127,7 @@ int main(void)
     EnableIRQ(TICKLESS_LPTMR_IRQn);
 #endif
     BOARD_InitPins();
-    BOARD_BootClockRUN();
+    BOARD_BootClockRUN();//inside BOARD_BootClockRUN, enable Fast IRC in normal mode and stop mode
     BOARD_InitDebugConsole();
 
     /* Print a note to terminal. */
@@ -152,7 +155,7 @@ static void Tickless_task(void *pvParameters)
     PRINTF("\r\nTick count :\r\n");
     for (;;)
     {
-        PRINTF("%d\r\n", xTaskGetTickCount());
+        PRINTF("\r%d\r\n", xTaskGetTickCount());
         vTaskDelay(TIME_DELAY_SLEEP); // time delay time = 5s here, tickless task will release CPU time to other tasks for 5 seconds
                                       // since there is no other tasks(SW_task is blocking by semaphore), CPU will go to IDLE task and do sleep mode(system tick is stopped)
     }
@@ -223,8 +226,6 @@ void deepSleepPreProcess(uint32_t time)
 {
     uint8_t reg;
     
-    PRINTF("Begin to enter sleep!\r\n");
-
     flash_prefetch_speculation_status_t speculationStatus =
     {
         kFLASH_prefetchSpeculationOptionDisable, /* Disable instruction speculation.*/
@@ -232,14 +233,6 @@ void deepSleepPreProcess(uint32_t time)
     };
     FLASH_PflashSetPrefetchSpeculation(&speculationStatus);
     
-#if (defined(FSL_FEATURE_SMC_HAS_PSTOPO) && FSL_FEATURE_SMC_HAS_PSTOPO)
-    /* configure the Partial Stop mode in Noraml Stop mode */
-    reg = SMC->STOPCTRL;
-    reg &= ~SMC_STOPCTRL_PSTOPO_MASK;
-    reg |= ((uint32_t)option << SMC_STOPCTRL_PSTOPO_SHIFT);
-    base->STOPCTRL = reg;
-#endif
-
     /* configure Normal Stop mode */
     reg = SMC->PMCTRL;
     reg &= ~SMC_PMCTRL_STOPM_MASK;
@@ -252,8 +245,16 @@ void deepSleepPreProcess(uint32_t time)
 
 void deepSleepPostProcess(uint32_t time)
 {
-    PRINTF("Exit to enter sleep!\r\n");
-    
+   /*
+	* If enter stop modes when MCG in PEE mode, then after wakeup, the MCG is in PBE mode,
+	* need to enter PEE mode manually.
+	*/
+   /* Wait for PLL lock. */
+   while (!(kMCG_Pll0LockFlag & CLOCK_GetStatusFlags()))
+   {
+   }
+	CLOCK_SetPeeMode();//after wake up from stop mode, PBE --> PEE mode 
+
     flash_prefetch_speculation_status_t speculationStatus =
     {
         kFLASH_prefetchSpeculationOptionEnable, /* Enable instruction speculation.*/

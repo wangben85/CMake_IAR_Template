@@ -78,6 +78,8 @@ extern "C" {
 
 #ifndef configSYSTICK_CLOCK_HZ
 	#define configSYSTICK_CLOCK_HZ			configCPU_CLOCK_HZ
+	//#define configSYSTICK_CLOCK_HZ			configLPTMR_CLOCK_HZ //when LPTMR source use FIRC
+	
 	/* Ensure the SysTick is clocked at the same frequency as the core. */
 	#define portNVIC_SYSTICK_CLK_BIT		( 1UL << 2UL )
 #else

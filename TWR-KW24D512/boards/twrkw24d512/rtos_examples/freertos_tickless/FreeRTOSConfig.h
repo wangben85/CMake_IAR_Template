@@ -109,7 +109,9 @@
 #define configINCLUDE_FREERTOS_TASK_C_ADDITIONS_H 1
 
 /* Low power Tickless idle. Low power timer (LPTMR) is initialized in application code. */
-#define configLPTMR_CLOCK_HZ                    (1000)
+
+#define configLPTMR_CLOCK_HZ                    (1000)  //1kHZ lpo
+//#define configLPTMR_CLOCK_HZ                    (4000000) // 4MHZ IRC
 
 /* Memory allocation related definitions. */
 #define configSUPPORT_STATIC_ALLOCATION         0
@@ -196,6 +198,7 @@ standard names. */
 #define xPortPendSVHandler PendSV_Handler
 #define xPortSysTickHandler SysTick_Handler
 
+//Below is to enable deep sleep mode and wake up from deep sleep mode
 //#define configPRE_SLEEP_PROCESSING  deepSleepPreProcess
 //#define configPOST_SLEEP_PROCESSING deepSleepPostProcess
 

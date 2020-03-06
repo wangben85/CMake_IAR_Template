@@ -147,8 +147,10 @@ sources:
 const mcg_config_t mcgConfig_BOARD_BootClockRUN =
     {
         .mcgMode = kMCG_ModePEE,                  /* PEE - PLL Engaged External */
-        .irclkEnableMode = kMCG_IrclkEnable,      /* MCGIRCLK enabled, MCGIRCLK disabled in STOP mode */
-        .ircs = kMCG_IrcSlow,                     /* Slow internal reference clock selected */
+        //.irclkEnableMode = kMCG_IrclkEnable,      /* MCGIRCLK enabled, MCGIRCLK disabled in STOP mode */
+        .irclkEnableMode = kMCG_IrclkEnable | kMCG_IrclkEnableInStop,      /* MCGIRCLK enabled, MCGIRCLK enabled in STOP mode */ 
+        //.ircs = kMCG_IrcSlow,                     /* Slow internal reference clock selected */
+        .ircs = kMCG_IrcFast,                     /* Fast internal reference clock selected */ 
         .fcrdiv = 0x0U,                           /* Fast IRC divider: divided by 1 */
         .frdiv = 0x0U,                            /* FLL reference clock divider: divided by 32 */
         .drs = kMCG_DrsLow,                       /* Low frequency range */
