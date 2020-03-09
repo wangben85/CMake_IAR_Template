@@ -167,6 +167,7 @@ int main(void)
                           mainQUEUE_LENGTH,
                           /* The size of each item the queue holds. */
                           sizeof(uint32_t));
+    vQueueAddToRegistry(xQueue,"messageQueue");
 
     /* Create the semaphore used by the FreeRTOS tick hook function and the
     event semaphore task. */
