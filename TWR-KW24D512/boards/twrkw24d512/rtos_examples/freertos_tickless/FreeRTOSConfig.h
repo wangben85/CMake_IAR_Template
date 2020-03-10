@@ -66,7 +66,6 @@
 
     1 tab == 4 spaces!
 */
-
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
@@ -184,6 +183,9 @@ routine that makes calls to interrupt safe FreeRTOS API functions.  DO NOT CALL
 INTERRUPT SAFE FREERTOS API FUNCTIONS FROM ANY INTERRUPT THAT HAS A HIGHER
 PRIORITY THAN THIS! (higher priorities are lower numeric values. */
 #define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY 2
+
+//SW button interrupt priority SW_NVIC_PRIO = 2, if set configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY = 3 here, SW intterupt will not have respond
+//#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY 3  // test
 
 /* Interrupt priorities used by the kernel port layer itself.  These are generic
 to all Cortex-M ports, and do not rely on any particular library functions. */
