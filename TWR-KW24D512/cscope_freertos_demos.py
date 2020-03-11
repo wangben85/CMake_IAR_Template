@@ -18,6 +18,7 @@ cscope_del_array = [
   "freertos_generic",
   "freertos_uart",
   "freertos_tickless",
+  "freertos_taskgetinfo",
 ]
 
 # the unexpected files to be removed from the ctags list
@@ -30,6 +31,7 @@ ctags_del_folder= [
   "freertos_generic",
   "freertos_uart",
   "freertos_tickless",
+  "freertos_taskgetinfo",
 ]
 
 # check items in array if exist in line
@@ -83,8 +85,8 @@ if __name__ == '__main__':
     #os.system("ctags -R --exclude=%s --exclude=%s --exclude=%s --exclude=%s --exclude=%s --exclude=%s --exclude=%s --exclude=%s" % \
                         #(ctags_del_folder[0],ctags_del_folder[1],ctags_del_folder[2],ctags_del_folder[3],ctags_del_folder[4],ctags_del_folder[5],ctags_del_folder[6],ctags_del_folder[7]))
     # working 2
-    os.system("ctags -R --exclude={%s,%s,%s,%s,%s,%s,%s,%s}" % \
-                        (ctags_del_folder[0],ctags_del_folder[1],ctags_del_folder[2],ctags_del_folder[3],ctags_del_folder[4],ctags_del_folder[5],ctags_del_folder[6],ctags_del_folder[7]))
+    os.system("ctags -R --exclude={%s,%s,%s,%s,%s,%s,%s,%s,%s}" % \
+                        (ctags_del_folder[0],ctags_del_folder[1],ctags_del_folder[2],ctags_del_folder[3],ctags_del_folder[4],ctags_del_folder[5],ctags_del_folder[6],ctags_del_folder[7],ctags_del_folder[8]))
     
     # working 3
     #os.system("ctags -R --exclude=@ctagsignore")

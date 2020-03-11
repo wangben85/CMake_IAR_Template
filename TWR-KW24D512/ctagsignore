@@ -6,3 +6,4 @@ freertos_swtimer
 freertos_generic
 freertos_uart
 freertos_tickless
+freertos_taskgetinfo
