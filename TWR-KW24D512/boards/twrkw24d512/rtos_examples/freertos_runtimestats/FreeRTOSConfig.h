@@ -71,7 +71,7 @@
        
       
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
-//#include <stdint.h>
+#include <stdint.h>
 //#include "freertos_runtimestats.h" //use headfile
 
 extern volatile uint32_t lptmrTicks;

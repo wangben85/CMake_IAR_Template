@@ -2249,9 +2249,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\FreeRTOSConfig.h</name>
-            <excluded>
-                <configuration>Debug</configuration>
-            </excluded>
         </file>
     </group>
     <group>
