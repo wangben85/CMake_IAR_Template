@@ -159,6 +159,9 @@ extern void ConfigureTimerForRunTimeStats(void); //use extern directly
 /* Define to trap errors during development. */
 #define configASSERT(x) if(( x) == 0) {taskDISABLE_INTERRUPTS(); for (;;);}
 
+//#define vAssertCalled(char,int) printf("Error:%s,%d\r\n",char,int) 
+//#define configASSERT(x) if((x)==0) vAssertCalled(__FILE__,__LINE__)
+
 /* Optional functions - most linkers will remove unused functions anyway. */
 #define INCLUDE_vTaskPrioritySet                1
 #define INCLUDE_uxTaskPriorityGet               1
