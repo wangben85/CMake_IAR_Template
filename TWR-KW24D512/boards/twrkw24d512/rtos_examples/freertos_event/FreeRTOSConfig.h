@@ -26,7 +26,7 @@
      *                                                                       *
      *    FreeRTOS provides completely free yet professionally developed,    *
      *    robust, strictly quality controlled, supported, and cross          *
-     *    platform software that is more than just the market leader, it     *
+     *    platform software that is more than just the markeg leader, it     *
      *    is the industry's de facto standard.                               *
      *                                                                       *
      *    Help yourself get started quickly while simultaneously helping     *

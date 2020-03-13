@@ -48,7 +48,9 @@
  ******************************************************************************/
 
 #define BIT0 (1 << 0)
+#define BIT0_DELAY_TIME   1000  //1000ms
 #define BIT23 (1 << 23 )   // configUSE_16_BIT_TICKS = 0, totally 24 bit events
+#define BIT23_DELAY_TIME   5000  //5000ms
 
 /*******************************************************************************
  * Prototypes
@@ -90,6 +92,7 @@ static void write_task_1(void *pvParameters)
     while (1)
     {
         xEventGroupSetBits(event_group, BIT0);
+        vTaskDelay(BIT0_DELAY_TIME);
     }
 }
 
@@ -101,6 +104,7 @@ static void write_task_2(void *pvParameters)
     while (1)
     {
         xEventGroupSetBits(event_group, BIT23);
+        vTaskDelay(BIT23_DELAY_TIME);
     }
 }
 
