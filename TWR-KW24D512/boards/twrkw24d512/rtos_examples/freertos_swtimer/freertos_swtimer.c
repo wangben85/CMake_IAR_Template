@@ -58,6 +58,8 @@
  ******************************************************************************/
 /* The callback function. */
 static void SwTimerCallback(TimerHandle_t xTimer);
+#define TEST_ASSERT_COUNT 3
+static volatile int sw_count = 0;
 
 /*******************************************************************************
  * Code
@@ -93,6 +95,11 @@ int main(void)
  */
 static void SwTimerCallback(TimerHandle_t xTimer)
 {
+    sw_count++;
     /*PRINTF("Tick.\r\n");*/
     PRINTF("SW TIMER Task Tick every %d MS.\r\n", SW_TIMER_PERIOD_MS );
+    if ( sw_count == TEST_ASSERT_COUNT)
+    {
+       configASSERT(0); // test the new assert
+    }
 }

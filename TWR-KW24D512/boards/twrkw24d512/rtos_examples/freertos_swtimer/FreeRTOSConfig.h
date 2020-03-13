@@ -70,6 +70,9 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
+#if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
+#include "fsl_debug_console.h"
+#endif
 /*-----------------------------------------------------------
  * Application specific definitions.
  *
@@ -140,7 +143,11 @@
 #define configTIMER_TASK_STACK_DEPTH            (configMINIMAL_STACK_SIZE * 2)
 
 /* Define to trap errors during development. */
-#define configASSERT(x) if(( x) == 0) {taskDISABLE_INTERRUPTS(); for (;;);}
+//#define configASSERT(x) if(( x) == 0) {taskDISABLE_INTERRUPTS(); for (;;);}
+
+// #add PRINTF in assert
+#define vAssertCalled(char,int) {PRINTF("Error:%s,%d\r\n",char,int);taskDISABLE_INTERRUPTS(); for (;;); }
+#define configASSERT(x) if((x)==0) vAssertCalled(__FILE__,__LINE__)
 
 /* Optional functions - most linkers will remove unused functions anyway. */
 #define INCLUDE_vTaskPrioritySet                1
