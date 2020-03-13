@@ -1,0 +1,1253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>4</fileVersion>
+    <fileChecksum>584723633</fileChecksum>
+    <configuration>
+        <name>Debug</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\MemMang\heap_4.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\FreeRTOS.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\freertos_tasks_c_additions.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\port.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_generic.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_uart.h</file>
+            <file>$PROJ_DIR$\..\clock_config.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_clock.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_smc.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\portmacro.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\croutine.c</file>
+            <file>$PROJ_DIR$\..\board.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_clock.h</file>
+            <file>$PROJ_DIR$\..\pin_mux.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_common.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\deprecated_definitions.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_smc.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_gpio.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\event_groups.c</file>
+            <file>$PROJ_DIR$\..\board.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\croutine.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\event_groups.h</file>
+            <file>$PROJ_DIR$\..\clock_config.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_common.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\portasm.s</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_gpio.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_port.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_flash.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_flash.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_uart.c</file>
+            <file>$PROJ_DIR$\..\pin_mux.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_systick.c</file>
+            <file>$PROJ_DIR$\debug\obj\system_MKW24D5.o</file>
+            <file>$PROJ_DIR$\debug\obj\timers.o</file>
+            <file>$PROJ_DIR$\debug\obj\portasm.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_flash.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\pin_mux.o</file>
+            <file>$PROJ_DIR$\debug\obj\port.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_common.o</file>
+            <file>$PROJ_DIR$\debug\obj\croutine.o</file>
+            <file>$PROJ_DIR$\debug\obj\event_groups.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_smc.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_clock.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\freertos_event.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_gpio.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_smc.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_uart.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\clock_config.o</file>
+            <file>$PROJ_DIR$\debug\obj\list.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_uart.o</file>
+            <file>$PROJ_DIR$\debug\obj\board.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\heap_4.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_debug_console.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_clock.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_flash.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_tickless_systick.o</file>
+            <file>$PROJ_DIR$\debug\obj\tasks.o</file>
+            <file>$PROJ_DIR$\debug\obj\startup_MKW24D5.o</file>
+            <file>$PROJ_DIR$\debug\obj\clock_config.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\pin_mux.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\queue.o</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_common.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_gpio.o</file>
+            <file>$PROJ_DIR$\debug\obj\heap_4.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\list.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\system_MKW24D5.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\event_groups.pbi</file>
+            <file>$PROJ_DIR$\debug\freertos_event.out</file>
+            <file>$PROJ_DIR$\debug\obj\port.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\freertos_event.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\tasks.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\timers.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\freertos_event.pbd</file>
+            <file>$PROJ_DIR$\debug\obj\queue.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\croutine.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_tickless_systick.pbi</file>
+            <file>$PROJ_DIR$\debug\obj\fsl_debug_console.pbi</file>
+            <file>$PROJ_DIR$\debug\list\freertos_event.map</file>
+            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\iar_intrinsics_common.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cmInstr.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\fsl_device_registers.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_float_setup.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cmFunc.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\assert.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\MKW24D5_features.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_stdlib.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\MKW24D5.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\math.h</file>
+            <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cmSimd.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cm4.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\iccarm_builtin.h</file>
+            <file>$PROJ_DIR$\MKW24D512xxx5_flash.icf</file>
+            <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+            <file>$PROJ_DIR$\debug\obj\board.o</file>
+            <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\utilities\fsl_debug_console.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\system_MKW24D5.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\utilities\fsl_debug_console.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\list.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\portable.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\mpu_wrappers.h</file>
+            <file>$PROJ_DIR$\..\FreeRTOSConfig.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\queue.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\list.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\timers.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\task.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\timers.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\tasks.c</file>
+            <file>$PROJ_DIR$\..\freertos_event.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\iar\startup_MKW24D5.s</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\projdefs.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\queue.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\StackMacros.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\system_MKW24D5.c</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 67 77</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\MemMang\heap_4.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 51</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 63</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108 109 110 80 96 91 97 92 1 98 82 117 126 115 15 9 100 103 81 116 121 114</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\port.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 37</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 68</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 100 103 110 80 96 91 81 1 98 109 97 82 117 126 115 15 9 116 121 114 4</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\clock_config.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 47</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 58</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 8 23 88 109 110 80 96 91 85 82 79 97 99 98 84 93 102 83 89 103 87 101 112 90 12 22</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_clock.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 53</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 42</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 12 23 88 109 110 80 96 91 85 82 79 97 99 98 84 93 102 83 89 103 87 101 112 90</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\croutine.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 39</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 74</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 98 109 110 80 96 91 97 82 117 126 115 15 9 100 103 81 116 121 114 20</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\pin_mux.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 36</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 59</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 23 88 109 110 80 96 91 85 82 79 97 99 98 84 93 102 83 89 103 87 101 112 90 12 26 30</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_common.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 38</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 61</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 23 88 109 110 80 96 91 85 82 79 97 99 98 84 93 102 83 89 103 87 101 112 90 12 111</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_smc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 41</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 45</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 8 23 88 109 110 80 96 91 85 82 79 97 99 98 84 93 102 83 89 103 87 101 112 90 12 28</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_gpio.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 62</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 44</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 25 23 88 109 110 80 96 91 85 82 79 97 99 98 84 93 102 83 89 103 87 101 112 90 12</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\event_groups.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 40</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108 109 110 80 96 91 97 92 1 98 82 117 126 115 15 9 100 103 81 116 121 114 120 21</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\board.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 106</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 50</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 82 109 110 80 96 91 23 88 85 79 97 99 98 84 93 102 83 89 103 87 101 112 90 12 111 11 22 25</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\portasm.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 34</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 117</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_flash.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 54</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 35</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 28 23 88 109 110 80 96 91 85 82 79 97 99 98 84 93 102 83 89 103 87 101 112 90 12</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_uart.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 49</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 46</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 5 23 88 109 110 80 96 91 85 82 79 97 99 98 84 93 102 83 89 103 87 101 112 90 12</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_systick.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 55</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 75</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 100 103 110 80 96 91 81 1 98 109 97 82 117 126 115 15 9 116 121 114 4</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\debug\freertos_event.out</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 77</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 104 106 47 39 40 43 53 38 52 54 62 41 55 49 51 48 36 37 34 60 57 32 56 33 78 107 105 95</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\utilities\fsl_debug_console.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 52</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 76</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108 109 110 80 96 91 97 92 94 86 111 23 88 85 82 79 99 98 84 93 102 83 89 103 87 101 112 90 12 5</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\list.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 48</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 64</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108 109 110 80 96 91 97 92 1 98 82 117 126 115 15 9 100 103 81 116 114</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\timers.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 33</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 71</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108 109 110 80 96 91 97 92 1 98 82 117 126 115 15 9 100 103 81 116 121 114 118 120</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\tasks.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 56</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 70</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108 109 110 80 96 91 97 92 79 99 1 98 82 117 126 115 15 9 100 103 81 116 121 114 120 128 2</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\freertos_event.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 43</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 69</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 98 109 110 80 96 91 97 82 117 126 115 15 9 100 103 81 116 121 114 118 120 21 84 93 102 83 89 87 101 112 90 111 23 88 85 79 99 12 11 22 25 30</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\iar\startup_MKW24D5.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 57</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\queue.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 60</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 73</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108 109 110 80 96 91 97 92 79 99 1 98 82 117 126 115 15 9 100 103 81 116 121 114 118</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\system_MKW24D5.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 32</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 65</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 82 109 110 80 96 91 84 93 102 83 89 103 87 101 112 90</file>
+                </tool>
+            </inputs>
+        </file>
+    </configuration>
+    <configuration>
+        <name>Release</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\MemMang\heap_4.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\FreeRTOS.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\freertos_tasks_c_additions.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\port.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_generic.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_uart.h</file>
+            <file>$PROJ_DIR$\..\clock_config.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_clock.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_smc.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\portmacro.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\croutine.c</file>
+            <file>$PROJ_DIR$\..\board.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_clock.h</file>
+            <file>$PROJ_DIR$\..\pin_mux.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_common.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\deprecated_definitions.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_smc.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_gpio.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\event_groups.c</file>
+            <file>$PROJ_DIR$\..\board.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\croutine.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\event_groups.h</file>
+            <file>$PROJ_DIR$\..\clock_config.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_common.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\portasm.s</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_gpio.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_port.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_flash.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_flash.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_uart.c</file>
+            <file>$PROJ_DIR$\..\pin_mux.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_systick.c</file>
+            <file>$PROJ_DIR$\release\obj\fsl_gpio.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+            <file>$PROJ_DIR$\release\obj\tasks.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\iar_intrinsics_common.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cmInstr.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\fsl_device_registers.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_float_setup.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cmFunc.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\assert.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\MKW24D5_features.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$PROJ_DIR$\release\obj\port.pbi</file>
+            <file>$PROJ_DIR$\release\obj\fsl_tickless_systick.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_stdlib.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\MKW24D5.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\math.h</file>
+            <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$PROJ_DIR$\release\obj\heap_4.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cmSimd.h</file>
+            <file>$PROJ_DIR$\release\obj\croutine.pbi</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\CMSIS\Include\core_cm4.h</file>
+            <file>$PROJ_DIR$\release\obj\system_MKW24D5.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\iccarm_builtin.h</file>
+            <file>$PROJ_DIR$\MKW24D512xxx5_flash.icf</file>
+            <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+            <file>$PROJ_DIR$\release\list\freertos_event.map</file>
+            <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+            <file>$PROJ_DIR$\release\obj\queue.pbi</file>
+            <file>$PROJ_DIR$\release\obj\fsl_clock.pbi</file>
+            <file>$PROJ_DIR$\release\obj\fsl_clock.o</file>
+            <file>$PROJ_DIR$\release\obj\event_groups.pbi</file>
+            <file>$PROJ_DIR$\release\obj\board.pbi</file>
+            <file>$PROJ_DIR$\release\obj\timers.pbi</file>
+            <file>$PROJ_DIR$\release\obj\list.pbi</file>
+            <file>$PROJ_DIR$\release\obj\fsl_uart.pbi</file>
+            <file>$PROJ_DIR$\release\obj\fsl_smc.pbi</file>
+            <file>$PROJ_DIR$\release\obj\fsl_common.pbi</file>
+            <file>$PROJ_DIR$\release\obj\portasm.o</file>
+            <file>$PROJ_DIR$\release\obj\croutine.o</file>
+            <file>$PROJ_DIR$\release\obj\heap_4.o</file>
+            <file>$PROJ_DIR$\release\obj\clock_config.pbi</file>
+            <file>$PROJ_DIR$\release\obj\freertos_event.pbd</file>
+            <file>$PROJ_DIR$\release\obj\freertos_event.pbi</file>
+            <file>$PROJ_DIR$\release\obj\pin_mux.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+            <file>$PROJ_DIR$\release\obj\fsl_debug_console.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$PROJ_DIR$\release\obj\board.o</file>
+            <file>$PROJ_DIR$\release\obj\fsl_flash.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$PROJ_DIR$\release\obj\fsl_tickless_systick.o</file>
+            <file>$PROJ_DIR$\release\obj\queue.o</file>
+            <file>$PROJ_DIR$\release\freertos_event.out</file>
+            <file>$PROJ_DIR$\release\obj\fsl_common.o</file>
+            <file>$PROJ_DIR$\release\obj\system_MKW24D5.o</file>
+            <file>$PROJ_DIR$\release\obj\pin_mux.o</file>
+            <file>$PROJ_DIR$\release\obj\fsl_smc.o</file>
+            <file>$PROJ_DIR$\release\obj\fsl_debug_console.o</file>
+            <file>$PROJ_DIR$\release\obj\freertos_event.o</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\utilities\fsl_debug_console.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\system_MKW24D5.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\utilities\fsl_debug_console.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\list.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\portable.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\mpu_wrappers.h</file>
+            <file>$PROJ_DIR$\release\obj\list.o</file>
+            <file>$PROJ_DIR$\release\obj\port.o</file>
+            <file>$PROJ_DIR$\..\FreeRTOSConfig.h</file>
+            <file>$PROJ_DIR$\release\obj\fsl_gpio.o</file>
+            <file>$PROJ_DIR$\release\obj\clock_config.o</file>
+            <file>$PROJ_DIR$\release\obj\fsl_flash.o</file>
+            <file>$PROJ_DIR$\release\obj\event_groups.o</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\queue.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\list.c</file>
+            <file>$PROJ_DIR$\release\obj\tasks.o</file>
+            <file>$PROJ_DIR$\release\obj\timers.o</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\timers.h</file>
+            <file>$PROJ_DIR$\release\obj\startup_MKW24D5.o</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\task.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\timers.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\tasks.c</file>
+            <file>$PROJ_DIR$\..\freertos_event.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\iar\startup_MKW24D5.s</file>
+            <file>$PROJ_DIR$\release\obj\fsl_uart.o</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\projdefs.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\queue.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\include\StackMacros.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\system_MKW24D5.c</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 93 66</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\MemMang\heap_4.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 80</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 57</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85 87 90 35 53 46 54 49 1 55 37 109 126 105 15 9 58 63 36 106 120 103</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 49 1 90 53 126 106 63 103 120 54 35 46 37 9 58 85 55 109 105 15 36</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\port.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 47</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 58 63 90 35 53 46 36 1 55 87 54 37 109 126 105 15 9 106 120 103 4</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 36 37 90 15 120 1 4 63 126 58 35 53 46 55 109 105 54 9 106 103</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\clock_config.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 111</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 81</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 8 23 43 87 90 35 53 46 40 37 33 54 56 55 39 50 61 38 44 63 42 59 101 45 12 22</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 56 55 46 61 40 12 87 90 50 42 23 33 53 54 37 22 43 39 35 45 101 8 38 59 44 63</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_clock.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 70</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 69</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 12 23 43 87 90 35 53 46 40 37 33 54 56 55 39 50 61 38 44 63 42 59 101 45</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 101 33 90 54 45 23 40 55 12 35 37 42 43 39 53 46 56 50 61 38 59 44 63</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\croutine.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 79</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 60</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 55 87 90 35 53 46 54 37 109 126 105 15 9 58 63 36 106 120 103 20</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 37 53 87 126 90 46 106 63 103 120 55 109 105 54 35 9 58 1 20 15 36</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\pin_mux.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 96</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 84</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 23 43 87 90 35 53 46 40 37 33 54 56 55 39 50 61 38 44 63 42 59 101 45 12 26 30</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 54 33 90 53 23 30 40 55 12 46 87 56 50 61 38 44 63 37 26 43 39 35 45 101 59 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_common.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 94</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 77</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 23 43 87 90 35 53 46 40 37 33 54 56 55 39 50 61 38 44 63 42 59 101 45 12 100</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 35 43 87 59 44 37 39 90 54 45 101 100 40 33 55 12 53 46 56 50 61 38 63 23 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_smc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 97</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 76</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 8 23 43 87 90 35 53 46 40 37 33 54 56 55 39 50 61 38 44 63 42 59 101 45 12 28</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 101 33 23 90 54 45 40 55 12 35 28 43 37 39 53 46 56 50 61 42 8 38 59 44 63</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_gpio.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 110</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 32</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 25 23 43 87 90 35 53 46 40 37 33 54 56 55 39 50 61 38 44 63 42 59 101 45 12</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 37 56 46 61 39 87 90 50 23 43 53 54 38 44 63 40 33 55 12 35 45 101 59 25 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\event_groups.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 113</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 71</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85 87 90 35 53 46 54 49 1 55 37 109 126 105 15 9 58 63 36 106 120 103 118 21</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 126 87 58 54 63 118 90 15 1 35 37 103 120 21 49 53 46 55 109 105 9 106 36 85</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\board.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 88</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 72</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 37 87 90 35 53 46 23 43 40 33 54 56 55 39 50 61 38 44 63 42 59 101 45 12 100 11 22 25</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 90 55 50 22 53 40 12 56 61 100 46 33 54 23 11 35 43 37 39 45 101 42 38 59 44 63 25</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\portasm.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 78</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 109</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_flash.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 112</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 89</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 28 23 43 87 90 35 53 46 40 37 33 54 56 55 39 50 61 38 44 63 42 59 101 45 12</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 33 90 23 40 55 53 54 38 44 63 37 43 39 46 87 56 50 61 59 28 12 35 45 101 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\drivers\fsl_uart.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 125</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 75</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 5 23 43 87 90 35 53 46 40 37 33 54 56 55 39 50 61 38 44 63 42 59 101 45 12</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 90 43 53 54 23 37 39 46 87 56 50 61 38 44 63 40 33 55 12 35 45 101 59 5 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\portable\IAR\ARM_CM3\fsl_tickless_systick.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 91</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 48</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 58 63 90 35 53 46 36 1 55 87 54 37 109 126 105 15 9 106 120 103 4</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 9 36 109 58 87 90 120 46 103 1 63 35 53 55 105 54 106 4 37 126 15</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\release\freertos_event.out</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 66</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 64 88 111 79 113 99 70 94 98 112 110 97 91 125 80 107 96 108 78 92 119 95 116 117 67 65 52</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\utilities\fsl_debug_console.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 98</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 86</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85 87 90 35 53 46 54 49 51 41 100 23 43 40 37 33 56 55 39 50 61 38 44 63 42 59 101 45 12 5</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 90 61 59 43 44 51 5 35 41 56 50 85 100 53 46 54 37 39 38 63 23 104 49 40 33 55 12 45 101 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\list.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 107</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 74</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85 87 90 35 53 46 54 49 1 55 37 109 126 105 15 9 58 63 36 106 103</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 54 36 87 105 103 35 55 90 15 1 49 53 46 109 85 37 126 9 106 58 63</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\timers.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 117</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 73</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85 87 90 35 53 46 54 49 1 55 37 109 126 105 15 9 58 63 36 106 120 103 114 118</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 126 87 58 54 63 114 90 15 1 35 37 103 120 118 49 53 46 55 109 105 9 106 36 85</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\tasks.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 116</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 34</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85 87 90 35 53 46 54 49 33 56 1 55 37 109 126 105 15 9 58 63 36 106 120 103 118 128 2</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 54 15 90 120 35 126 128 56 37 36 33 1 118 49 53 46 55 109 105 85 9 106 58 63 103 2</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\freertos_event.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 99</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 83</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 1 55 87 90 35 53 46 54 37 109 126 105 15 9 58 63 36 106 120 103 114 118 21 39 50 61 38 44 42 59 101 45 100 23 43 40 33 56 12 11 22 25 30</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 126 23 54 25 21 90 114 100 22 37 87 35 15 58 63 120 38 44 43 118 39 11 30 55 109 105 53 46 9 106 36 50 61 59 1 103 45 101 42 40 33 12 56</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\iar\startup_MKW24D5.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 119</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\rtos\freertos_9.0.0\Source\queue.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 92</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 68</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85 87 90 35 53 46 54 49 33 56 1 55 37 109 126 105 15 9 58 63 36 106 120 103 114</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 120 56 37 9 58 54 35 90 126 106 63 33 1 114 49 53 46 55 109 105 15 36 85 103</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\devices\MKW24D5\system_MKW24D5.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 95</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 62</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 37 87 90 35 53 46 39 50 61 38 44 63 42 59 101 45</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87 38 46 53 50 61 59 39 90 35 45 101 37 42 44 63</file>
+                </tool>
+            </inputs>
+        </file>
+    </configuration>
+</project>
