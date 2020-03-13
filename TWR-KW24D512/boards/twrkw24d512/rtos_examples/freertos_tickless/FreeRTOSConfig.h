@@ -69,6 +69,10 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
+#if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
+extern void deepSleepPreProcess(uint32_t time);
+extern void deepSleepPostProcess(uint32_t time);
+#endif
 /*-----------------------------------------------------------
  * Application specific definitions.
  *
@@ -201,7 +205,7 @@ standard names. */
 #define xPortSysTickHandler SysTick_Handler
 
 //Below is to enable deep sleep mode and wake up from deep sleep mode
-//#define configPRE_SLEEP_PROCESSING  deepSleepPreProcess
-//#define configPOST_SLEEP_PROCESSING deepSleepPostProcess
+#define configPRE_SLEEP_PROCESSING  deepSleepPreProcess
+#define configPOST_SLEEP_PROCESSING deepSleepPostProcess
 
 #endif /* FREERTOS_CONFIG_H */
