@@ -1,0 +1,7 @@
+{
+    "version": 1,
+    "path": "C://Program Files (x86)//IAR Systems//Embedded Workbench 8.1//",
+    "project": "C://Other_Code_Repo//CMake_IAR_Template.git//trunk//TWR-KW24D512//boards//twrkw24d512//demo_apps//hello_world//iar//hello_world.ewp",
+    "config": "Debug",
+    "parallel" : true
+}

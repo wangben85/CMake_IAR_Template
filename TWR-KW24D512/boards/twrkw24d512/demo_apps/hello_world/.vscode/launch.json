@@ -1,0 +1,30 @@
+{
+    "version": "0.2.1",
+    "configurations": [
+      {
+        "name": "Debug J-Link",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "C://Other_Code_Repo//CMake_IAR_Template.git//trunk//TWR-KW24D512//boards//twrkw24d512//demo_apps//hello_world//iar//debug//hello_world.out",
+        "stopAtEntry": true,
+        "cwd": "${workspaceRoot}",
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "arm-none-eabi-gdb.exe",
+        "debugServerPath": "C://Program Files (x86)//SEGGER//JLink//JLinkGDBServerCL.exe",
+        "debugServerArgs": "-if swd -singlerun -strict -endian little -speed auto -port 3333 -vd -strict -halt",
+        "serverStarted": "Connected\\ to\\ target",
+        "serverLaunchTimeout": 5000,
+        "filterStderr": false,
+        "filterStdout": true,
+        "setupCommands": [
+          {"text": "target remote localhost:3333"},
+          {"text": "monitor flash breakpoints = 1"},
+          {"text": "monitor flash download = 1"},
+          {"text": "monitor reset"},
+          {"text": "load C://Other_Code_Repo//CMake_IAR_Template.git//trunk//TWR-KW24D512//boards//twrkw24d512//demo_apps//hello_world//iar//debug//hello_world.out"},
+          {"text": "monitor reset"}
+        ]
+      }
+    ]
+  }
